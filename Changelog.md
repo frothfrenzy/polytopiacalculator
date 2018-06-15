@@ -1,5 +1,8 @@
 # Changelog
 
+16.06.2018.
+- Because of availability problems, moved the entire site to GitHub.
+
 08.06.2018.
 - Updated the FAQ with instructions on how to use the calculator offline.
 - Added details regarding veterancy status and variable ship HP to complement unit templates.
