@@ -1,1 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="icon" href="SmallSwords.png?v=2" type="image/png" />
+	<link rel="apple-touch-icon" href="BigSwords.png?v=2" type="image/png" />
 
+	<meta charset="UTF-8"/>
+	<meta name="description" content="Welcome to the unofficial Polytopia battle calculator! Try out a variety of combat situations and see what the end result is going to be." />
+	<meta name="author" content="FrothFrenzy" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta property="og:title" content="Polytopia Battle Calculator" />
+	<meta property="og:description" content="Welcome to the unofficial Polytopia battle calculator! Try out a variety of combat situations and see what the end result is going to be." />
+	<meta property="og:image" content="http://polytopiacalculator.freevar.com/BigSwords.png" />
+
+	<title>Polytopia Battle Calculator</title>
+
+<style>
+h2
+{
+	display: inline;
+}
+p
+{
+	max-height: 999999px;
+	font-size: 17px;
+}
+p.i
+{
+	font-style: italic;
+}
+input 
+{
+	font-size: 16px;
+}
+select, button
+{
+	font-size: 15px;
+}
+</style>
+
+
+</head>
+
+<body>
+<script>
+var extinfo = [];
+var tapcounter = 0;
+var entries = 10;
+
+function messageclear()
+{
+	document.getElementById("resultatt").innerHTML = "";
+	document.getElementById("resultdef").innerHTML = "";
+	document.getElementById("resultsplash").innerHTML = "";
+	document.getElementById("note").innerHTML = "";
+}
+function calculate()
+{
+	var attforce, defforce, totaldam, res, testdef;
+	var astring, bstring, cstring, unit1, unit2, defbonus = "";
+	var warning = false;
+	var att = parseFloat(document.getElementById("attack").value);
+	var def = parseFloat(document.getElementById("defense").value);
+	var atthp = parseInt(document.getElementById("attackhp").value);
+	var defhp = parseInt(document.getElementById("defensehp").value);
+	var splashhp = parseInt(document.getElementById("defensehp").value);
+	var attmaxhp = parseInt(document.getElementById("attackmaxhp").value);
+	var defmaxhp = parseInt(document.getElementById("defensemaxhp").value);
+	var attname = document.getElementById("selectattacker").value;
+	var defname = document.getElementById("selectdefender").value;
+	
+	tapcounter = 0;
+
+	if (isNaN(att) == true || isNaN(def) == true || isNaN(atthp) == true ||
+		  isNaN(defhp) == true || isNaN(attmaxhp) == true || isNaN(defmaxhp) == true)
+	{
+		warning = true;
+		messageclear();
+		document.getElementById("resultatt").innerHTML = "All of the fields have to be filled with numbers!";
+		resanchor.scrollIntoView();
+	}
+	else if (att < 0 || def < 0 || atthp < 1 || defhp < 1 || attmaxhp < 10 || defmaxhp < 10 || atthp > attmaxhp || defhp > defmaxhp ||
+		(att % 0.5 != 0) || (def % 0.5 != 0) || (document.getElementById("attackhp").value % atthp != 0) || (document.getElementById("defensehp").value % defhp != 0) || 
+			(document.getElementById("attackmaxhp").value % attmaxhp != 0) || (document.getElementById("defensemaxhp").value % defmaxhp != 0))
+	{
+		warning = true;
+		messageclear();
+		document.getElementById("resultatt").innerHTML = "One or more invalid inputs:<br/>";
+		if (att < 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attack value must be 0 or higher");
+		}
+		else if (att % 0.5 != 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attack value must be divisible by 0.5");
+		}
+		if (atthp < 1)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker current HP can't be lower than 1");
+		}
+		else if (document.getElementById("attackhp").value % atthp != 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker current HP must be a whole number");
+		}
+		else if (atthp > attmaxhp && atthp > 0 && attmaxhp >= 10)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker current HP cannot exceed max HP");
+		}
+		if (attmaxhp < 10)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker max HP must be 10 or higher");
+		}
+		else if (document.getElementById("attackmaxhp").value % attmaxhp != 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker max HP must be a whole number");
+		}
+		if (def < 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defense value must be 0 or higher");
+		}
+		else if (def % 0.5 != 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defense value must be divisible by 0.5");
+		}
+		if (defhp < 1)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender current HP can't be lower than 1");
+		}
+		else if (document.getElementById("defensehp").value % defhp != 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender current HP must be a whole number");
+		}
+		else if (defhp > defmaxhp && defhp > 0 && defmaxhp >= 10)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender current HP cannot exceed max HP");
+		} 
+		if (defmaxhp < 10)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender max HP must be 10 or higher");
+		}
+		else if (document.getElementById("defensemaxhp").value % defmaxhp != 0)
+		{
+			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender max HP must be a whole number");
+		}
+		resanchor.scrollIntoView();
+	}
+
+	if (warning != true && att == 123)
+	{
+		messageclear();
+		warning = true;
+		def = parseInt(document.getElementById("defense").value);
+		if (def == 0)
+		{
+			document.getElementById("resultatt").innerHTML = "Combat history must contain at least 1 entry!";
+		}
+		else
+		{
+			if (def == 1)
+			{
+				document.getElementById("resultatt").innerHTML = "Combat history limit set to 1 entry!";
+			}
+			else
+			{
+				document.getElementById("resultatt").innerHTML = "Combat history limit set to " +  def + " entries!";
+			}
+			extinfo.splice (def, (extinfo.length - 1));
+			document.getElementById("extendedinfo").innerHTML = extinfo.join("");
+			entries = def;
+			resanchor.scrollIntoView();
+		}
+	}
+
+	if (warning != true)
+	{
+	messageclear();
+	testdef = document.getElementById("def1").checked;
+
+	attforce = att * (atthp / attmaxhp);
+	defforce = def * (defhp / defmaxhp);
+
+	if (testdef == true)
+	{
+		if (defname == "Amphibian")
+		{
+			defforce = defforce * 1.5;
+			document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities!";
+		}
+		else if (defname == "Crab")
+		{
+			defforce = defforce * 1.5;
+			document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities!";
+		}
+		else if (defname == "Tridention")
+		{
+			defforce = defforce * 1.5;
+			document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities!";
+		}
+		else if (defname == "Nature Bunny")
+		{
+			document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities and don't have any defensive technologies! Defense bonus was disregarded in the result.";
+		}
+		else
+		{
+			defforce = defforce * 1.5;
+			defbonus = "|D";
+		}
+	}
+
+	testdef = document.getElementById("def2").checked;
+	if (testdef == true)
+	{
+		if (defname == "Boat" || defname == "Ship" || defname == "Battleship")
+		{
+			document.getElementById("note").innerHTML = "Note: Ships can't benefit from walls! Wall bonus was disregarded in the result.";
+		}
+		else if (defname == "Navalon")
+		{
+			document.getElementById("note").innerHTML = "Note: Navalons can't benefit from walls! Wall bonus was disregarded in the result.";
+		}
+		else if (defname == "Amphibian")
+		{
+			document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+		}
+		else if (defname == "Crab")
+		{
+			document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+		}
+		else if (defname == "Tridention")
+		{
+			document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+		}
+		else if (defname == "Nature Bunny")
+		{
+			document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities! Wall bonus was disregarded in the result.";
+		}
+		else
+		{
+			defforce = defforce * 4;
+			defbonus = "|W";
+		}
+	}
+
+	if (attname == "Select Attacker")
+	{
+		unit1 = "Unit " + att + "|" + atthp + "|" + attmaxhp + " - ";
+	}
+	else
+	{
+		unit1 = attname + " " + att + "|" + atthp + "|" + attmaxhp + " - ";
+	}
+	if (defname == "Select Defender")
+	{
+		unit2 = "Unit " + def + "|" + defhp + "|" + defmaxhp + defbonus;
+	}
+	else
+	{
+		unit2 = defname + " " + def + "|" + defhp + "|" + defmaxhp + defbonus;
+	}
+
+	totaldam = attforce + defforce;
+	res = Math.round(attforce / totaldam * att * 4.5);
+	if (isNaN(res) == true)
+	{
+		res = 0;
+	}
+	defhp = defhp - res;
+
+	if (attname == "Fire Dragon")
+	{
+		splashhp = splashhp - Math.floor(res / 2);
+		if (splashhp > 0)
+		{
+			cstring = document.getElementById("resultsplash").innerHTML = "<p><i>IF SPLASHED:</i></p>Defender survives! Remaining HP:  " + splashhp;
+		}
+		else
+		{
+			cstring = document.getElementById("resultsplash").innerHTML = "<p><i>IF SPLASHED:</i></p>Defender is DESTROYED! Afterlife HP:  " + splashhp;
+		}	
+	}
+
+	if (defhp > 0) 
+	{
+		bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
+		document.getElementById("defensehp").value = defhp;
+		res = Math.round(defforce / totaldam * def * 4.5);
+		if (isNaN(res) == true)
+		{
+			res = 0;
+		}
+		atthp = atthp - res;
+		
+		if (atthp > 0)
+		{
+			astring = document.getElementById("resultatt").innerHTML = "Attacker survives! Remaining HP:  " + atthp;
+		}
+		else
+		{
+			astring = document.getElementById("resultatt").innerHTML = "Attacker is DESTROYED! Afterlife HP:  " + atthp;
+		}
+	}
+	else
+	{
+		bstring = document.getElementById("resultdef").innerHTML = "Defender is DESTROYED! Afterlife HP:  " + defhp;
+		egg(att);
+	}
+	if (astring == null)
+	{
+		astring = "";
+	}
+	if (cstring == null)
+	{
+		cstring = "";
+	}
+	
+	if (extinfo.length >= entries)
+	{
+		extinfo.pop();
+	}
+	extinfo.splice(0, 0, "-------------------------------------------------------<p>" + unit1 + unit2 + "</p><p>" + astring + "</p><p>" + bstring + "</p><p>" + cstring + "</p>");
+	document.getElementById("extendedinfo").innerHTML = extinfo.join("");
+	
+	resanchor.scrollIntoView();
+	}
+}
+function defcheck()
+{
+	var test = document.getElementById("def2").checked;
+	
+	if (test == true)
+	{
+		document.getElementById("def2").checked = false;
+	}
+}
+function wallcheck()
+{
+	var test = document.getElementById("def1").checked;
+	
+	if (test == true)
+	{
+		document.getElementById("def1").checked = false;
+	}
+}
+function setdefbonus()
+{
+	var test = document.getElementById("def1").checked;
+	if (test == true)
+	{
+		document.getElementById("def1").checked = false;
+	}
+	else
+	{
+		document.getElementById("def1").checked = true;
+	}
+	defcheck();
+}
+function setwallbonus()
+{
+	var test = document.getElementById("def2").checked;
+	if (test == true)
+	{
+		document.getElementById("def2").checked = false;
+	}
+	else
+	{
+		document.getElementById("def2").checked = true;
+	}
+	wallcheck();
+}
+function clearform()
+{
+	document.getElementById("values").reset();
+	document.getElementById("resultatt").innerHTML = "";
+	document.getElementById("resultdef").innerHTML = "";
+	document.getElementById("resultsplash").innerHTML = "";
+	document.getElementById("note").innerHTML = "";
+	document.getElementById("attveterancy").style.display='none';
+	document.getElementById("attshiphp").style.display='none';
+	document.getElementById("defveterancy").style.display='none';
+	document.getElementById("defshiphp").style.display='none';
+	document.getElementById("extendedinfo").style.display='none';
+	document.body.scrollTop = document.documentElement.scrollTop = 0;
+	tapcounter = 0;
+}
+function attackerfill()
+{
+	var getattacker = document.getElementById("selectattacker").value;
+	switch (getattacker)
+	{
+		case "Warrior":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Rider":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Defender":
+			document.getElementById("attack").value = "1";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Swordsman":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Archer":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Catapult":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Knight":
+			document.getElementById("attack").value = "3.5";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Giant":
+			document.getElementById("attack").value = "5";
+			document.getElementById("attackhp").value = "40";
+			document.getElementById("attackmaxhp").value = "40";
+			break;
+		case "Boat":
+			document.getElementById("attack").value = "1";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Ship":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Battleship":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Amphibian":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Crab":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "40";
+			document.getElementById("attackmaxhp").value = "40";
+			break;
+		case "Tridention":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Polytaur":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Navalon":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "30";
+			document.getElementById("attackmaxhp").value = "30";
+			break;
+		case "Baby Dragon":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Fire Dragon":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "20";
+			document.getElementById("attackmaxhp").value = "20";
+			break;
+	}
+
+	if (getattacker == "Warrior" || getattacker == "Rider" || getattacker == "Defender" || getattacker == "Swordsman" || getattacker == "Archer" || getattacker == "Catapult" || getattacker == "Knight" || getattacker == "Amphibian" || getattacker == "Tridention")
+	{
+		document.getElementById("attvetbox").checked = false;
+		document.getElementById("attveterancy").style.display='inline';
+		document.getElementById("attshiphp").style.display='none';
+	}
+	else if (getattacker == "Boat" || getattacker == "Ship" || getattacker == "Battleship")
+	{
+		document.getElementById("attshiphp").selectedIndex = "0";
+		document.getElementById("attshiphp").style.display='inline';
+		document.getElementById("attveterancy").style.display='none';
+	}
+	else
+	{
+		document.getElementById("attveterancy").style.display='none';
+		document.getElementById("attshiphp").style.display='none';
+	}
+}
+function defenderfill()
+{
+	var getdefender = document.getElementById("selectdefender").value;
+	switch (getdefender)
+	{
+		case "Warrior":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Rider":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Defender":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Swordsman":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Archer":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Catapult":			
+			document.getElementById("defense").value = "0";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Knight":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Giant":
+			document.getElementById("defense").value = "4";
+			document.getElementById("defensehp").value = "40";
+			document.getElementById("defensemaxhp").value = "40";
+			break;
+		case "Boat":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Ship":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Battleship":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Mind Bender":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Amphibian":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Crab":
+			document.getElementById("defense").value = "4";
+			document.getElementById("defensehp").value = "40";
+			document.getElementById("defensemaxhp").value = "40";
+			break;
+		case "Tridention":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Polytaur":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Navalon":
+			document.getElementById("defense").value = "4";
+			document.getElementById("defensehp").value = "30";
+			document.getElementById("defensemaxhp").value = "30";
+			break;
+		case "Dragon Egg":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Baby Dragon":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Fire Dragon":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "20";
+			document.getElementById("defensemaxhp").value = "20";
+			break;
+		case "Nature Bunny":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "20";
+			document.getElementById("defensemaxhp").value = "20";
+			break;
+	}
+
+	if (getdefender == "Warrior" || getdefender == "Rider" || getdefender == "Defender" || getdefender == "Swordsman" || getdefender == "Archer" || getdefender == "Catapult" || getdefender == "Knight" || getdefender == "Amphibian" || getdefender == "Tridention")
+	{
+		document.getElementById("defvetbox").checked = false;
+		document.getElementById("defveterancy").style.display='inline';
+		document.getElementById("defshiphp").style.display='none';
+	}
+	else if (getdefender == "Boat" || getdefender == "Ship" || getdefender == "Battleship")
+	{
+		document.getElementById("defshiphp").selectedIndex = "0";
+		document.getElementById("defshiphp").style.display='inline';
+		document.getElementById("defveterancy").style.display='none';
+	}
+	else
+	{
+		document.getElementById("defveterancy").style.display='none';
+		document.getElementById("defshiphp").style.display='none';
+	}
+}
+function egg(attack)
+{
+	if (attack > 9000)
+	{
+		document.getElementById("resultatt").innerHTML = "It's over 9000!!!";
+		document.getElementById("note").innerHTML = "There's no way that could be right!";
+	}
+}
+function attvettest()
+{
+	var test = document.getElementById("attvetbox").checked;
+
+	if (test == true)
+	{
+		document.getElementById("attvetbox").checked = false;
+	}
+	else
+	{
+		document.getElementById("attvetbox").checked = true;
+	}
+
+	attackerveteran();
+}
+function defvettest()
+{
+	var test = document.getElementById("defvetbox").checked;
+
+	if (test == true)
+	{
+		document.getElementById("defvetbox").checked = false;
+	}
+	else
+	{
+		document.getElementById("defvetbox").checked = true;
+	}
+
+	defenderveteran();
+}
+function attackerveteran()
+{
+	var getattacker = document.getElementById("selectattacker").value;
+	var getattveterancy = document.getElementById("attvetbox").checked;
+	
+	switch (getattacker)
+	{
+		case "Warrior":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Rider":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Defender":
+			document.getElementById("attack").value = "1";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Swordsman":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Archer":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Catapult":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Knight":
+			document.getElementById("attack").value = "3.5";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Amphibian":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Tridention":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+	}
+	var atthp = parseInt(document.getElementById("attackhp").value);
+	var attmaxhp = parseInt(document.getElementById("attackmaxhp").value);
+
+	if (getattveterancy == true)
+	{
+		document.getElementById("attackhp").value = atthp + 5;
+		document.getElementById("attackmaxhp").value = attmaxhp + 5;
+	}
+}
+function defenderveteran()
+{
+	var getdefender = document.getElementById("selectdefender").value;
+	var getdefveterancy = document.getElementById("defvetbox").checked;
+	
+	switch (getdefender)
+	{
+		case "Warrior":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Rider":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Defender":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Swordsman":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Archer":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Catapult":
+			document.getElementById("defense").value = "0";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Knight":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Amphibian":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Tridention":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+	}
+	var defhp = parseInt(document.getElementById("defensehp").value);
+	var defmaxhp = parseInt(document.getElementById("defensemaxhp").value);
+
+	if (getdefveterancy == true)
+	{
+		document.getElementById("defensehp").value = defhp + 5;
+		document.getElementById("defensemaxhp").value = defmaxhp + 5;
+	}
+}
+function attackershiphp()
+{
+	var getattacker = document.getElementById("selectattacker").value;
+	var getattshiphp = document.getElementById("attshiphp").value;
+
+	switch (getattacker)
+	{
+		case "Boat":
+			document.getElementById("attack").value = "1";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Ship":
+			document.getElementById("attack").value = "2";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Battleship":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+	}
+	switch (getattshiphp)
+	{
+		case "HP 15":
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "HP 20":
+			document.getElementById("attackhp").value = "20";
+			document.getElementById("attackmaxhp").value = "20";
+			break;
+		case "HP 40":
+			document.getElementById("attackhp").value = "40";
+			document.getElementById("attackmaxhp").value = "40";
+			break;
+	}
+}
+function defendershiphp()
+{
+	var getdefender = document.getElementById("selectdefender").value;
+	var getdefshiphp = document.getElementById("defshiphp").value;
+
+	switch (getdefender)
+	{
+		case "Boat":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Ship":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Battleship":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+	}
+	switch (getdefshiphp)
+	{
+		case "HP 15":
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "HP 20":
+			document.getElementById("defensehp").value = "20";
+			document.getElementById("defensemaxhp").value = "20";
+			break;
+		case "HP 40":
+			document.getElementById("defensehp").value = "40";
+			document.getElementById("defensemaxhp").value = "40";
+			break;
+	}
+}
+function show(shown, hidden)
+{
+	document.body.scrollTop = document.documentElement.scrollTop = 0;
+	document.getElementById(shown).style.display='block';
+ 	document.getElementById(hidden).style.display='none';
+	tapcounter = 0;
+  	return false;
+}
+function displayextinfo()
+{
+	tapcounter++;
+	if ((tapcounter > 2) && (document.getElementById("extendedinfo").style.display == 'none'))
+	{
+		tapcounter = 0;
+		document.getElementById("extendedinfo").style.display='block';
+		resanchor.scrollIntoView();
+	}
+	if ((tapcounter > 2) && (document.getElementById("extendedinfo").style.display == 'block'))
+	{
+		tapcounter = 0;
+		document.getElementById("extendedinfo").style.display='none';
+		resanchor.scrollIntoView();
+	}
+}
+</script>
+
+<div id="main">
+	<h2>Polytopia Battle Calculator</h2>
+	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
+
+	<form id="values" onsubmit="return false">
+		<p><select id="selectattacker" onchange="attackerfill()" tabindex="-1">
+  			<option value="Select Attacker">Select Attacker
+ 			<option value="Warrior">Warrior
+		 	<option value="Rider">Rider
+			<option value="Defender">Defender
+			<option value="Swordsman">Swordsman
+			<option value="Archer">Archer
+			<option value="Catapult">Catapult
+			<option value="Knight">Knight
+			<option value="Giant">Giant
+			<option value="Boat">Boat
+			<option value="Ship">Ship
+			<option value="Battleship">Battleship
+			<option value="Amphibian">Amphibian
+			<option value="Crab">Crab
+			<option value="Tridention">Tridention
+			<option value="Polytaur">Polytaur
+			<option value="Navalon">Navalon
+			<option value="Baby Dragon">Baby Dragon
+			<option value="Fire Dragon">Fire Dragon
+		</select>
+
+		<span id="attveterancy" style="display:none"><span onclick="attvettest()">Veteran? </span><input type="checkbox" id="attvetbox" onclick="attackerveteran()"></span>
+	
+		<select id="attshiphp" onchange="attackershiphp()" style="display:none" tabindex="-3">
+  			<option value="HP 10">Max HP 10
+ 			<option value="HP 15">Max HP 15
+  			<option value="HP 20">Max HP 20
+ 			<option value="HP 40">Max HP 40
+		</select></p>
+
+		<p>Attacker attack value:</p>
+		<input type="number" id="attack" min="0" step="0.5" required tabindex="1">
+		<p>Attacker current HP:</p>
+		<input type="number" id="attackhp" min="1" required tabindex="2">
+		<p>Attacker max HP:</p>
+		<input type="number" id="attackmaxhp" min="10" required tabindex="3">
+
+		<p><select id="selectdefender" onchange="defenderfill()" tabindex="-4">
+ 	 		<option value="Select Defender">Select Defender
+ 			<option value="Warrior">Warrior
+	 		<option value="Rider">Rider
+			<option value="Defender">Defender
+			<option value="Swordsman">Swordsman
+			<option value="Archer">Archer
+			<option value="Catapult">Catapult
+			<option value="Knight">Knight
+			<option value="Giant">Giant
+			<option value="Boat">Boat
+			<option value="Ship">Ship
+			<option value="Battleship">Battleship
+			<option value="Mind Bender">Mind Bender
+			<option value="Amphibian">Amphibian
+			<option value="Crab">Crab
+			<option value="Tridention">Tridention
+			<option value="Polytaur">Polytaur
+			<option value="Navalon">Navalon
+			<option value="Dragon Egg">Dragon Egg
+			<option value="Baby Dragon">Baby Dragon
+			<option value="Fire Dragon">Fire Dragon
+			<option value="Nature Bunny">Nature Bunny
+		</select>
+
+		<span id="defveterancy" style="display:none"><span onclick="defvettest()">Veteran? </span><input type="checkbox" id="defvetbox" onclick="defenderveteran()"></span>
+
+		<select id="defshiphp" onchange="defendershiphp()" style="display:none" tabindex="-6">
+  			<option value="HP 10">Max HP 10
+ 			<option value="HP 15">Max HP 15
+  			<option value="HP 20">Max HP 20
+ 			<option value="HP 40">Max HP 40
+		</select></p>
+
+		<p>Defender defense value:</p>
+		<input type="number" id="defense" min="0" step="0.5" required tabindex="4">
+		<p>Defender current HP:</p>
+		<input type="number" id="defensehp" min="1" required tabindex="5">
+		<p>Defender max HP:</p>
+		<input type="number" id="defensemaxhp" min="10" required tabindex="6"><br/>
+
+		<p><span onclick="setdefbonus()">Defense bonus? </span><input type="checkbox" id="def1" onclick="defcheck()">&nbsp;
+		<span onclick="setwallbonus()">Wall bonus? </span><input type="checkbox" id="def2" onclick="wallcheck()"></p>
+
+	<p><button type="submit" id="resanchor" onclick="calculate()" tabindex="7">Calculate!</button>
+	<button type="button" onclick="clearform()">Clear</button>&nbsp;
+	<a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
+	</form>
+
+	<p><b>Result:</b></p>
+	<div onclick="displayextinfo()">
+		<p id="resultatt">Hello there!</p>
+		<p id="resultdef">For more information, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>. Happy battling!</p>
+		<p id="resultsplash"></p>
+		<p id="note" class="i"></p>
+		<p id="extendedinfo" style="display:none"><p>
+	</div>
+</div>
+
+<div id="faq" style="display:none">
+	<h2>Frequently Asked Questions</h2><br/><br/><br/>
+	
+	<p><a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
+	
+	<p><b>So how does the calculator work?</b></p>
+	
+	<p>The calculator uses the same code posted by the developer on the game wikia forums some time ago. You can find a link to this thread on the bottom of this FAQ. Here is the simplified code:</p>
+	
+	<p>accelerator = 4.5<br/>
+	attackForce = attacker.attack * (attacker.health / attacker.maxHealth)<br/>
+	defenseForce = defender.defense * (defender.health / defender.maxHealth)<br/>
+	totalDamage = attackForce + defenseForce<br/><br/>
+	attackResult = round((attackForce / totalDamage) * attacker.attack * accelerator)<br/>
+	defenseResult = round((defenseForce / totalDamage) * defender.defense * accelerator)</p>
+	
+	<p>As for the actual usage - you simply input all of the fields, click the Calculate! button, and your battle result will pop up at the bottom. All of the fields are required because every variable affects the result. You can use drop-down unit templates to fill the fields quicker, although these can also be useful if you don't remember the unit stats. Additional details such as unit veterancy and variable ship HP will appear next to the template box once you have selected a relevant unit.<br/><br/>Defender's current HP is automatically updated if the defender survives, so you can keep pressing Calculate! repeatedly until it is destroyed. This is useful for quickly calculating how many units of the same power are needed to take down a stronger unit, and you don't need to manually change the defender's current HP every time you want to perform an attack with a different unit.<br/><br/>If checkboxes appear too small on your screen, you can instead click or tap on the text pertaining to the checkbox to activate it. This applies both to veterancy status and defense/wall bonus checkboxes.<br/><br/>Also note that you can access a history of all the recent battles you performed in the current session. Tap or click three times on any text that appears below Result: to activate the history. Likewise, you can turn it off by tapping or clicking three times in that same area. The history showcases 10 entries by default. If for some reason you would like to keep a bigger (or smaller) history for the current session, fill all the fields so there are no invalid values, set the attack value to 123, set the defense value to the number of entries you want to keep and then press the Calculate! button. A message will appear as a confirmation. All entries are formatted as Attacker (stats) - Defender (stats|D/W), where stats are shown in the same order as they appear on the calculator, and D/W representing the defense/wall bonus for the defender.</p>
+	
+	<p><b>Where does the defense bonus come in?</b></p>
+
+	<p>The defenceForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus (see below). If the defender is behind a wall, it's increased by a factor of 4. This corresponds to a 50% or 300% increase in defense, respectively. Because only the defenceForce variable is affected by this, you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.</p>
+
+	<p><b>Which tiles provide the standard defense bonus?</b></p>
+	
+	<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, with a few exceptions - Aquarion amphibians, crabs and tridentions never receive the defense bonus from cities, even if they are walled.</p>
+
+	<p><b>My unit is attacking from a tile that provides a defense bonus. Why is there no option that accounts for this?</b></p>
+
+	<p>Contrary to popular belief, this has no effect on the result. You forfeit the bonus entirely. Your unit will receive full damage when the enemy unit retaliates.</p>
+
+	<p><b>How does the retaliation damage work? Why does the calculator sometimes report that the defender was destroyed but no word on what happended to the attacker?</b></p>
+	
+	<p>The unit's defense value is used in place of its attack value to calculate the return damage. This is why some units deal significantly less damage when retaliating, while the defender unit and units with defense bonuses deal more. Because all of the modifiers are already applied before dealing damage takes place, the defender's HP loss doesn't affect its retaliation result. Instead, it deals damage based on HP it had before combat began. However, if the attack outright destroys the defender, there is no retaliation. The attacker is unphased, so there's nothing for the calculator to report.</p>
+	
+	<p><b>I'm attacking an enemy with a ranged unit, but that enemy doesn't hit back. The calculator says I receive damage anyway. Does this affect my damage result?</b></p>
+	
+	<p>No. The calculator has no way of knowing if you're attacking a unit next to you, away from you, or a ranged unit that doesn't retaliate because you're in your enemy's fog of war. Simply disregard the retaliation damage - the damage you deal is not affected in any of these cases.</p>
+
+	<p><b>Where can I see all the unit stats?</b></p>
+	
+	<p>If you use drop-down unit templates, the calculator will automatically fill all the stats for the selected unit. For more info, you should read the unit page on the game's wikia site. You can find the link to this page at the bottom of this FAQ.</p>
+	
+	<p><b>How does the fire dragon's splash damage work?</b></p>
+	
+	<p>It is calculated in the same way as a regular attack. However, an additional line of code is added at the end:<br/><br/>
+	defender.health = defender.health - floor(attackResult / 2);<br/><br/>
+
+	This means that the unit receives half the damage it would normally receive if it was the main target, rounded down. So e.g. if the fire dragon would deal 11 damage to a unit by attacking it directly, that same unit would receive 5 damage (11/2=5.5=5) if it was splashed instead. Since nothing is altered in the original formula, the unit also benefits from its defense bonus, if any. It is also worth noting that only the fire dragon's main target can retaliate, provided it survives the initial attack.
+<br/><br/>
+	Both the main attack and splash damage results are provided to you simultaneously, calculated separately for the same defending unit. You either take one result or the other, depending on your follow-up. This is convenient if you're testing for damage in a group of units, so you can quickly get an idea which unit would be the most optimal to choose for the dragon's main attack. The calculator assumes the main attack will be the follow-up, and deducts that result from the defender's current HP.</p>
+	
+	<p><b>Can I use the calculator offline?</b></p>
+
+	<p>Yes you can. Follow these instructions:<br/><br/>
+	<i>PC</i>: Go to the calculator website, right-click on any empty space and press Save as... or Save Page As... to get the index.html file. Alternatively, you can download the file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a>. After you downloaded it, simply drag the .html file into your browser to run the calculator.<br/><br/>
+	<i>iOS</i>: Repeat the PC process. Download an app called HTML Viewer Q by Spica. Connect your device to iTunes. In iTunes, select your device and go to File Sharing. Select HTML Viewer, press Add File and find the .html file you downloaded on your PC. Disconnect your device, run HTML Viewer and press on a book-like icon at the bottom right. Switch from Bookmarks to Files and select the downloaded .html file.<br/><br/>
+	<i>Android</i>: Either repeat the PC process, or download the Google Drive app to fetch the .html file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a>. If you used the PC, connect your device and transfer the .html file to it. If you used Google Drive, the file should be in your Downloads folder. Download the HTML Viewer app by Yogev Haham and run it. Press the paper-like icon at the upper right. Find and select the downloaded .html file, then press the browser view icon in the upper right.</p>
+
+	<p><b>Who are you?</b></p>
+	
+	<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
+	
+	<p><b>Why the spartan design?</b></p>
+
+	<p>I thought about changing it up, however this calculator is hosted on a free domain site which has a specified amount of traffic it can provide per month. Given the surge of activity that came with the release of multiplayer, I've decided not to put anything on the site that's not absolutely needed. So here we are, like it's '95 again.</p>
+	
+	<p><b>How can I contact you?</b></p>
+	
+	<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
+	
+	<p><b>What are Discord challenges?</b></p>
+	
+	<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
+	
+	<p><b>How can I become a better player?</b></p>
+	
+	<p>Read through strategies on the game wikia, Reddit and Discord. Watch videos of experienced players on Youtube. Ask the player-base for help. Most important of all - play a lot, maximize your income and try to learn the mechanics behind the game. It will come in time. The links to help you with this are provided below.</p><br/>
+	
+	<p><b>Links:</b></p>
+	
+	<p><a href="https://discord.gg/YTFTuAq?" target="_blank">Discord</a><br/>
+	<a href="http://polytopia.wikia.com/wiki/The_Battle_of_Polytopia_Wikia" target="_blank">Wikia</a><br/>
+	<a href="https://www.reddit.com/r/Polytopia/" target="_blank">Reddit</a><br/><br/>
+	
+	<a href="http://www.midjiwan.com/polytopia.html" target="_blank">Official Game Website</a><br/>
+	<a href="https://www.facebook.com/polytopia/" target="_blank">Official Game Facebook</a><br/><br/>
+	
+	<a href="https://twitter.com/midjiwan?lang=en" target="_blank">Midjiwan's Twitter</a><br/>
+	<a href="https://www.instagram.com/midjiwan/" target="_blank">Midjiwan's Instagram</a><br/>
+	<a href="https://www.youtube.com/channel/UCtBjQ-1WqlHrAjSaJUpKb0w" target="_blank">Midjiwan's Youtube Channel</a><br/>
+	<a href="http://polytopia.wikia.com/wiki/Thread:920" target="_blank">Midjiwan's Wikia Post</a><br/>
+	<a href="https://polytopia.wikia.com/wiki/Units" target="_blank">Wikia Unit Page</a><br/><br/>
+	
+	<a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSFN2clluYnM0QlU" target="_blank">My Screenshots</a><br/><br/>
+
+	<a href="https://www.youtube.com/playlist?list=PLQqaZ-kEj4Exd6EMDYTadaWbsFMoROwzw" target="_blank">My Videos</a><br/>
+	<a href="https://www.youtube.com/playlist?list=PLfTvLAe72_3j5OHnUiyc1Cwo3Z6uiFmeC" target="_blank">Tupp's Videos</a><br/>
+	<a href="https://www.youtube.com/channel/UCjwJEqv8LZOV6S12wAybURA" target="_blank">Dued03's Videos</a><br/>
+	<a href="https://www.youtube.com/channel/UCEmKzVafcBQauZylIoomojw/videos?disable_polymer=1" target="_blank">Ze Biggest Potato's Videos</a><br/><br/>
+
+	<a href="https://www.reddit.com/r/Polytopia/comments/6cjc4j/guide_quick_and_simple_guide_to_get_3_start_in/" target="_blank">Domination Guide by Airgibbo</a><br/>
+	<a href="https://www.reddit.com/r/Polytopia/comments/6fslca/bardur_100k_points_strategy_guide/" target="_blank">Perfection Guide by Tupp</a><br/>
+	<a href="https://www.reddit.com/r/Polytopia/comments/5qbppw/my_guide_to_high_scores_in_perfection_mode_based/" target="_blank">Perfection Guide by Illinois_Jones</a><br/>
+	<a href="https://www.reddit.com/r/Polytopia/comments/85asn3/advanced_multiplayer_tribe_by_tribe_guide/" target="_blank">Multiplayer Guide by Will2Brown</a><br/><br/>
+	
+	<a href="https://drive.google.com/open?id=10vODoFZk-i670i56je_6G-XyZK7qHHEqp7xA-nYW4X8" target="_blank">Challenge List</a><br/><br/>
+
+	<a href="https://drive.google.com/open?id=11SkLZA3GhDpZtLefI2Srm3yG_t2QsexbBaTD_esNjOM" target="_blank">Changelog</a><br/><br/><br/>
+
+	<a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
+</div>
+</body>
+</html>
