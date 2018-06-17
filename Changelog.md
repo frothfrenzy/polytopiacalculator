@@ -1,14 +1,14 @@
 # Changelog
 
 16.06.2018.
-- Because of availability problems, moved the entire site to GitHub.
+- Because of availability problems on the previous web host, moved the entire site to GitHub.
 
 08.06.2018.
 - Updated the FAQ with instructions on how to use the calculator offline.
 - Added details regarding veterancy status and variable ship HP to complement unit templates.
 - You can now click or tap the text next to any checkbox to activate the corresponding checkbox.
 - Added error messages as a fallback due to Safari not reporting errors for invalid input.
-- Added a battle history. Tap or click three times on any text that appears below Result: to activate it. It can be deactivated in the same way. Read the FAQ for more details.
+- Added a battle history. Tap or click three times on any text that appears below "Result:" to activate it. It can be deactivated in the same way. Read the FAQ for more details.
 
 24.05.2018.
 - Added support for the Elyrion tribe.
