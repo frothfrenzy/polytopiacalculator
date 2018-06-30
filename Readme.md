@@ -10,6 +10,6 @@ The calculator also features a detailed FAQ! It contains information regarding t
 
 If you want to use it offline, download the index.html file on your PC and run it in your browser - press "Clone or download", followed by "Download ZIP", and then extract the file. The calculator FAQ contains more information on how to run it offline both on iOS and Android.
 
-[Contact me](mailto:frothdiscord@gmail.com) if you have any suggestions or bug reports. Also, if you know of any quality guides or gameplay videos that aren't listed in the FAQ links section, let me know.
+[Contact me](mailto:frothdiscord@gmail.com) if you have any suggestions or bug reports. Also, if you have any quality guides or gameplay videos that aren't listed in the FAQ links section, let me know.
 
 Happy battling!
