@@ -4,7 +4,7 @@ This is a Javascript program that allows you to test for combat results in The B
 
 To use the calculator, simply go here: https://frothfrenzy.github.io/polytopiacalculator/
 
-In the most recent update, I added support for Elyrion units as well as some QoL improvements for easier use. The least obvious change was that you can now access a brief combat history for the current session. Just click or tap three times on any text below "Result:" after you perform your first battle. Refer to the changelog file for other changes.
+In the most recent update, I added the Multi mode where you can create an interactive battlefield and try out a variety of calculations for most optimal results. Details on how to use it is in the FAQ.
 
 The calculator also features a detailed FAQ! It contains information regarding the calculation formula with its corresponding game mechanics, and the links section steadily grew over time into a decent compilation of game sites, guides and gameplay videos.
 
