@@ -1,5 +1,8 @@
 # Changelog
 
+09.10.2018.
+- Massive code update. Added the Multi mode which allows you to create a virtual battlefield and try out different approaches to a battle puzzle. Details on how to use it are in the FAQ.
+
 16.06.2018.
 - Because of availability problems on the previous web host, moved the entire site to GitHub.
 
