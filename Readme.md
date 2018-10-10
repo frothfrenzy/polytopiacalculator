@@ -4,9 +4,9 @@ This is a Javascript program that allows you to test for combat results in The B
 
 To use the calculator, simply go here: https://frothfrenzy.github.io/polytopiacalculator/
 
-In the most recent update, I added the multi mode where you can create an interactive battlefield and try out a variety of calculations for most optimal results. Details on how to use it is in the FAQ.
+In the most recent update, I added the Multi mode where you can create an interactive battlefield and try out a variety of calculations to achieve optimal results. Details on how to use it is in the FAQ.
 
-The FAQ contains information regarding the calculation formula with its corresponding game mechanics, and the links section steadily grew over time into a decent compilation of game sites, guides and gameplay videos.
+The FAQ also contains information regarding the calculation formula with its corresponding game mechanics, and the links section steadily grew over time into a decent compilation of game sites, guides and gameplay videos.
 
 If you want to use the calculator offline, download the index.html file on your PC and run it in your browser - press "Clone or download", followed by "Download ZIP", and then extract the file. The calculator FAQ contains more information on how to run it offline both on iOS and Android.
 
