@@ -30,21 +30,24 @@ p.i
 	font-style: italic;
 }
 div.c
+
 {
+
 	max-height: 999999px;
+
 	font-size: 14px;
+
 }
 input 
 {
 	font-size: 16px;
 }
-button
+button, select
+
 {
+
 	font-size: 16px;
-}
-select
-{
-	font-size: 17px;
+
 }
 </style>
 
@@ -113,7 +116,7 @@ function calculate(mode)
 		warning = true;
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "All of the fields have to be filled with numbers!";
-		resanchor.scrollIntoView();
+		scrollanchor.scrollIntoView(false);
 	}
 	else if (att < 0 || def < 0 || atthp < 1 || defhp < 1 || attmaxhp < 10 || defmaxhp < 10 || atthp > attmaxhp || defhp > defmaxhp ||
 		(att % 0.5 != 0) || (def % 0.5 != 0) || (document.getElementById("attackhp").value % atthp != 0) || (document.getElementById("defensehp").value % defhp != 0) || 
@@ -178,7 +181,7 @@ function calculate(mode)
 		{
 			resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender max HP must be a whole number");
 		}
-		resanchor.scrollIntoView();
+		scrollanchor.scrollIntoView(false);
 	}
 	}
 	else
@@ -206,7 +209,7 @@ function calculate(mode)
 			extinfo.splice (def, (extinfo.length - 1));
 			document.getElementById("extendedinfo").innerHTML = extinfo.join("");
 			entries = def;
-			resanchor.scrollIntoView();
+			scrollanchor.scrollIntoView(false);
 		}
 	}
 	if (warning != true)
@@ -558,7 +561,10 @@ function calculate(mode)
 	extinfo.splice(0, 0, "-------------------------------------------------------<p>" + unit1 + unit2 + "</p><p>" + astring + "</p><p>" + bstring + "</p><p>" + cstring + "</p>");
 	document.getElementById("extendedinfo").innerHTML = extinfo.join("");
 	
-	resanchor.scrollIntoView();
+	if (mode != "Multi")
+	{
+		scrollanchor.scrollIntoView(false);
+	}
 	}
 }
 function defcheck()
@@ -1110,13 +1116,20 @@ function displayextinfo()
 	{
 		tapcounter = 0;
 		document.getElementById("extendedinfo").style.display='block';
-		resanchor.scrollIntoView();
+		if (document.getElementById("multibutton").innerText == "Single")
+		{
+			states.scrollIntoView();
+		}
+		else
+		{
+			submitbutton.scrollIntoView();
+		}
 	}
 	if ((tapcounter > 2) && (document.getElementById("extendedinfo").style.display == 'block'))
 	{
 		tapcounter = 0;
 		document.getElementById("extendedinfo").style.display='none';
-		resanchor.scrollIntoView();
+		scrollanchor.scrollIntoView(false);
 	}
 }
 function choosetype()
@@ -1145,10 +1158,9 @@ function choosetype()
 }
 function multiswitch()
 {
-	alert ("Width: " + window.screen.availWidth + " Height: " + window.screen.availHeight + " Native resolution: " + window.screen.availWidth * window.devicePixelRatio + "x" + window.screen.availHeight * window.devicePixelRatio);
 	if (document.getElementById("multibutton").innerText == "Multi")
 	{
-		document.getElementById("resanchor").style.display='none';
+		document.getElementById("submitbutton").style.display='none';
 		document.getElementById("createbutton").style.display='inline-block';
 		document.getElementById("multibutton").innerText = "Single";
 		document.getElementById("clearbutton").style.display='none';
@@ -1167,10 +1179,12 @@ function multiswitch()
 		document.getElementById("selectdefender").selectedIndex = 1;
 		defenderfill();
 		choosetype();
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		tapcounter = 0;
 	}
 	else
 	{
-		document.getElementById("resanchor").style.display='inline-block';
+		document.getElementById("submitbutton").style.display='inline-block';
 		document.getElementById("createbutton").style.display='none';
 		document.getElementById("multibutton").innerText = "Multi";
 		document.getElementById("clearbutton").style.display='inline-block';
@@ -1194,6 +1208,8 @@ function multiswitch()
 		document.getElementById("defendersheader").style.display='none';
 		document.getElementById("savestate").style.display='none';
 		document.getElementById("loadstate").style.display='none';
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		tapcounter = 0;
 	}
 	
 }
@@ -1279,7 +1295,7 @@ function createunit()
 			decshort = attackers[i].a;
 		}
 
-		attackerlist.insertAdjacentHTML("beforeend", "<div class='c' id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+		attackerlist.insertAdjacentHTML("beforeend", "<div class ='c' id='attacker" + i + "' style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
 		
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "Attacker created!";
@@ -1334,7 +1350,7 @@ function createunit()
 		}
 		defenders.push({type: defname, d: def, hp: defhp, maxhp: defmaxhp, defbonus: defindicator});
 		var i = defenders.length - 1;
-		defenderlist.insertAdjacentHTML("beforeend", "<div class='c' id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
+		defenderlist.insertAdjacentHTML("beforeend", "<div class ='c' id='defender" + i + "' style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
 		
 		document.getElementById("resultatt").innerHTML = "Defender created!";
 	}
@@ -1522,6 +1538,7 @@ function createbackup()
 	{
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "At least one unit must be created before saving a state!";
+		scrollanchor.scrollIntoView(false);
 	}
 	else
 	{
@@ -1552,6 +1569,7 @@ function createbackup()
 		}
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "State saved!";
+		scrollanchor.scrollIntoView(false);
 	}
 }
 function loadbackup()
@@ -1560,6 +1578,7 @@ function loadbackup()
 	{
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "No data available. A state must be saved first!";
+		scrollanchor.scrollIntoView(false);
 	}
 	else
 	{
@@ -1599,7 +1618,7 @@ function loadbackup()
 		{
 			splashindicator = "S";
 		}
-		attackerlist.insertAdjacentHTML("beforeend", "<div class='c' id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+		attackerlist.insertAdjacentHTML("beforeend", "<div class='c' id='attacker" + i + "' style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
 	}
 	document.getElementById("defenderlist").innerHTML = "";
 	for (i = 0; i < defenders.length; i++) 	
@@ -1609,11 +1628,12 @@ function loadbackup()
 		{
 			color = "gray";
 		}
-		defenderlist.insertAdjacentHTML("beforeend", "<div class='c' id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
+		defenderlist.insertAdjacentHTML("beforeend", "<div class='c' id='defender" + i + "' style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
 	}
 
 	messageclear();
 	document.getElementById("resultatt").innerHTML = "State loaded!";
+	scrollanchor.scrollIntoView(false);
 	}
 }
 function noretaldefault()
@@ -1730,7 +1750,7 @@ function noretaldefault()
 		</span>
 	</span>
 
-	<p><button type="submit" id="resanchor" onclick="calculate('Single')" tabindex="7">Calculate!</button>
+	<p><button id="submitbutton" type="submit" onclick="calculate('Single')" tabindex="7">Calculate!</button>
 	<button id="createbutton" type="button" onclick="createunit()" style="display:none">Create unit!</button>
 	<button id="multibutton" type="button" onclick="multiswitch()">Multi</button>
 	<button id ="clearbutton" type="button" onclick="clearform()">Clear</button>&nbsp;
@@ -1753,6 +1773,7 @@ function noretaldefault()
 		<p id="resultdef">For more information, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>. Details on the Multi options are in the second question from the top.</p>
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
+		<span id="scrollanchor"></span>
 		<p id="extendedinfo" style="display:none"><p>
 	</div>
 </div>
