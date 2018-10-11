@@ -32,7 +32,7 @@ p.i
 div.c
 {
 	max-height: 999999px;
-	font-size: 10px;
+	font-size: 15px;
 }
 input 
 {
@@ -1275,7 +1275,7 @@ function createunit()
 			decshort = attackers[i].a;
 		}
 
-		attackerlist.insertAdjacentHTML("beforeend", "<div.c id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+		attackerlist.insertAdjacentHTML("beforeend", "<div class="c" id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
 		
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "Attacker created!";
@@ -1330,7 +1330,7 @@ function createunit()
 		}
 		defenders.push({type: defname, d: def, hp: defhp, maxhp: defmaxhp, defbonus: defindicator});
 		var i = defenders.length - 1;
-		defenderlist.insertAdjacentHTML("beforeend", "<div.c id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
+		defenderlist.insertAdjacentHTML("beforeend", "<div class="c" id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
 		
 		document.getElementById("resultatt").innerHTML = "Defender created!";
 	}
