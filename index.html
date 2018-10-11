@@ -483,36 +483,37 @@ function calculate(mode)
 		}
 	}
 	
-	document.getElementById("attackerlist").innerHTML = "";
 	var decshort = "";
-	var color = "";
-	for (i = 0; i < attackers.length; i++) 	
+	var color = "black";
+	
+	if (attackers[attackerselected].type == "Knight")
 	{
-		color = "black";
-		if (attackers[i].type == "Knight")
-		{
-			decshort = "<b>3</b>";
-		}
-		else
-		{
-			decshort = attackers[i].a;
-		}
-		if ((attackers[i].hp < 1) || (attackers[i].unavailable == true))
-		{
-			color = "gray";
-		}
-		attackerlist.insertAdjacentHTML("beforeend", "<div id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color +"; display: inline-block; text-align: center' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+		decshort = "<b>3</b>";
 	}
-	document.getElementById("defenderlist").innerHTML = "";
-	for (i = 0; i < defenders.length; i++) 	
+	else
 	{
-		color = "black"
-		if (defenders[i].hp < 1)
-		{
-			color = "gray";
-		}
-		defenderlist.insertAdjacentHTML("beforeend", "<div id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color +"; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
+		decshort = attackers[attackerselected].a;
 	}
+	if ((attackers[attackerselected].hp < 1) || (attackers[attackerselected].unavailable == true))
+	{
+		color = "gray";
+	}
+	var splashindicator = ""
+	if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+	{
+		splashindicator = "S";
+	}
+	document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp;
+	document.getElementById("attacker" + attackerselected).style.borderColor = color;
+
+	color = "black"
+	if (defenders[defenderselected].hp < 1)
+	{
+		color = "gray";
+	}
+	document.getElementById("defender" + defenderselected).innerHTML ="<img src='Defenders/" + defenders[defenderselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[defenderselected].defbonus + "</b></div>" + defenders[defenderselected].d + "/" + defenders[defenderselected].hp + "/" + defenders[defenderselected].maxhp;
+	document.getElementById("defender" + defenderselected).style.borderColor = color;
+
 	}
 	if ((mode == "Multi") && (attackers[attackerselected].type != "Fire Dragon") && (document.getElementById("noretalbox").checked == true) && (defenders[defenderselected].hp > 0))
 	{
@@ -1249,37 +1250,31 @@ function createunit()
 	if ((document.getElementById("unitselect").value == "Create Attacker") && (warning != true))
 	{
 		attackers.push({type: attname, a: att, hp: atthp, maxhp: attmaxhp, unavailable: false, defendersattacked: [], originalhp: attorighp});
-		document.getElementById("attackerlist").innerHTML = "";
+		var i = attackers.length - 1;
 		var decshort = "";
-		color = "";
-		for (i = 0; i < attackers.length; i++) 	
+		color = "black";
+		
+		if (attackers[i].type == "Knight")
 		{
-			color = "black";
-			if (attackers[i].type == "Knight")
-			{
-				decshort = "<b>3</b>";
-			}
-			else
-			{
-				decshort = attackers[i].a;
-			}
-			if ((attackers[i].hp < 1) || (attackers[i].unavailable == true))
-			{
-				color = "gray";
-			}
-			attackerlist.insertAdjacentHTML("beforeend", "<div id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+			decshort = "<b>3</b>";
 		}
+		else
+		{
+			decshort = attackers[i].a;
+		}
+
+		attackerlist.insertAdjacentHTML("beforeend", "<div id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+		
 		messageclear();
-		attackerselected = -1;
-		prevattackerselected = -2;
 		document.getElementById("resultatt").innerHTML = "Attacker created!";
 	}
 
 	else if ((document.getElementById("unitselect").value == "Create Defender") && (warning != true))
 	{
 		var defindicator = "";
-		var color = "";
+		var color = "black";
 		messageclear();
+
 		if (document.getElementById("def1").checked == true)
 		{
 			defindicator = "D";
@@ -1307,18 +1302,12 @@ function createunit()
 			{
 				document.getElementById("note").innerHTML = "Note: " + defname + "s don't receive the defense bonus from cities!";
 			}
-		}
+		}	
+
 		defenders.push({type: defname, d: def, hp: defhp, maxhp: defmaxhp, defbonus: defindicator});
-		document.getElementById("defenderlist").innerHTML = "";
-		for (i = 0; i < defenders.length; i++) 	
-		{
-			color = "black";
-			if (defenders[i].hp < 1)
-			{
-				color = "gray";
-			}
-			defenderlist.insertAdjacentHTML("beforeend", "<div id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
-		}
+		var i = defenders.length - 1;
+		defenderlist.insertAdjacentHTML("beforeend", "<div id='defender" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div>");
+		
 		document.getElementById("resultatt").innerHTML = "Defender created!";
 	}
 }
@@ -1373,6 +1362,14 @@ function attackselector(attackernumber)
 		{
 			document.getElementById(divselected).style.borderColor = "gray";
 		}
+		else if ((attackers[prevattackerselected].type == "Fire Dragon") && (attackers[prevattackerselected].defendersattacked.length > 0))
+		{
+			var splashindicator = "";
+			var decshort = attackers[prevattackerselected].a;
+			attackers[prevattackerselected].unavailable = true;
+			document.getElementById(divselected).style.borderColor = "gray";
+			document.getElementById("attacker" + prevattackerselected).innerHTML = "<img src='Attackers/" + attackers[prevattackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[prevattackerselected].hp + "/" + attackers[prevattackerselected].maxhp;
+		}
 		else
 		{
 			document.getElementById(divselected).style.borderColor = "black";
@@ -1393,6 +1390,12 @@ function attackselector(attackernumber)
 			attackers[prevattackerselected].unavailable = true;
 			document.getElementById("noretalbox").checked = false;
 			document.getElementById("noretaltext").style.display = "none";
+			if (attackers[prevattackerselected].type == "Fire Dragon")
+			{
+				var splashindicator = "";
+				var decshort = attackers[prevattackerselected].a;
+				document.getElementById("attacker" + prevattackerselected).innerHTML = "<img src='Attackers/" + attackers[prevattackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[prevattackerselected].hp + "/" + attackers[prevattackerselected].maxhp;
+			}
 		}
 		else
 		{
@@ -1494,6 +1497,17 @@ function createbackup()
 	}
 	else
 	{
+		if ((attackerselected >= 0) && (attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+		{
+			var splashindicator = "";
+			var decshort = attackers[attackerselected].a;
+			var divselected = "attacker" + attackerselected;
+			attackers[attackerselected].unavailable = true;
+			document.getElementById(divselected).style.borderColor = "gray";
+			document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp;
+			attackerselected = -1;
+			prevattackerselected = -2;
+		}
 		backupattackers = [];
 		backupdefenders = [];
 		if (firstbackup == false)
@@ -1535,6 +1549,7 @@ function loadbackup()
 	}
 	document.getElementById("attackerlist").innerHTML = "";
 	var decshort = "";
+	var splashindicator = ""
 	color = "";
 	for (i = 0; i < attackers.length; i++) 	
 	{
@@ -1551,7 +1566,12 @@ function loadbackup()
 		{
 			color = "gray";
 		}
-		attackerlist.insertAdjacentHTML("beforeend", "<div id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
+		splashindicator = ""
+		if ((attackers[i].type == "Fire Dragon") &&(attackers[i].defendersattacked.length > 0) && (attackers[i].unavailable != true))
+		{
+			splashindicator = "S";
+		}
+		attackerlist.insertAdjacentHTML("beforeend", "<div id='attacker" + i + "'style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; text-align: center; position: relative' onclick='attackselector(" + i + ")'><img src='Attackers/" + attackers[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div>" + decshort + "/" + attackers[i].hp + "/" + attackers[i].maxhp + "</div>");
 	}
 	document.getElementById("defenderlist").innerHTML = "";
 	for (i = 0; i < defenders.length; i++) 	
@@ -1729,7 +1749,7 @@ function noretaldefault()
 	
 	<p><b>What is the Multi option?</b></p>
 
-	<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.</br></br>While in Multi mode, do the following:</br></br>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.</br></br>- Select a unit type from the unit template list and tick additional modifiers, if any.</br></br>- Press the Create Unit! button. This creates a unit on the battlefield.</br></br>- Repeat this process until you create the desired battle situation. You can create any number of units this way.</br></br>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.</br></br>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.</br></br>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...</br></br>Knights and Navalons will be able to continue attacking as long as they are one-shotting enemy units. They become unavailable if an attack doesn't destroy the enemy unit. You can manually make them unavailable by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.</br></br>Fire dragon's first attack is always its primary attack. Every subsequent attack is its splash attack. Same as with knights and navalons, you can manually make them unavailable by deselecting them after performing the first attack.</br></br>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.</br></br>When selecting an available ranged unit, you are prompted with a No Retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.</br></br>Multi mode doesn't cover the situation where an enemy ranged unit doesn't retaliate because you attacked from that opponent's fog of war. This is because it happens rarely and is otherwise hard to predict.</br></br>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Also, only Imperius and Xin-Xi sprites will be available out of respect for the developer.</br></br>The Multi mode reuses the same code of the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, such as the No Retaliation clause.</br></br>To prevent accidental resets of huge battlefields, a button to clear everything isn't included in this mode. Simply refresh the calculator page if you want to start over.</p>
+	<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.</br></br>While in Multi mode, do the following:</br></br>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.</br></br>- Select a unit type from the unit template list and tick additional modifiers, if any.</br></br>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).</br></br>- Repeat this process until you create the desired battle situation. You can create any number of units this way.</br></br>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.</br></br>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.</br></br>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...</br></br>Knights and Navalons will be able to continue attacking as long as they are one-shotting enemy units. They become unavailable if an attack doesn't destroy the enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.</br></br>Fire dragon's first attack is always its primary attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's primary attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the primary attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after it performed its primary attack.</br></br>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.</br></br>When selecting an available ranged unit, you are prompted with a No Retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.</br></br>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Also, only Imperius and Xin-Xi sprites will be available out of respect for the developer.</br></br>The Multi mode reuses the same code of the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No Retaliation clause and the fire dragon's attack type.</br></br>To prevent accidental resets of huge battlefields, a button to clear everything isn't included in this mode. Simply refresh the calculator page if you want to start over.</p>
 
 	<p><b>Where does the defense bonus come in?</b></p>
 
