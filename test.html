@@ -42,12 +42,19 @@ input
 {
 	font-size: 16px;
 }
-button, select
-
+button
 {
 
 	font-size: 16px;
 
+	height: 28px;
+}
+select
+{
+
+	font-size: 17px;
+
+	height: 28px;
 }
 </style>
 
@@ -1658,8 +1665,6 @@ function mobilescreen()
 	if (document.documentElement.clientWidth < 500)
 	{
 		alert("This is a mobile phone screen: " + document.documentElement.clientWidth);
-		document.getElementById("selectattacker").style.height = "28px";
-		document.getElementById("selectattacker").style.fontSize = "17px";
 	}
 	else
 	{
