@@ -38,11 +38,7 @@ div.c
 	font-size: 14px;
 
 }
-input 
-{
-	font-size: 16px;
-}
-button, select
+input, button, select
 
 {
 
@@ -53,7 +49,7 @@ button, select
 
 </head>
 
-<body>
+<body onload="mobilescreen()">
 <script>
 var extinfo = [];
 var tapcounter = 0;
@@ -1653,6 +1649,29 @@ function noretaldefault()
 		document.getElementById("resultatt").innerHTML = "Setting changed. Enemy units WON'T retaliate on your ranged attacks by default.";
 	}
 }
+function mobilescreen()
+{
+	if (document.documentElement.clientWidth < 500)
+	{
+		var classlist = document.getElementsByClassName("minput");
+		for (i = 0; i < classlist.length; i++)
+		{
+			document.getElementsByClassName("minput")[i].style.height = "21px";
+			document.getElementsByClassName("minput")[i].style.fontSize = "17px";
+		}
+		classlist = document.getElementsByClassName("mbutton");
+		for (i = 0; i < classlist.length; i++)
+		{
+			document.getElementsByClassName("mbutton")[i].style.height = "32px";
+		}
+		classlist = document.getElementsByClassName("mselect");
+		for (i = 0; i < classlist.length; i++)
+		{
+			document.getElementsByClassName("mselect")[i].style.height = "30px";
+			document.getElementsByClassName("mselect")[i].style.fontSize = "17px";
+		}
+	}
+}
 </script>
 
 <div id="main">
@@ -1660,12 +1679,12 @@ function noretaldefault()
 	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
 
 	<form id="values" onsubmit="return false" onkeypress="if (document.getElementById('multibutton').innerText == 'Single') {return event.keyCode != 13;}">
-	<p><select id="unitselect" onchange="choosetype()" style="display:none">
+	<p><select id="unitselect" class= "mselect" onchange="choosetype()" style="display:none">
   		<option value="Create Attacker">Create Attacker
  		<option value="Create Defender">Create Defender
 	</select></p>
 	<div id="attvalues" style="display: inline">
-		<p><select id="selectattacker" onchange="attackerfill()" tabindex="-1">
+		<p><select id="selectattacker" class= "mselect" onchange="attackerfill()" tabindex="-1">
   			<option value="Select Attacker">Select Attacker
  			<option value="Warrior">Warrior
 		 	<option value="Rider">Rider
@@ -1689,7 +1708,7 @@ function noretaldefault()
 
 		<span id="attveterancy" style="display:none"><span onclick="attvettest()">Veteran? </span><input type="checkbox" id="attvetbox" onclick="attackerveteran()"></span>
 	
-		<select id="attshiphp" onchange="attackershiphp()" style="display:none" tabindex="-3">
+		<select id="attshiphp" class= "mselect" onchange="attackershiphp()" style="display:none" tabindex="-3">
   			<option value="HP 10">Max HP 10
  			<option value="HP 15">Max HP 15
   			<option value="HP 20">Max HP 20
@@ -1697,15 +1716,15 @@ function noretaldefault()
 		</select></p>
 
 		<p id="attvaluetext">Attacker attack value:</p>
-		<input type="number" id="attack" min="0" step="0.5" required tabindex="1">
+		<input type="number" id="attack" class="minput" min="0" step="0.5" required tabindex="1">
 		<p>Attacker current HP:</p>
-		<input type="number" id="attackhp" min="1" required tabindex="2">
+		<input type="number" id="attackhp" class="minput" min="1" required tabindex="2">
 		<p id="attmaxhptext">Attacker max HP:</p>
-		<input type="number" id="attackmaxhp" min="10" required tabindex="3">
+		<input type="number" id="attackmaxhp" class="minput" min="10" required tabindex="3">
 	</div>
 
-	<div id="defvalues" style="display: inline">
-		<p><select id="selectdefender" onchange="defenderfill()" tabindex="-4">
+	<div id="defvalues" style="display: inline;">
+		<p><select id="selectdefender" class= "mselect" onchange="defenderfill()" tabindex="-4">
  	 		<option value="Select Defender">Select Defender
  			<option value="Warrior">Warrior
 	 		<option value="Rider">Rider
@@ -1732,7 +1751,7 @@ function noretaldefault()
 
 		<span id="defveterancy" style="display:none"><span onclick="defvettest()">Veteran? </span><input type="checkbox" id="defvetbox" onclick="defenderveteran()"></span>
 
-		<select id="defshiphp" onchange="defendershiphp()" style="display:none" tabindex="-6">
+		<select id="defshiphp" class= "mselect" onchange="defendershiphp()" style="display:none" tabindex="-6">
   			<option value="HP 10">Max HP 10
  			<option value="HP 15">Max HP 15
   			<option value="HP 20">Max HP 20
@@ -1740,21 +1759,21 @@ function noretaldefault()
 		</select></p>
 
 		<p id="defvaluetext">Defender defense value:</p>
-		<input type="number" id="defense" min="0" step="0.5" required tabindex="4">
+		<input type="number" id="defense" class="minput" min="0" step="0.5" required tabindex="4">
 		<p>Defender current HP:</p>
-		<input type="number" id="defensehp" min="1" required tabindex="5">
+		<input type="number" id="defensehp" class="minput" min="1" required tabindex="5">
 		<p id="defmaxhptext">Defender max HP:</p>
-		<input type="number" id="defensemaxhp" min="10" required tabindex="6">
+		<input type="number" id="defensemaxhp" class="minput" min="10" required tabindex="6">
 	
 
 		<p><span onclick="setdefbonus()">Defense bonus? </span><input type="checkbox" id="def1" onclick="defcheck()">&nbsp;
 		<span onclick="setwallbonus()">Wall bonus? </span><input type="checkbox" id="def2" onclick="wallcheck()"></p>
 	</div>
 
-	<p><button id="submitbutton" type="submit" onclick="calculate('Single')" tabindex="7">Calculate!</button>
-	<button id="createbutton" type="button" onclick="createunit()" style="display:none">Create unit!</button>
-	<button id="multibutton" type="button" onclick="multiswitch()">Multi</button>
-	<button id ="clearbutton" type="button" onclick="clearform()">Clear</button>&nbsp;
+	<p><button id="submitbutton" type="submit" class="mbutton" onclick="calculate('Single')" tabindex="7">Calculate!</button>
+	<button id="createbutton" type="button" class="mbutton" onclick="createunit()" style="display:none">Create unit!</button>
+	<button id="multibutton" type="button" class="mbutton" onclick="multiswitch()">Multi</button>
+	<button id ="clearbutton" type="button" class="mbutton" onclick="clearform()">Clear</button>&nbsp;
 	<a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
 	</form>
 
@@ -1765,8 +1784,8 @@ function noretaldefault()
 	<div id="defenderlist" style="display:none; width: 325px;">
 	</div>
 
-	<p id="states"><button id="savestate" type="button" onclick="createbackup()" style="display:none">Save state</button>
-	<button id="loadstate" type="button" onclick="loadbackup()" style="display:none">Load state</button></p>
+	<p id="states"><button id="savestate" type="button" class="mbutton" onclick="createbackup()" style="display:none">Save state</button>
+	<button id="loadstate" type="button" class="mbutton" onclick="loadbackup()" style="display:none">Load state</button></p>
 
 	<p><b id="result">Result:</b></p>
 	<div onclick="displayextinfo()">
