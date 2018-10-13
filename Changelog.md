@@ -1,6 +1,7 @@
 # Changelog
 
 13.10.2018.
+- Additional code optimizations.
 - Made the buttons, text fields and selection inputs appear bigger on mobile devices.
 
 11.10.2018.
