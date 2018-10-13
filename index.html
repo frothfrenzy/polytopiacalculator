@@ -1662,11 +1662,16 @@ function mobilescreen()
 			document.getElementsByClassName("mselect")[i].style.height = "30px";
 			document.getElementsByClassName("mselect")[i].style.fontSize = "17px";
 		}
+		document.getElementById("main").style.visibility = "visible";
+	}
+	else
+	{
+		document.getElementById("main").style.visibility = "visible";
 	}
 }
 </script>
 
-<div id="main">
+<div id="main" style="visibility: hidden">
 	<h2>Polytopia Battle Calculator</h2>
 	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
 
