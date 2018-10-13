@@ -53,7 +53,7 @@ button, select
 
 </head>
 
-<body onload="mobilescreen()">
+<body>
 <script>
 var extinfo = [];
 var tapcounter = 0;
@@ -1657,12 +1657,12 @@ function mobilescreen()
 {
 	if (document.documentElement.clientWidth < 500)
 	{
-		document.getElementById("selectattacker").style.height = 100px;
+		document.getElementById("selectattacker").style.height = "100px";
 	}
 }
 </script>
 
-<div id="main">
+<div id="main" onload="mobilescreen()">
 	<h2>Polytopia Battle Calculator</h2>
 	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
 
