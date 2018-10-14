@@ -1217,7 +1217,6 @@ function createunit()
 		{
 			warning = true;
 			messageclear();
-			scrollanchor.scrollIntoView(false);
 			document.getElementById("resultatt").innerHTML = "One or more invalid inputs:<br/>";
 			if (document.getElementById("selectattacker").value == "Select Attacker")
 			{
@@ -1235,6 +1234,7 @@ function createunit()
 			{
 				resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker current HP cannot exceed max HP");
 			}
+			scrollanchor.scrollIntoView(false);
 		}
 	}	
 
@@ -1249,7 +1249,6 @@ function createunit()
 		{
 			warning = true;
 			messageclear();
-			scrollanchor.scrollIntoView(false);
 			document.getElementById("resultatt").innerHTML = "One or more invalid inputs:<br/>";
 			if (document.getElementById("selectdefender").value == "Select Defender")
 			{
@@ -1267,6 +1266,7 @@ function createunit()
 			{
 				resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender current HP cannot exceed max HP");
 			}
+			scrollanchor.scrollIntoView(false);
 		}
 	}
 
