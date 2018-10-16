@@ -1,5 +1,8 @@
 # Changelog
 
+16.10.2018.
+- Added the Delete Units button.
+
 13.10.2018.
 - Additional code optimizations.
 - Made the buttons, text fields and selection inputs appear bigger on mobile devices.
@@ -8,7 +11,7 @@
 - Bug fixes.
 - Code optimizations.
 - Made the unit containers bigger.
-- Added an option to change the default behavior of the No Retaliation prompt. Tap or click the "Defenders:" text once to change defaults.
+- Added an option to change the default behavior of the No retaliation prompt. Tap or click the "Defenders:" text once to change defaults.
 
 09.10.2018.
 - Massive code update. Added the Multi mode which allows you to create a virtual battlefield and try out different approaches to solve a battle puzzle. Details on how to use it are in the FAQ.
