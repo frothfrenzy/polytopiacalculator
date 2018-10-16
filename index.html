@@ -52,7 +52,7 @@ var defenders = [];
 var attackerselected = -1;
 var defenderselected = -1;
 var prevattackerselected = -2;
-var prevdefenderselected = -2;
+var deleteselected = false;
 var backupattackers = [];
 var backupdefenders = [];
 var firstbackup = false;
@@ -184,6 +184,7 @@ function calculate(mode)
 		if (def == 0)
 		{
 			document.getElementById("resultatt").innerHTML = "Combat history must contain at least 1 entry!";
+			scrollanchor.scrollIntoView(false);
 		}
 		else
 		{
@@ -1096,6 +1097,11 @@ function show(shown, hidden)
 	document.getElementById(shown).style.display='block';
  	document.getElementById(hidden).style.display='none';
 	tapcounter = 0;
+	if ((document.getElementById("multibutton").innerText == "Single") && (deleteselected == true))
+	{
+		messageclear();
+		deleteselected = false;
+	}
   	return false;
 }
 function displayextinfo()
@@ -1161,6 +1167,7 @@ function multiswitch()
 		document.getElementById("defendersheader").style.display='block';
 		document.getElementById("savestate").style.display='inline-block';
 		document.getElementById("loadstate").style.display='inline-block';
+		document.getElementById("deletebutton").style.display='inline-block';
 		document.getElementById("def1").checked = false;
 		document.getElementById("def2").checked = false;
 		document.getElementById("selectattacker").selectedIndex = 1;
@@ -1197,14 +1204,21 @@ function multiswitch()
 		document.getElementById("defendersheader").style.display='none';
 		document.getElementById("savestate").style.display='none';
 		document.getElementById("loadstate").style.display='none';
+		document.getElementById("deletebutton").style.display='none';
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		tapcounter = 0;
+		if (deleteselected == true)
+		{
+			deleteselected = false;
+			messageclear();
+		}
 	}
 	
 }
 function createunit()
 {
 	warning = false;
+	deleteselected = false;
 	if (document.getElementById("unitselect").value == "Create Attacker")
 	{
 		var att = parseFloat(document.getElementById("attack").value);
@@ -1346,9 +1360,108 @@ function createunit()
 		document.getElementById("resultatt").innerHTML = "Defender created!";
 	}
 }
+function deleteunitprompt()
+{
+	if ((attackers.length < 1) && (defenders.length < 1) && (deleteselected == false))
+	{
+		messageclear();
+		document.getElementById("resultatt").innerHTML = "There are no units to delete!";
+	}
+	else if (deleteselected == false)
+	{
+		deleteselected = true;
+		messageclear();
+		document.getElementById("resultatt").innerHTML = "Select units to delete them. Tap or click the Delete Units button again to stop deleting.";
+		if (attackerselected >= 0)
+		{
+		var divselected = "attacker" + attackerselected;
+		if(attackers[attackerselected].unavailable != true)
+		{
+			if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+			{
+				var splashindicator = "";
+				var decshort = attackers[attackerselected].a;
+				attackers[attackerselected].unavailable = true;
+				document.getElementById(divselected).style.borderColor = "gray";
+				document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp + "</div>";
+			}
+			else
+			{
+				document.getElementById(divselected).style.borderColor = "black";
+				if (document.getElementById("noretaltext").style.visibility == "visible")
+				{
+					document.getElementById("noretalbox").checked = false;
+					document.getElementById("noretaltext").style.visibility = "hidden";
+				}
+			}
+		}
+		else
+		{
+			document.getElementById(divselected).style.borderColor = "gray";
+			if (document.getElementById("noretaltext").style.visibility == "visible")
+			{
+				document.getElementById("noretalbox").checked = false;
+				document.getElementById("noretaltext").style.visibility = "hidden";
+			}
+		}
+		attackerselected = -1;
+		defenderselected = -1;
+		prevattackerselected = -2;
+		}
+	}
+	else
+	{
+		deleteselected = false;
+		messageclear();
+		document.getElementById("resultatt").innerHTML = "Unit deletion deactivated. Combat can now be resumed.";
+	}
+}
+function deleteunit(type)
+{
+	var selectedelement = "";
+	var elementid ="";
+	var test = "";
+	if (type == "Attacker")
+	{
+		attackers.splice(attackerselected, 1);
+		selectedelement = "attacker" + attackerselected;
+		elementid = document.getElementById(selectedelement);
+		elementid.parentNode.removeChild(elementid);
+		for (i = attackerselected; i < attackers.length; i++)
+		{
+			selectedelement = "attacker" + (i + 1);
+			elementid = "attacker" + i;
+			document.getElementById(selectedelement).setAttribute("onclick", "attackselector(" + i + ")");
+			document.getElementById(selectedelement).setAttribute("id", elementid);
+		}
+	}
+	if (type == "Defender")
+	{
+		defenders.splice(defenderselected, 1);
+		selectedelement = "defender" + defenderselected;
+		elementid = document.getElementById(selectedelement);
+		elementid.parentNode.removeChild(elementid);
+		for (i = defenderselected; i < defenders.length; i++)
+		{
+			selectedelement = "defender" + (i + 1);
+			elementid = "defender" + i;
+			document.getElementById(selectedelement).setAttribute("onclick", "defenseselector(" + i + ")");
+			document.getElementById(selectedelement).setAttribute("id", elementid);
+		}
+	}
+	attackerselected = -1;
+	defenderselected = -1;
+	prevattackerselected = -2;
+}
 function attackselector(attackernumber)
 {
 	attackerselected = attackernumber;
+	if (deleteselected == true)
+	{
+		deleteunit("Attacker");
+	}
+	else
+	{
 	if ((attackers[attackerselected].type == "Archer") || (attackers[attackerselected].type == "Catapult") || (attackers[attackerselected].type == "Boat") || (attackers[attackerselected].type == "Ship") ||
 		(attackers[attackerselected].type == "Battleship") || (attackers[attackerselected].type == "Tridention") || (attackers[attackerselected].type == "Fire Dragon"))
 	{
@@ -1448,6 +1561,7 @@ function attackselector(attackernumber)
 	{
 		prevattackerselected = attackerselected;
 	}
+	}
 	
 }
 function noretalboxcheck()
@@ -1465,6 +1579,12 @@ function noretalboxcheck()
 function defenseselector(defendernumber)
 {
 	defenderselected = defendernumber;
+	if (deleteselected == true)
+	{
+		deleteunit("Defender");
+	}
+	else
+	{
 	if (attackerselected != -1)
 	{
 		if ((defenders[defenderselected].hp > 0) && (attackers[attackerselected].unavailable == false))
@@ -1522,9 +1642,11 @@ function defenseselector(defendernumber)
 			}
 		}
 	}
+	}
 }
 function createbackup()
 {
+	deleteselected = false;
 	if ((attackers.length < 1) && (defenders.length < 1))
 	{
 		messageclear();
@@ -1565,6 +1687,7 @@ function createbackup()
 }
 function loadbackup()
 {
+	deleteselected = false;
 	if (firstbackup == false)
 	{
 		messageclear();
@@ -1770,7 +1893,7 @@ function mobilescreen()
 	</div>
 
 	<p><button id="submitbutton" type="submit" class="mbutton" onclick="calculate('Single')" tabindex="7">Calculate!</button>
-	<button id="createbutton" type="button" class="mbutton" onclick="createunit()" style="display:none">Create unit!</button>
+	<button id="createbutton" type="button" class="mbutton" onclick="createunit()" style="display:none">Create Unit!</button>
 	<button id="multibutton" type="button" class="mbutton" onclick="multiswitch()">Multi</button>
 	<button id ="clearbutton" type="button" class="mbutton" onclick="clearform()">Clear</button>&nbsp;
 	<a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
@@ -1783,8 +1906,9 @@ function mobilescreen()
 	<div id="defenderlist" style="display:none; width: 325px;">
 	</div>
 
-	<p id="states"><button id="savestate" type="button" class="mbutton" onclick="createbackup()" style="display:none">Save state</button>
-	<button id="loadstate" type="button" class="mbutton" onclick="loadbackup()" style="display:none">Load state</button></p>
+	<p id="states"><button id="savestate" type="button" class="mbutton" onclick="createbackup()" style="display:none">Save State</button>
+	<button id="loadstate" type="button" class="mbutton" onclick="loadbackup()" style="display:none">Load State</button>
+	<button id="deletebutton" type="button" class="mbutton" onclick="deleteunitprompt()" style="display:none">Delete Units</button></p>
 
 	<p><b id="result">Result:</b></p>
 	<div onclick="displayextinfo()">
@@ -1817,7 +1941,7 @@ function mobilescreen()
 	
 	<p><b>What is the Multi option?</b></p>
 
-	<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.<br/><br/>When in Multi mode, do the following:<br/><br/>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.<br/><br/>- Select a unit type from the unit template list and tick additional modifiers, if any.<br/><br/>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).<br/><br/>- Repeat this process until you create the desired battle situation. You can create any number of units this way.<br/><br/>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.<br/><br/>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.<br/><br/>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...<br/><br/>Knights and Navalons will be able to continue attacking as long as they are destroying enemy units. They become unavailable once an attack doesn't destroy an enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.<br/><br/>Fire dragon's first attack is always its main attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's main attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the main attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after performing its main attack. Saving a state also triggers this.<br/><br/>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.<br/><br/>Another thing to note about the attacker knight is that its attack value will show as a bolded 3 instead of a regular 3.5. This is deliberate because additional symbols didn't fit well into the unit container in some battle situations. It otherwise has no effect on the battle result.<br/><br/>When selecting an available ranged unit, you are prompted with a No Retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.<br/><br/>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Only Imperius and Xin-Xi sprites will be available out of respect for the developer.<br/><br/>The Multi mode uses the same code as the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No Retaliation clause and the fire dragon's attack type.<br/><br/>To prevent accidental resets of huge battlefields, a button to clear everything isn't included. Simply refresh the calculator page if you want to start over.</p>
+	<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.<br/><br/>When in Multi mode, do the following:<br/><br/>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.<br/><br/>- Select a unit type from the unit template list and tick additional modifiers, if any.<br/><br/>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).<br/><br/>- Repeat this process until you create the desired battle situation. You can create any number of units this way.<br/><br/>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.<br/><br/>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.<br/><br/>- To delete units, press the Delete Units button and select the attackers or defenders you want to delete. Units selected this way will instantly disappear. To stop deleting, press the Delete Units button again. Pressing other buttons such as Create Unit! or opening the FAQ also stops the deletion process.<br/><br/>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...<br/><br/>Knights and Navalons will be able to continue attacking as long as they are destroying enemy units. They become unavailable once an attack doesn't destroy an enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.<br/><br/>Fire dragon's first attack is always its main attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's main attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the main attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after performing its main attack. Saving a state or prompting to delete units also triggers this.<br/><br/>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.<br/><br/>Another thing to note about the attacker knight is that its attack value will show as a bolded 3 instead of a regular 3.5. This is deliberate because additional symbols didn't fit well into the unit container in some battle situations. It otherwise has no effect on the battle result.<br/><br/>When selecting an available ranged unit, you are prompted with a No retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.<br/><br/>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Only Imperius and Xin-Xi sprites will be available out of respect for the developer.<br/><br/>The Multi mode uses the same code as the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No retaliation clause and the fire dragon's attack type.<br/><br/>To prevent accidental resets of huge battlefields, a button to clear everything isn't included. Simply refresh the calculator page if you want to start over, or delete the leftover units by pressing the Delete Units button.<br/><br/>It is also worth noting here that Delete Units uses a method not supported by IE versions below 8.0. If this is the case for you, it might be a sign you were waiting for that you need to upgrade.</p>
 
 	<p><b>Where does the defense bonus come in?</b></p>
 
@@ -1848,7 +1972,7 @@ function mobilescreen()
 	<p>It is calculated in the same way as a regular attack. However, an additional line of code is added at the end:<br/><br/>
 	defender.health = defender.health - floor(attackResult / 2);<br/><br/>
 
-	This means that the unit receives half the damage it would normally receive if it was the main target, rounded down. So e.g. if the fire dragon would deal 11 damage to a unit by attacking it directly, that same unit would receive 5 damage (11/2=5.5=5) if it was splashed instead. Since nothing is altered in the original formula, the unit also benefits from its defense bonus, if any. It is also worth noting that only the fire dragon's main target can retaliate, provided it survives the initial attack.
+	This means that the unit receives half the damage it would normally receive if it was the main target, rounded down. So e.g. if the fire dragon would deal 11 damage to a unit by attacking it directly, that same unit would receive 5 damage (11/2=5.5=5) if it was splashed instead. Since nothing is altered in the original formula, the unit also benefits from its defense bonus, if any. Only the fire dragon's main target can retaliate, provided it survives the initial attack.
 <br/><br/>
 	In Single mode, both the main attack and splash damage results are provided to you simultaneously, calculated separately for the same defending unit. You either take one result or the other, depending on your follow-up. This is convenient if you're testing for damage in a group of units, so you can quickly get an idea which unit would be the most optimal to choose for the dragon's main attack. The calculator assumes the main attack will be the follow-up, and deducts that result from the defender's current HP.</p>
 	
