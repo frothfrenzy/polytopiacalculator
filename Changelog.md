@@ -1,6 +1,6 @@
 # Changelog
 
-17.10.2018.
+18.10.2018.
 - Added the Delete Units button.
 
 13.10.2018.
