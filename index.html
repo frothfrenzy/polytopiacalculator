@@ -211,304 +211,304 @@ function calculate(mode)
 				testdef = true;
 			}
 		}
-	else
-	{
-		testdef = document.getElementById("def1").checked;
-	}
-	if ((mode == "Multi") && (attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
-	{
-		atthp = attorighp;
-	}
-	attforce = att * (atthp / attmaxhp);
-	defforce = def * (defhp / defmaxhp);
+		else
+		{
+			testdef = document.getElementById("def1").checked;
+		}
+		if ((mode == "Multi") && (attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+		{
+			atthp = attorighp;
+		}
+		attforce = att * (atthp / attmaxhp);
+		defforce = def * (defhp / defmaxhp);
 
-	if (testdef == true)
-	{
-		if (defname == "Amphibian")
+		if (testdef == true)
 		{
-			defforce = defforce * 1.5;
-			document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities!";
-		}
-		else if (defname == "Crab")
-		{
-			defforce = defforce * 1.5;
-			document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities!";
-		}
-		else if (defname == "Tridention")
-		{
-			defforce = defforce * 1.5;
-			document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities!";
-		}
-		else if (defname == "Nature Bunny")
-		{
-			document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities and don't have any defensive technologies! Defense bonus was disregarded in the result.";
-		}
-		else
-		{
-			defforce = defforce * 1.5;
-			defbonus = "|D";
-		}
-	}
-	testdef = false;
-	if (mode == "Multi")
-	{
-		multitestdef = defenders[defenderselected].defbonus;
-		if (multitestdef == "W")
-		{
-			testdef = true;
-		}
-	}
-	else
-	{
-		testdef = document.getElementById("def2").checked;
-	}
-	if (testdef == true)
-	{
-		if (defname == "Boat" || defname == "Ship" || defname == "Battleship")
-		{
-			document.getElementById("note").innerHTML = "Note: Ships can't benefit from walls! Wall bonus was disregarded in the result.";
-		}
-		else if (defname == "Navalon")
-		{
-			document.getElementById("note").innerHTML = "Note: Navalons can't benefit from walls! Wall bonus was disregarded in the result.";
-		}
-		else if (defname == "Amphibian")
-		{
-			document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
-		}
-		else if (defname == "Crab")
-		{
-			document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
-		}
-		else if (defname == "Tridention")
-		{
-			document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
-		}
-		else if (defname == "Nature Bunny")
-		{
-			document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities! Wall bonus was disregarded in the result.";
-		}
-		else
-		{
-			defforce = defforce * 4;
-			defbonus = "|W";
-		}
-	}
-	if (attname == "Select Attacker")
-	{
-		unit1 = "Unit " + att + "|" + atthp + "|" + attmaxhp + " - ";
-	}
-	else
-	{
-		unit1 = attname + " " + att + "|" + atthp + "|" + attmaxhp + " - ";
-	}
-	if (defname == "Select Defender")
-	{
-		unit2 = "Unit " + def + "|" + defhp + "|" + defmaxhp + defbonus;
-	}
-	else
-	{
-		unit2 = defname + " " + def + "|" + defhp + "|" + defmaxhp + defbonus;
-	}
-	totaldam = attforce + defforce;
-	res = Math.round(attforce / totaldam * att * 4.5);
-	if (isNaN(res) == true)
-	{
-		res = 0;
-	}
-	if (attname == "Fire Dragon")
-	{
-		splashhp = splashhp - Math.floor(res / 2);
-		if (splashhp > 0)
-		{
-			if (mode != "Multi")
+			if (defname == "Amphibian")
 			{
-				cstring = document.getElementById("resultsplash").innerHTML = "<p><i>IF SPLASHED:</i></p>Defender survives! Remaining HP:  " + splashhp;
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities!";
 			}
-			else if (attackers[attackerselected].defendersattacked.length > 0)
+			else if (defname == "Crab")
 			{
-				cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's splash attack.</i>";
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities!";
 			}
-			else if (attackers[attackerselected].defendersattacked.length < 1)
+			else if (defname == "Tridention")
 			{
-				if (document.getElementById("noretalbox").checked == true)
-				{
-					cstring = document.getElementById("resultsplash").innerHTML = "<i><p>Fire Dragon's main attack.</p>No enemy retaliation.</i>";
-				}
-				else
-				{
-					cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's main attack.</i>";
-				}
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Nature Bunny")
+			{
+				document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities and don't have any defensive technologies! Defense bonus was disregarded in the result.";
+			}
+			else
+			{
+				defforce = defforce * 1.5;
+				defbonus = "|D";
+			}
+		}
+		testdef = false;
+		if (mode == "Multi")
+		{
+			multitestdef = defenders[defenderselected].defbonus;
+			if (multitestdef == "W")
+			{
+				testdef = true;
 			}
 		}
 		else
 		{
-			if (mode != "Multi")
-			{
-				cstring = document.getElementById("resultsplash").innerHTML = "<p><i>IF SPLASHED:</i></p>Defender is DESTROYED! Afterlife HP:  " + splashhp;
-			}
-			else if (attackers[attackerselected].defendersattacked.length > 0)
-			{
-				cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's splash attack.</i>";
-			}
-			else if (attackers[attackerselected].defendersattacked.length < 1)
-			{
-				if (document.getElementById("noretalbox").checked == true)
-				{
-					cstring = document.getElementById("resultsplash").innerHTML = "<i><p>Fire Dragon's main attack.</p>No enemy retaliation.</i>";
-				}
-				else
-				{
-					cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's main attack.</i>";
-				}
-			}
-		}	
-	}
-	if ((attname == "Fire Dragon") && (mode == "Multi"))
-	{
-		if (attackers[attackerselected].defendersattacked.length > 0)
+			testdef = document.getElementById("def2").checked;
+		}
+		if (testdef == true)
 		{
-			defhp = splashhp;
+			if (defname == "Boat" || defname == "Ship" || defname == "Battleship")
+			{
+				document.getElementById("note").innerHTML = "Note: Ships can't benefit from walls! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Navalon")
+			{
+				document.getElementById("note").innerHTML = "Note: Navalons can't benefit from walls! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Amphibian")
+			{
+				document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Crab")
+			{
+				document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Tridention")
+			{
+				document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Nature Bunny")
+			{
+				document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities! Wall bonus was disregarded in the result.";
+			}
+			else
+			{
+				defforce = defforce * 4;
+				defbonus = "|W";
+			}
+		}
+		if (attname == "Select Attacker")
+		{
+			unit1 = "Unit " + att + "|" + atthp + "|" + attmaxhp + " - ";
+		}
+		else
+		{
+			unit1 = attname + " " + att + "|" + atthp + "|" + attmaxhp + " - ";
+		}
+		if (defname == "Select Defender")
+		{
+			unit2 = "Unit " + def + "|" + defhp + "|" + defmaxhp + defbonus;
+		}
+		else
+		{
+			unit2 = defname + " " + def + "|" + defhp + "|" + defmaxhp + defbonus;
+		}
+		totaldam = attforce + defforce;
+		res = Math.round(attforce / totaldam * att * 4.5);
+		if (isNaN(res) == true)
+		{
+			res = 0;
+		}
+		if (attname == "Fire Dragon")
+		{
+			splashhp = splashhp - Math.floor(res / 2);
+			if (splashhp > 0)
+			{
+				if (mode != "Multi")
+				{
+					cstring = document.getElementById("resultsplash").innerHTML = "<p><i>IF SPLASHED:</i></p>Defender survives! Remaining HP:  " + splashhp;
+				}
+				else if (attackers[attackerselected].defendersattacked.length > 0)
+				{
+					cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's splash attack.</i>";
+				}
+				else if (attackers[attackerselected].defendersattacked.length < 1)
+				{
+					if (document.getElementById("noretalbox").checked == true)
+					{
+						cstring = document.getElementById("resultsplash").innerHTML = "<i><p>Fire Dragon's main attack.</p>No enemy retaliation.</i>";
+					}
+					else
+					{
+						cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's main attack.</i>";
+					}
+				}
+			}
+			else
+			{
+				if (mode != "Multi")
+				{
+					cstring = document.getElementById("resultsplash").innerHTML = "<p><i>IF SPLASHED:</i></p>Defender is DESTROYED! Afterlife HP:  " + splashhp;
+				}
+				else if (attackers[attackerselected].defendersattacked.length > 0)
+				{
+					cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's splash attack.</i>";
+				}
+				else if (attackers[attackerselected].defendersattacked.length < 1)
+				{
+					if (document.getElementById("noretalbox").checked == true)
+					{
+						cstring = document.getElementById("resultsplash").innerHTML = "<i><p>Fire Dragon's main attack.</p>No enemy retaliation.</i>";
+					}
+					else
+					{
+						cstring = document.getElementById("resultsplash").innerHTML = "<i>Fire Dragon's main attack.</i>";
+					}
+				}
+			}	
+		}
+		if ((attname == "Fire Dragon") && (mode == "Multi"))
+		{
+			if (attackers[attackerselected].defendersattacked.length > 0)
+			{
+				defhp = splashhp;
+			}
+			else
+			{
+				defhp = defhp - res;
+			}
 		}
 		else
 		{
 			defhp = defhp - res;
 		}
-	}
-	else
-	{
-		defhp = defhp - res;
-	}
 
-	if (mode != "Multi")
-	{
-		if (defhp > 0) 
+		if (mode != "Multi")
 		{
-			bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
-			document.getElementById("defensehp").value = defhp;
-			res = Math.round(defforce / totaldam * def * 4.5);
-			if (isNaN(res) == true)
+			if (defhp > 0) 
 			{
-				res = 0;
-			}
-			atthp = atthp - res;
-		
-			if (atthp > 0)
-			{
-				astring = document.getElementById("resultatt").innerHTML = "Attacker survives! Remaining HP:  " + atthp;
-			}
-			else
-			{
-				astring = document.getElementById("resultatt").innerHTML = "Attacker is DESTROYED! Afterlife HP:  " + atthp;
-			}
-		}
-		else
-		{
-			bstring = document.getElementById("resultdef").innerHTML = "Defender is DESTROYED! Afterlife HP:  " + defhp;
-			egg(att);
-		}	
-	}	
-
-	if (mode == "Multi")
-	{
-		if (defhp > 0) 
-		{
-			bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
-			defenders[defenderselected].hp = defhp;
-			res = Math.round(defforce / totaldam * def * 4.5);
-			if (isNaN(res) == true)
-			{
-				res = 0;
-			}
-			if (document.getElementById("noretalbox").checked == false)
-			{
-				if ((attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+				bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
+				document.getElementById("defensehp").value = defhp;
+				res = Math.round(defforce / totaldam * def * 4.5);
+				if (isNaN(res) == true)
 				{
+					res = 0;
 				}
-				else
-				{
-					atthp = atthp - res;
-				}
-			}
-			if (atthp > 0)
-			{
-				if ((attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
-				{
-				}
-				else
+				atthp = atthp - res;
+			
+				if (atthp > 0)
 				{
 					astring = document.getElementById("resultatt").innerHTML = "Attacker survives! Remaining HP:  " + atthp;
-					attackers[attackerselected].hp = atthp;
-				}
-			}
-			else
-			{
-				if ((attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
-				{
 				}
 				else
 				{
 					astring = document.getElementById("resultatt").innerHTML = "Attacker is DESTROYED! Afterlife HP:  " + atthp;
-					attackers[attackerselected].hp = atthp;
 				}
-			}
-		}
-		else
-		{
-			bstring = document.getElementById("resultdef").innerHTML = "Defender is DESTROYED! Afterlife HP:  " + defhp;
-			defenders[defenderselected].hp = defhp;
-		}
-
-		if ((attackers[attackerselected].type != "Knight") && (attackers[attackerselected].type != "Navalon") && (attackers[attackerselected].type != "Fire Dragon"))
-		{
-			attackers[attackerselected].unavailable = true;
-		}
-		else if (attackers[attackerselected].type == "Fire Dragon")
-		{
-			attackers[attackerselected].defendersattacked.push(defenderselected);
-			document.getElementById("noretaltext").style.visibility = "hidden";
-		}
-		else
-		{	
-			if ((defhp > 0) || (atthp < 1))
-			{
-				attackers[attackerselected].unavailable = true;
 			}
 			else
 			{
-				attackers[attackerselected].defendersattacked.push(defenderselected);
+				bstring = document.getElementById("resultdef").innerHTML = "Defender is DESTROYED! Afterlife HP:  " + defhp;
+				egg(att);
+			}	
+		}	
+
+		if (mode == "Multi")
+		{
+			if (defhp > 0) 
+			{
+				bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
+				defenders[defenderselected].hp = defhp;
+				res = Math.round(defforce / totaldam * def * 4.5);
+				if (isNaN(res) == true)
+				{
+					res = 0;
+				}
+				if (document.getElementById("noretalbox").checked == false)
+				{
+					if ((attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+					{
+					}
+					else
+					{
+						atthp = atthp - res;
+					}
+				}
+				if (atthp > 0)
+				{
+					if ((attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+					{
+					}
+					else
+					{
+						astring = document.getElementById("resultatt").innerHTML = "Attacker survives! Remaining HP:  " + atthp;
+						attackers[attackerselected].hp = atthp;
+					}
+				}
+				else
+				{
+					if ((attname == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+					{
+					}
+					else
+					{
+						astring = document.getElementById("resultatt").innerHTML = "Attacker is DESTROYED! Afterlife HP:  " + atthp;
+						attackers[attackerselected].hp = atthp;
+					}
+				}
 			}
-		}
+			else
+			{
+				bstring = document.getElementById("resultdef").innerHTML = "Defender is DESTROYED! Afterlife HP:  " + defhp;
+				defenders[defenderselected].hp = defhp;
+			}
 
-		var decshort = "";
-		var color = "black";
-		if (attackers[attackerselected].type == "Knight")
-		{
-			decshort = "<b>3</b>";
-		}
-		else
-		{
-			decshort = attackers[attackerselected].a;
-		}
-		if ((attackers[attackerselected].hp < 1) || (attackers[attackerselected].unavailable == true))
-		{
-			color = "gray";
-		}
-		var splashindicator = ""
-		if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
-		{
-			splashindicator = "S";
-		}
-		document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp + "</div>";
-		document.getElementById("attacker" + attackerselected).style.borderColor = color;	
+			if ((attackers[attackerselected].type != "Knight") && (attackers[attackerselected].type != "Navalon") && (attackers[attackerselected].type != "Fire Dragon"))
+			{
+				attackers[attackerselected].unavailable = true;
+			}
+			else if (attackers[attackerselected].type == "Fire Dragon")
+			{
+				attackers[attackerselected].defendersattacked.push(defenderselected);
+				document.getElementById("noretaltext").style.visibility = "hidden";
+			}
+			else
+			{	
+				if ((defhp > 0) || (atthp < 1))
+				{
+					attackers[attackerselected].unavailable = true;
+				}
+				else
+				{
+					attackers[attackerselected].defendersattacked.push(defenderselected);
+				}
+			}
 
-		color = "black"
-		if (defenders[defenderselected].hp < 1)
-		{
-			color = "gray";
-		}
-		document.getElementById("defender" + defenderselected).innerHTML ="<img src='Defenders/" + defenders[defenderselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[defenderselected].defbonus + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + defenders[defenderselected].d + "/" + defenders[defenderselected].hp + "/" + defenders[defenderselected].maxhp + "</div>";
-		document.getElementById("defender" + defenderselected).style.borderColor = color;
+			var decshort = "";
+			var color = "black";
+			if (attackers[attackerselected].type == "Knight")
+			{
+				decshort = "<b>3</b>";
+			}
+			else
+			{
+				decshort = attackers[attackerselected].a;
+			}
+			if ((attackers[attackerselected].hp < 1) || (attackers[attackerselected].unavailable == true))
+			{
+				color = "gray";
+			}
+			var splashindicator = ""
+			if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+			{
+				splashindicator = "S";
+			}
+			document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp + "</div>";
+			document.getElementById("attacker" + attackerselected).style.borderColor = color;	
+
+			color = "black"
+			if (defenders[defenderselected].hp < 1)
+			{
+				color = "gray";
+			}
+			document.getElementById("defender" + defenderselected).innerHTML ="<img src='Defenders/" + defenders[defenderselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[defenderselected].defbonus + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + defenders[defenderselected].d + "/" + defenders[defenderselected].hp + "/" + defenders[defenderselected].maxhp + "</div>";
+			document.getElementById("defender" + defenderselected).style.borderColor = color;
 
 		}
 		if ((mode == "Multi") && (attackers[attackerselected].type != "Fire Dragon") && (document.getElementById("noretalbox").checked == true) && (defenders[defenderselected].hp > 0))
@@ -850,7 +850,7 @@ function egg(attack)
 	if (attack > 9000)
 	{
 		document.getElementById("resultatt").innerHTML = "It's over 9000!!!";
-		document.getElementById("note").innerHTML = "There's no way that could be right!";
+		document.getElementById("note").innerHTML = "There's no way that can be right!";
 	}
 }
 function attvettest()
@@ -1362,39 +1362,39 @@ function deleteunitprompt()
 		document.getElementById("deletebutton").innerText = "Delete Units(x)";
 		if (attackerselected >= 0)
 		{
-		var divselected = "attacker" + attackerselected;
-		if(attackers[attackerselected].unavailable != true)
-		{
-			if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+			var divselected = "attacker" + attackerselected;
+			if(attackers[attackerselected].unavailable != true)
 			{
-				var splashindicator = "";
-				var decshort = attackers[attackerselected].a;
-				attackers[attackerselected].unavailable = true;
-				document.getElementById(divselected).style.borderColor = "gray";
-				document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp + "</div>";
+				if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
+				{
+					var splashindicator = "";
+					var decshort = attackers[attackerselected].a;
+					attackers[attackerselected].unavailable = true;
+					document.getElementById(divselected).style.borderColor = "gray";
+					document.getElementById("attacker" + attackerselected).innerHTML = "<img src='Attackers/" + attackers[attackerselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + splashindicator + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + decshort + "/" + attackers[attackerselected].hp + "/" + attackers[attackerselected].maxhp + "</div>";
+				}
+				else
+				{
+					document.getElementById(divselected).style.borderColor = "black";
+					if (document.getElementById("noretaltext").style.visibility == "visible")
+					{
+						document.getElementById("noretalbox").checked = false;
+						document.getElementById("noretaltext").style.visibility = "hidden";
+					}
+				}
 			}
 			else
 			{
-				document.getElementById(divselected).style.borderColor = "black";
+				document.getElementById(divselected).style.borderColor = "gray";
 				if (document.getElementById("noretaltext").style.visibility == "visible")
 				{
 					document.getElementById("noretalbox").checked = false;
 					document.getElementById("noretaltext").style.visibility = "hidden";
 				}
 			}
-		}
-		else
-		{
-			document.getElementById(divselected).style.borderColor = "gray";
-			if (document.getElementById("noretaltext").style.visibility == "visible")
-			{
-				document.getElementById("noretalbox").checked = false;
-				document.getElementById("noretaltext").style.visibility = "hidden";
-			}
-		}
-		attackerselected = -1;
-		defenderselected = -1;
-		prevattackerselected = -2;
+			attackerselected = -1;
+			defenderselected = -1;
+			prevattackerselected = -2;
 		}
 	}
 	else
