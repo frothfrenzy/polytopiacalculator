@@ -1,7 +1,8 @@
 # Changelog
 
-18.10.2018.
+19.10.2018.
 - Added the Delete Units button.
+- Some QoL improvements.
 
 13.10.2018.
 - Additional code optimizations.
