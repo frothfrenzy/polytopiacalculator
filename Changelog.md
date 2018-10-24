@@ -1,5 +1,8 @@
 # Changelog
 
+24.10.2018.
+- Added a note that appears when Javascript is disabled.
+
 19.10.2018.
 - Added the Delete Units button.
 - Some QoL improvements.
