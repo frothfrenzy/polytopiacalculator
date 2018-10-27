@@ -29,10 +29,38 @@ p.i
 {
 	font-style: italic;
 }
+div.a
+{
+	border-bottom: 1px solid;
+	float: left;
+	display: none;
+	width: 100%;
+}
 div.c
 {
 	font-size: 14px;
 	max-height: 999999px;
+}
+div.ei
+{
+	text-align: right;
+	padding-right: 8px;
+	float: right;
+	width: 1%;
+}
+div.p
+{
+	font-size: 17px;
+	float: left;
+	width: 92%;
+}
+div.q
+{
+	border-bottom: 1px solid;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	float: left;
+	width: 100%
 }
 input, button, select
 {
@@ -57,6 +85,7 @@ var backupattackers = [];
 var backupdefenders = [];
 var firstbackup = false;
 var noretalswitch = true;
+var answersexpanded = 0;
 
 function messageclear()
 {
@@ -1790,15 +1819,91 @@ function mobilescreen()
 		document.getElementById("main").style.visibility = "visible";
 	}
 }
+function expandcontainer(identifier)
+{
+	var expandindicator = "expandindicator" + identifier;
+	var answercontainer = "answercontainer" + identifier;
+	
+	if (document.getElementById(expandindicator).innerHTML == "+")
+	{
+		document.getElementById(expandindicator).innerHTML = "-";
+		document.getElementById(answercontainer).style.display = "block";
+		answersexpanded++;
+		if (answersexpanded == 16)
+		{
+			document.getElementById("expandallindicator1").innerHTML = "- Collapse all";
+			document.getElementById("expandallindicator2").innerHTML = "- Collapse all";
+		}
+	}
+	else
+	{
+		document.getElementById(expandindicator).innerHTML = "+";
+		document.getElementById(answercontainer).style.display = "none";
+		answersexpanded--;
+		if (answersexpanded > 0)
+		{
+			document.getElementById("expandallindicator1").innerHTML = "+ Expand all";
+			document.getElementById("expandallindicator2").innerHTML = "+ Expand all";
+		}
+	}
+}
+function expandall(indicator)
+{
+	if (document.getElementById("expandallindicator1").innerHTML == "+ Expand all")
+	{
+		var expandindicator = "";
+		var answercontainer = "";
+		
+		for (i = 0; i < 16; i++)
+		{
+			expandindicator = "expandindicator" + i;
+			answercontainer = "answercontainer" + i;
+			if (document.getElementById(expandindicator).innerHTML == "+")
+			{
+				document.getElementById(expandindicator).innerHTML = "-";
+				document.getElementById(answercontainer).style.display = "block";
+			}
+		}
+		answersexpanded = 16;
+		document.getElementById("expandallindicator1").innerHTML = "- Collapse all";
+		document.getElementById("expandallindicator2").innerHTML = "- Collapse all";
+		if (indicator == 2)
+		{
+			expandallindicator2.scrollIntoView(false);
+		}
+	}
+	else
+	{
+		var expandindicator = "";
+		var answercontainer = "";
+		
+		for (i = 0; i < 16; i++)
+		{
+			expandindicator = "expandindicator" + i;
+			answercontainer = "answercontainer" + i;
+			if (document.getElementById(expandindicator).innerHTML == "-")
+			{
+				document.getElementById(expandindicator).innerHTML = "+";
+				document.getElementById(answercontainer).style.display = "none";
+			}
+		}
+		answersexpanded = 0;
+		document.getElementById("expandallindicator1").innerHTML = "+ Expand all";
+		document.getElementById("expandallindicator2").innerHTML = "+ Expand all";
+		if (indicator == 2)
+		{
+			expandallindicator2.scrollIntoView(true);
+		}
+	}
+}
 </script>
 
 <noscript>
 	<h2>Polytopia Battle Calculator</h2>
 	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
 	<p>Javascript is required to use the calculator!</p>
-	<p>If you are concerned about potential security issues, you can always review the code at the project's <a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/index.html">GitHub repository</a>.</p>
+	<p>If you are worried about potential security issues, you can always review the code at the project's <a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/index.html">GitHub repository</a>.</p>
 </noscript>
-
 <div id="main" style="visibility: hidden">
 	<h2>Polytopia Battle Calculator</h2>
 	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
@@ -1923,116 +2028,188 @@ function mobilescreen()
 	</div>
 </div>
 
-<div id="faq" style="display:none">
-	<h2>Frequently Asked Questions</h2><br/><br/><br/>
+<div id="faq" style="display:none; max-width: 800px">
+	<h2>Frequently Asked Questions</h2><br/><br/>
 	
-	<p><a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
+	<p><a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a><a href="javascript:;" id="expandallindicator1" style="float: right" onclick="expandall(1)">+ Expand all</a></p>
 	
-	<p><b>So how does the calculator work?</b></p>
+	<div class="q" style="border-top: 1px solid; margin-top: 25px;" onclick="expandcontainer(0)">
+		<div class="p"><b>How to use the calculator?</b></div>
+		<div id="expandindicator0" class="ei">+</div>
+	</div>
+	<div id="answercontainer0" class="a">
+		<p>Simply input all of the fields, click the Calculate! button, and your battle result will pop up at the bottom. All of the fields are required because every variable affects the result. You can use drop-down unit templates to fill the fields quicker, although these can also be useful if you don't remember the unit stats. Additional details such as unit veterancy and variable ship HP will appear next to the template box once you have selected a relevant unit.<br/><br/>Defender's current HP is automatically updated if the defender survives, so you can keep pressing Calculate! repeatedly until it is destroyed. This is useful for quickly calculating how many units of the same power are needed to take down a stronger unit, and you don't need to manually change the defender's current HP every time you want to perform an attack with a different unit.<br/><br/>If checkboxes appear too small on your screen, you can instead click or tap on the text pertaining to the checkbox to activate it. This applies both to veterancy status and defense/wall bonus checkboxes.<br/><br/>Also note that you can access a history of all the recent battles you performed in the current session. Tap or click three times on any text that appears below Result: to activate the history. Likewise, you can turn it off by tapping or clicking three times in that same area. The history showcases 10 entries by default. If for some reason you would like to keep a bigger (or smaller) history for the current session, fill all the fields so there are no invalid values, set the attack value to 123, set the defense value to the number of entries you want to keep and then press the Calculate! button. A message will appear as a confirmation. All entries are formatted as Attacker (stats) - Defender (stats|D/W), where stats are shown in the same order as they appear on the calculator, and D/W representing the defense/wall bonus for the defender.</p>
+	</div>
 	
-	<p>The calculator uses the same code posted by the developer on the game wikia forums some time ago. You can find a link to this thread on the bottom of this FAQ. Here is the simplified code:</p>
+	<div class="q" onclick="expandcontainer(1)">
+		<div class="p"><b>What is the damage formula?</b></div>
+		<div id="expandindicator1" class="ei">+</div>
+	</div>
+	<div id="answercontainer1" class="a">
+		<p>The calculator uses the same formula posted by the developer on the game wikia forums some time ago. You can find a link to this thread on the bottom of this FAQ. Here is the simplified code:</p>
+		
+		<p>accelerator = 4.5<br/>
+		attackForce = attacker.attack * (attacker.health / attacker.maxHealth)<br/>
+		defenseForce = defender.defense * (defender.health / defender.maxHealth)<br/>
+		totalDamage = attackForce + defenseForce<br/><br/>
+		attackResult = round((attackForce / totalDamage) * attacker.attack * accelerator)<br/>
+		defenseResult = round((defenseForce / totalDamage) * defender.defense * accelerator)</p>
+	</div>
 	
-	<p>accelerator = 4.5<br/>
-	attackForce = attacker.attack * (attacker.health / attacker.maxHealth)<br/>
-	defenseForce = defender.defense * (defender.health / defender.maxHealth)<br/>
-	totalDamage = attackForce + defenseForce<br/><br/>
-	attackResult = round((attackForce / totalDamage) * attacker.attack * accelerator)<br/>
-	defenseResult = round((defenseForce / totalDamage) * defender.defense * accelerator)</p>
+	<div class="q" onclick="expandcontainer(2)">
+		<div class="p"><b>How to use the Multi option?</b></div>
+		<div id="expandindicator2" class="ei">+</div>
+	</div>
+	<div id="answercontainer2" class="a">
+		<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.<br/><br/>When in Multi mode, do the following:<br/><br/>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.<br/><br/>- Select a unit type from the unit template list, change its current HP if necessary and tick additional modifiers, if any.<br/><br/>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).<br/><br/>- Repeat this process until you create the desired battle situation. You can create any number of units this way.<br/><br/>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.<br/><br/>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.<br/><br/>- To delete units, press the Delete Units button and select the attackers or defenders you want to delete. Units selected this way will instantly disappear. To stop deleting, press the Delete Units button again. Pressing other buttons such as Create Unit! or opening the FAQ also stops the deletion process. When active, the Delete Units button will have an (x) appear within it.<br/><br/>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...<br/><br/>Knights and navalons will be able to continue attacking as long as they are destroying enemy units. They become unavailable once an attack doesn't destroy an enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.<br/><br/>Fire dragon's first attack is always its main attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's main attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the main attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after performing its main attack. Saving a state or prompting to delete units also triggers this.<br/><br/>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.<br/><br/>Another thing to note about the attacker knight is that its attack value will show as a bolded 3 instead of a regular 3.5. This is deliberate because additional symbols didn't fit well into the unit container in some battle situations. It otherwise has no effect on the battle result.<br/><br/>When selecting an available ranged unit, you are prompted with a No retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.<br/><br/>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Only Imperius and Xin-Xi sprites will be available out of respect for the developer.<br/><br/>The Multi mode uses the same code as the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No retaliation clause and the fire dragon's attack type.<br/><br/>To prevent accidental resets of huge battlefields, a button to clear everything isn't included. Simply refresh the calculator page if you want to start over, or delete the leftover units by pressing the Delete Units button.<br/><br/>It is also worth noting that Delete Units uses a method which is not supported by Internet Explorer versions below 8.0. If this is the case for you, it might be a sign you were waiting for that you need to upgrade.</p>
+	</div>
 	
-	<p>As for the actual usage - you simply input all of the fields, click the Calculate! button, and your battle result will pop up at the bottom. All of the fields are required because every variable affects the result. You can use drop-down unit templates to fill the fields quicker, although these can also be useful if you don't remember the unit stats. Additional details such as unit veterancy and variable ship HP will appear next to the template box once you have selected a relevant unit.<br/><br/>Defender's current HP is automatically updated if the defender survives, so you can keep pressing Calculate! repeatedly until it is destroyed. This is useful for quickly calculating how many units of the same power are needed to take down a stronger unit, and you don't need to manually change the defender's current HP every time you want to perform an attack with a different unit.<br/><br/>If checkboxes appear too small on your screen, you can instead click or tap on the text pertaining to the checkbox to activate it. This applies both to veterancy status and defense/wall bonus checkboxes.<br/><br/>Also note that you can access a history of all the recent battles you performed in the current session. Tap or click three times on any text that appears below Result: to activate the history. Likewise, you can turn it off by tapping or clicking three times in that same area. The history showcases 10 entries by default. If for some reason you would like to keep a bigger (or smaller) history for the current session, fill all the fields so there are no invalid values, set the attack value to 123, set the defense value to the number of entries you want to keep and then press the Calculate! button. A message will appear as a confirmation. All entries are formatted as Attacker (stats) - Defender (stats|D/W), where stats are shown in the same order as they appear on the calculator, and D/W representing the defense/wall bonus for the defender.</p>
-	
-	<p><b>What is the Multi option?</b></p>
+	<div class="q" onclick="expandcontainer(3)">
+		<div class="p"><b>Where does the defense bonus come in?</b></div>
+		<div id="expandindicator3" class="ei">+</div>
+	</div>
+	<div id="answercontainer3" class="a">
+		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus (see question below). If the defender is behind a wall, it's increased by a factor of 4.<br/><br/>This doesn't exactly correspond to a 50% or 300% increase in defense, but can be generalized as 1.5 or 4 more damage given and that much less damage received, respectively. Each point of difference between the attacker's attack value and defender's defense value slightly alters the numbers. Bigger/smaller values in total also translate into more/less damage. Because of how the formula works, defense bonuses have less effect on defenders with low HP. They have no effect on defenders with 0 defense value, which means units like catapults will always receive full damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.</p>
+	</div>
 
-	<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.<br/><br/>When in Multi mode, do the following:<br/><br/>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.<br/><br/>- Select a unit type from the unit template list, change its current HP if necessary and tick additional modifiers, if any.<br/><br/>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).<br/><br/>- Repeat this process until you create the desired battle situation. You can create any number of units this way.<br/><br/>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.<br/><br/>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.<br/><br/>- To delete units, press the Delete Units button and select the attackers or defenders you want to delete. Units selected this way will instantly disappear. To stop deleting, press the Delete Units button again. Pressing other buttons such as Create Unit! or opening the FAQ also stops the deletion process. When active, the Delete Units button will have an (x) appear within it.<br/><br/>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...<br/><br/>Knights and navalons will be able to continue attacking as long as they are destroying enemy units. They become unavailable once an attack doesn't destroy an enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.<br/><br/>Fire dragon's first attack is always its main attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's main attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the main attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after performing its main attack. Saving a state or prompting to delete units also triggers this.<br/><br/>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.<br/><br/>Another thing to note about the attacker knight is that its attack value will show as a bolded 3 instead of a regular 3.5. This is deliberate because additional symbols didn't fit well into the unit container in some battle situations. It otherwise has no effect on the battle result.<br/><br/>When selecting an available ranged unit, you are prompted with a No retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.<br/><br/>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Only Imperius and Xin-Xi sprites will be available out of respect for the developer.<br/><br/>The Multi mode uses the same code as the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No retaliation clause and the fire dragon's attack type.<br/><br/>To prevent accidental resets of huge battlefields, a button to clear everything isn't included. Simply refresh the calculator page if you want to start over, or delete the leftover units by pressing the Delete Units button.<br/><br/>It is also worth noting that Delete Units uses a method which is not supported by Internet Explorer versions below 8.0. If this is the case for you, it might be a sign you were waiting for that you need to upgrade.</p>
+	<div class="q" onclick="expandcontainer(4)">
+		<div class="p"><b>Which tiles provide the standard defense bonus?</b></div>
+		<div id="expandindicator4" class="ei">+</div>
+	</div>
+	<div id="answercontainer4" class="a">
+		<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, with a few exceptions - Aquarion amphibians, crabs and tridentions never receive the defense bonus from cities, even if they are walled.</p>
+	</div>
 
-	<p><b>Where does the defense bonus come in?</b></p>
+	<div class="q" onclick="expandcontainer(5)">
+		<div class="p"><b>How does the retaliation damage work?</b></div>
+		<div id="expandindicator5" class="ei">+</div>
+	</div>
+	<div id="answercontainer5" class="a">
+		<p>The unit's defense value is used in place of its attack value to calculate the retaliation damage. This is why some units deal significantly less damage when retaliating, while the defender unit and units with defense bonuses deal more. Because all of the modifiers are already applied before dealing damage takes place, the defender's HP loss doesn't affect its retaliation result. Instead, it deals damage based on HP it had before combat began.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(6)">
+		<div class="p"><b>Why is there no option for attacking from a tile that provides a defense bonus?</b></div>
+		<div id="expandindicator6" class="ei">+</div>
+	</div>
+	<div id="answercontainer6" class="a">
+		<p>Contrary to popular belief, this has no effect on the result. You forfeit the bonus entirely. Your unit will receive full damage when the enemy unit retaliates.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(7)">
+		<div class="p"><b>The defender was destroyed. Why is there no word on what happened to the attacker?</b></div>
+		<div id="expandindicator7" class="ei">+</div>
+	</div>
+	<div id="answercontainer7" class="a">
+		<p>If the attack outright destroys the defender, no retaliation takes place. The attacker is unphased, so there's nothing for the calculator to report.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(8)">
+		<div class="p"><b>Enemy doesn't retaliate, but here I receive damage anyway. Will this affect my result?</b></div>
+		<div id="expandindicator8" class="ei">+</div>
+	</div>
+	<div id="answercontainer8" class="a">
+		<p>No. It doesn't matter if an enemy unit is next to you, away from you, or if it is a ranged unit that doesn't retaliate because you're in your opponent's fog of war. Simply disregard the retaliation damage - the damage you deal is not affected in any of these cases. You can always use Multi mode which does offer the option of no enemy retaliation.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(9)">
+		<div class="p"><b>Where can I see all the unit stats?</b></div>
+		<div id="expandindicator9" class="ei">+</div>
+	</div>
+	<div id="answercontainer9" class="a">
+		<p>If you use drop-down unit templates, the calculator will automatically fill all the relevant stats for the selected unit. For more info, you should read the unit page on the game's wikia site. You can find the link to this page at the bottom of this FAQ.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(10)">
+		<div class="p"><b>How does the fire dragon's splash damage work?</b></div>
+		<div id="expandindicator10" class="ei">+</div>
+	</div>
+	<div id="answercontainer10" class="a">
+		<p>It is calculated in the same way as a regular attack. However, an additional line of code is added at the end:<br/><br/>
+		defender.health = defender.health - floor(attackResult / 2);<br/><br/>
 
-	<p>The defenceForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus (see below). If the defender is behind a wall, it's increased by a factor of 4. This corresponds to a 50% or 300% increase in defense, respectively. Because only the defenceForce variable is affected by this, you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.</p>
+		This means that the unit receives half the damage it would normally receive if it was the main target, rounded down. So e.g. if the fire dragon would deal 11 damage to a unit by attacking it directly, that same unit would receive 5 damage (11/2=5.5=5) if it was splashed instead. Since nothing is altered in the original formula, the unit also benefits from its defense bonus, if any. Only the fire dragon's main target can retaliate, provided it survives the initial attack.<br/><br/>
+		
+		In Single mode, both the main attack and splash damage results are provided to you simultaneously, calculated separately for the same defending unit. You either take one result or the other, depending on your follow-up. This is convenient if you're testing for damage in a group of units, so you can quickly get an idea which unit would be the most optimal to choose for the dragon's main attack. The calculator assumes the main attack will be the follow-up, and deducts that result from the defender's current HP.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(11)">
+		<div class="p"><b>Can I use the calculator offline?</b></div>
+		<div id="expandindicator11" class="ei">+</div>
+	</div>
+	<div id="answercontainer11" class="a">
+		<p>Yes you can. Follow these instructions:<br/><br/>
+		<i>PC</i>: Go to the calculator website, right-click on any empty space and press Save as... or Save Page As... to get the index.html file. Alternatively, you can download the file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a> or <a href="https://github.com/frothfrenzy/polytopiacalculator" target="_blank">GitHub</a>. After you downloaded it, simply drag the .html file into your browser to run the calculator.<br/><br/>
+		<i>iOS</i>: Repeat the PC process. Download an app called HTML Viewer Q by Spica. Connect your device to iTunes. In iTunes, select your device and go to File Sharing. Select HTML Viewer, press Add File and find the .html file you downloaded on your PC. Disconnect your device, run HTML Viewer and press on a book-like icon at the bottom right. Switch from Bookmarks to Files and select the downloaded .html file.<br/><br/>
+		<i>Android</i>: Either repeat the PC process, or download the Google Drive app to fetch the .html file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a>. If you used the PC, connect your device and transfer the .html file to it. If you used Google Drive, the file should be in your Downloads folder. Download the HTML Viewer app by Yogev Haham and run it. Press the paper-like icon at the upper right. Find and select the downloaded .html file, then press the browser view icon in the upper right.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(12)">
+		<div class="p"><b>Who are you?</b></div>
+		<div id="expandindicator12" class="ei">+</div>
+	</div>
+	<div id="answercontainer12" class="a">
+		<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(13)">
+		<div class="p"><b>How can I contact you?</b></div>
+		<div id="expandindicator13" class="ei">+</div>
+	</div>
+	<div id="answercontainer13" class="a">
+		<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(14)">
+		<div class="p"><b>What are Discord challenges?</b></div>
+		<div id="expandindicator14" class="ei">+</div>
+	</div>
+	<div id="answercontainer14" class="a">
+		<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(15)">
+		<div class="p"><b>How can I become a better player?</b></div>
+		<div id="expandindicator15" class="ei">+</div>
+	</div>
+	<div id="answercontainer15" class="a">
+		<p>Read through strategies on the game wikia, Reddit and Discord. Watch videos of experienced players on Youtube. Ask the player-base for help. Most important of all - play a lot, maximize your income and try to learn the mechanics behind the game. It will come in time. The links to help you with this are provided below.</p>
+	</div>
+	
+	<div style="float: left; position: relative; top: 6px; width: 100%">
+		<p><b>Links:</b><a href="javascript:;" id="expandallindicator2" style="float: right" onclick="expandall(2)">+ Expand all</a></p>
+		
+		<p><a href="https://discord.gg/YTFTuAq?" target="_blank">Discord</a><br/>
+		<a href="http://polytopia.wikia.com/wiki/The_Battle_of_Polytopia_Wikia" target="_blank">Wikia</a><br/>
+		<a href="https://www.reddit.com/r/Polytopia/" target="_blank">Reddit</a><br/><br/>
+		
+		<a href="http://www.midjiwan.com/polytopia.html" target="_blank">Official Game Website</a><br/>
+		<a href="https://www.facebook.com/polytopia/" target="_blank">Official Game Facebook</a><br/><br/>
+		
+		<a href="https://twitter.com/midjiwan?lang=en" target="_blank">Midjiwan's Twitter</a><br/>
+		<a href="https://www.instagram.com/midjiwan/" target="_blank">Midjiwan's Instagram</a><br/>
+		<a href="https://www.youtube.com/channel/UCtBjQ-1WqlHrAjSaJUpKb0w" target="_blank">Midjiwan's Youtube Channel</a><br/>
+		<a href="http://polytopia.wikia.com/wiki/Thread:920" target="_blank">Midjiwan's Wikia Post</a><br/>
+		<a href="https://polytopia.wikia.com/wiki/Units" target="_blank">Wikia Unit Page</a><br/><br/>
+		
+		<a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSFN2clluYnM0QlU" target="_blank">My Screenshots</a><br/><br/>
 
-	<p><b>Which tiles provide the standard defense bonus?</b></p>
-	
-	<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, with a few exceptions - Aquarion amphibians, crabs and tridentions never receive the defense bonus from cities, even if they are walled.</p>
+		<a href="https://www.youtube.com/playlist?list=PLQqaZ-kEj4Exd6EMDYTadaWbsFMoROwzw" target="_blank">My Videos</a><br/>
+		<a href="https://www.youtube.com/playlist?list=PLfTvLAe72_3j5OHnUiyc1Cwo3Z6uiFmeC" target="_blank">Tupp's Videos</a><br/>
+		<a href="https://www.youtube.com/channel/UCjwJEqv8LZOV6S12wAybURA" target="_blank">Dued03's Videos</a><br/>
+		<a href="https://www.youtube.com/channel/UCEmKzVafcBQauZylIoomojw/videos?disable_polymer=1" target="_blank">Ze Biggest Potato's Videos</a><br/><br/>
 
-	<p><b>My unit is attacking from a tile that provides a defense bonus. Why is there no option that accounts for this?</b></p>
+		<a href="https://www.reddit.com/r/Polytopia/comments/6cjc4j/guide_quick_and_simple_guide_to_get_3_start_in/" target="_blank">Domination Guide by Airgibbo</a><br/>
+		<a href="https://www.reddit.com/r/Polytopia/comments/6fslca/bardur_100k_points_strategy_guide/" target="_blank">Perfection Guide by Tupp</a><br/>
+		<a href="https://www.reddit.com/r/Polytopia/comments/5qbppw/my_guide_to_high_scores_in_perfection_mode_based/" target="_blank">Perfection Guide by Illinois_Jones</a><br/>
+		<a href="https://www.reddit.com/r/Polytopia/comments/85asn3/advanced_multiplayer_tribe_by_tribe_guide/" target="_blank">Multiplayer Guide by Will2Brown</a><br/><br/>
+		
+		<a href="https://drive.google.com/open?id=10vODoFZk-i670i56je_6G-XyZK7qHHEqp7xA-nYW4X8" target="_blank">Challenge List</a><br/><br/>
 
-	<p>Contrary to popular belief, this has no effect on the result. You forfeit the bonus entirely. Your unit will receive full damage when the enemy unit retaliates.</p>
+		<a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md" target="_blank">Changelog</a><br/><br/><br/>
 
-	<p><b>How does the retaliation damage work? Why does the calculator sometimes report that the defender was destroyed but no word on what happened to the attacker?</b></p>
-	
-	<p>The unit's defense value is used in place of its attack value to calculate the retaliation damage. This is why some units deal significantly less damage when retaliating, while the defender unit and units with defense bonuses deal more. Because all of the modifiers are already applied before dealing damage takes place, the defender's HP loss doesn't affect its retaliation result. Instead, it deals damage based on HP it had before combat began. However, if the attack outright destroys the defender, there is no retaliation. The attacker is unphased, so there's nothing for the calculator to report.</p>
-	
-	<p><b>I'm attacking an enemy with a ranged unit in Single mode, but that enemy doesn't hit back. The calculator says I receive damage anyway. Does this affect my damage result?</b></p>
-	
-	<p>No. It doesn't matter if an enemy unit is next to you, away from you, or if it is a ranged unit that doesn't retaliate because you're in your opponent's fog of war. Simply disregard the retaliation damage - the damage you deal is not affected in any of these cases. You can always use Multi mode which does offer the option of no enemy retaliation.</p>
-
-	<p><b>Where can I see all the unit stats?</b></p>
-	
-	<p>If you use drop-down unit templates, the calculator will automatically fill all the relevant stats for the selected unit. For more info, you should read the unit page on the game's wikia site. You can find the link to this page at the bottom of this FAQ.</p>
-	
-	<p><b>How does the fire dragon's splash damage work?</b></p>
-	
-	<p>It is calculated in the same way as a regular attack. However, an additional line of code is added at the end:<br/><br/>
-	defender.health = defender.health - floor(attackResult / 2);<br/><br/>
-
-	This means that the unit receives half the damage it would normally receive if it was the main target, rounded down. So e.g. if the fire dragon would deal 11 damage to a unit by attacking it directly, that same unit would receive 5 damage (11/2=5.5=5) if it was splashed instead. Since nothing is altered in the original formula, the unit also benefits from its defense bonus, if any. Only the fire dragon's main target can retaliate, provided it survives the initial attack.
-<br/><br/>
-	In Single mode, both the main attack and splash damage results are provided to you simultaneously, calculated separately for the same defending unit. You either take one result or the other, depending on your follow-up. This is convenient if you're testing for damage in a group of units, so you can quickly get an idea which unit would be the most optimal to choose for the dragon's main attack. The calculator assumes the main attack will be the follow-up, and deducts that result from the defender's current HP.</p>
-	
-	<p><b>Can I use the calculator offline?</b></p>
-
-	<p>Yes you can. Follow these instructions:<br/><br/>
-	<i>PC</i>: Go to the calculator website, right-click on any empty space and press Save as... or Save Page As... to get the index.html file. Alternatively, you can download the file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a> or <a href="https://github.com/frothfrenzy/polytopiacalculator" target="_blank">GitHub</a>. After you downloaded it, simply drag the .html file into your browser to run the calculator.<br/><br/>
-	<i>iOS</i>: Repeat the PC process. Download an app called HTML Viewer Q by Spica. Connect your device to iTunes. In iTunes, select your device and go to File Sharing. Select HTML Viewer, press Add File and find the .html file you downloaded on your PC. Disconnect your device, run HTML Viewer and press on a book-like icon at the bottom right. Switch from Bookmarks to Files and select the downloaded .html file.<br/><br/>
-	<i>Android</i>: Either repeat the PC process, or download the Google Drive app to fetch the .html file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a>. If you used the PC, connect your device and transfer the .html file to it. If you used Google Drive, the file should be in your Downloads folder. Download the HTML Viewer app by Yogev Haham and run it. Press the paper-like icon at the upper right. Find and select the downloaded .html file, then press the browser view icon in the upper right.</p>
-
-	<p><b>Who are you?</b></p>
-	
-	<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
-	
-	<p><b>How can I contact you?</b></p>
-	
-	<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
-	
-	<p><b>What are Discord challenges?</b></p>
-	
-	<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
-	
-	<p><b>How can I become a better player?</b></p>
-	
-	<p>Read through strategies on the game wikia, Reddit and Discord. Watch videos of experienced players on Youtube. Ask the player-base for help. Most important of all - play a lot, maximize your income and try to learn the mechanics behind the game. It will come in time. The links to help you with this are provided below.</p><br/>
-	
-	<p><b>Links:</b></p>
-	
-	<p><a href="https://discord.gg/YTFTuAq?" target="_blank">Discord</a><br/>
-	<a href="http://polytopia.wikia.com/wiki/The_Battle_of_Polytopia_Wikia" target="_blank">Wikia</a><br/>
-	<a href="https://www.reddit.com/r/Polytopia/" target="_blank">Reddit</a><br/><br/>
-	
-	<a href="http://www.midjiwan.com/polytopia.html" target="_blank">Official Game Website</a><br/>
-	<a href="https://www.facebook.com/polytopia/" target="_blank">Official Game Facebook</a><br/><br/>
-	
-	<a href="https://twitter.com/midjiwan?lang=en" target="_blank">Midjiwan's Twitter</a><br/>
-	<a href="https://www.instagram.com/midjiwan/" target="_blank">Midjiwan's Instagram</a><br/>
-	<a href="https://www.youtube.com/channel/UCtBjQ-1WqlHrAjSaJUpKb0w" target="_blank">Midjiwan's Youtube Channel</a><br/>
-	<a href="http://polytopia.wikia.com/wiki/Thread:920" target="_blank">Midjiwan's Wikia Post</a><br/>
-	<a href="https://polytopia.wikia.com/wiki/Units" target="_blank">Wikia Unit Page</a><br/><br/>
-	
-	<a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSFN2clluYnM0QlU" target="_blank">My Screenshots</a><br/><br/>
-
-	<a href="https://www.youtube.com/playlist?list=PLQqaZ-kEj4Exd6EMDYTadaWbsFMoROwzw" target="_blank">My Videos</a><br/>
-	<a href="https://www.youtube.com/playlist?list=PLfTvLAe72_3j5OHnUiyc1Cwo3Z6uiFmeC" target="_blank">Tupp's Videos</a><br/>
-	<a href="https://www.youtube.com/channel/UCjwJEqv8LZOV6S12wAybURA" target="_blank">Dued03's Videos</a><br/>
-	<a href="https://www.youtube.com/channel/UCEmKzVafcBQauZylIoomojw/videos?disable_polymer=1" target="_blank">Ze Biggest Potato's Videos</a><br/><br/>
-
-	<a href="https://www.reddit.com/r/Polytopia/comments/6cjc4j/guide_quick_and_simple_guide_to_get_3_start_in/" target="_blank">Domination Guide by Airgibbo</a><br/>
-	<a href="https://www.reddit.com/r/Polytopia/comments/6fslca/bardur_100k_points_strategy_guide/" target="_blank">Perfection Guide by Tupp</a><br/>
-	<a href="https://www.reddit.com/r/Polytopia/comments/5qbppw/my_guide_to_high_scores_in_perfection_mode_based/" target="_blank">Perfection Guide by Illinois_Jones</a><br/>
-	<a href="https://www.reddit.com/r/Polytopia/comments/85asn3/advanced_multiplayer_tribe_by_tribe_guide/" target="_blank">Multiplayer Guide by Will2Brown</a><br/><br/>
-	
-	<a href="https://drive.google.com/open?id=10vODoFZk-i670i56je_6G-XyZK7qHHEqp7xA-nYW4X8" target="_blank">Challenge List</a><br/><br/>
-
-	<a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md" target="_blank">Changelog</a><br/><br/><br/>
-
-	<a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
+		<a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
+	</div>
 </div>
 </body>
 </html>

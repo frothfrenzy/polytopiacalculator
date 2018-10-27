@@ -1,5 +1,8 @@
 # Changelog
 
+27.10.2018.
+- Reorganized the FAQ into collapsable elements so it no longer appears as a giant wall of text.
+
 24.10.2018.
 - Added a note that appears when Javascript is disabled.
 
