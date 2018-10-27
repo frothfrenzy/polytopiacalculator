@@ -1854,7 +1854,7 @@ function expandall(indicator)
 		var expandindicator = "";
 		var answercontainer = "";
 		
-		for (i = 0; i < 16; i++)
+		for (i = 0; i < 18; i++)
 		{
 			expandindicator = "expandindicator" + i;
 			answercontainer = "answercontainer" + i;
@@ -1864,7 +1864,7 @@ function expandall(indicator)
 				document.getElementById(answercontainer).style.display = "block";
 			}
 		}
-		answersexpanded = 16;
+		answersexpanded = 18;
 		document.getElementById("expandallindicator1").innerHTML = "- Collapse all";
 		document.getElementById("expandallindicator2").innerHTML = "- Collapse all";
 		if (indicator == 2)
@@ -1877,7 +1877,7 @@ function expandall(indicator)
 		var expandindicator = "";
 		var answercontainer = "";
 		
-		for (i = 0; i < 16; i++)
+		for (i = 0; i < 18; i++)
 		{
 			expandindicator = "expandindicator" + i;
 			answercontainer = "answercontainer" + i;
@@ -2065,66 +2065,82 @@ function expandall(indicator)
 	</div>
 	
 	<div class="q" onclick="expandcontainer(3)">
-		<div class="p"><b>Where does the defense bonus come in?</b></div>
+		<div class="p"><b>Is it possible to calculate on the fly?</b></div>
 		<div id="expandindicator3" class="ei">+</div>
 	</div>
 	<div id="answercontainer3" class="a">
-		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus (see question below). If the defender is behind a wall, it's increased by a factor of 4.<br/><br/>This doesn't exactly correspond to a 50% or 300% increase in defense, but can be generalized as 1.5 or 4 more damage given and that much less damage received, respectively. Each point of difference between the attacker's attack value and defender's defense value slightly alters the numbers. Bigger/smaller values in total also translate into more/less damage. Because of how the formula works, defense bonuses have less effect on defenders with low HP. They have no effect on defenders with 0 defense value, which means units like catapults will always receive full damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.</p>
+		<p>It is to some extent. Follow these guidelines:<br/><br/>- Maximum damage of any unit is its relevant value * 4.5, rounded up. Attack value is used when attacking, defense value is used when retaliating.<br/><br/>- Add up the attack and defense values of units participating in the battle, and see how much of each value constitutes the sum in percentages.<br/><br/>- Apply the percentage to the unit's maximum damage to get the battle result. Assuming equal opponents with full HP, this will be 50% for both, which translates into half the maximum damage being dealt by either side. Warriors would deal 5 (4.5) damage to each other, swordsmen would deal 7 (6.75), etc.<br/><br/>- For another example, say a swordsman is attacking a rider - 3 attack value versus 1 defense value, both at full HP. That comes up to 75% of maximum damage for the attacker (10 damage at full HP), and 25% of maximum damage for the defender (1 damage, if it somehow survives the attack).<br/><br/>- Lower HP also affects the result as a percentage, causing the attack and defense values to scale down with the amount of HP lost. Maximum damage stays the same, but only the fraction of the relevant battle value is added to the sum for the purpose of determining constituting percentages. For example, a 5-HP, non-veteran warrior would have 50% less health, which corresponds to 50% less attack value being added to the sum. If he were to attack an enemy warrior with full HP, the sum of their battle values would be 3 instead of 4. Therefore, the attacker would deal about 33% of its maximum damage (3), while the defender would deal about 67% of its maximum damage (6).<br/><br/>- Taking the above example into account, we can conclude that HP loss affects a unit very adversely. Having 1/10 HP allows the unit to use only 10% of its offensive and defensive capabilities, sometimes resulting in the unit dealing no damage at all. Damage received is almost certainly fatal, as low defense values allow enemy units to deal their maximum damage (or close to it). This also means that 0-defense units like catapults always receive maximum damage, regardless of current HP values for either side.<br/><br/>- Defense bonuses affect retaliation damage in the same way as lost HP does, as it is all calculated together at the same time. See questions below for more details.</p>
 	</div>
-
+	
 	<div class="q" onclick="expandcontainer(4)">
-		<div class="p"><b>Which tiles provide the standard defense bonus?</b></div>
+		<div class="p"><b>Where does the defense bonus come in?</b></div>
 		<div id="expandindicator4" class="ei">+</div>
 	</div>
 	<div id="answercontainer4" class="a">
-		<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, with a few exceptions - Aquarion amphibians, crabs and tridentions never receive the defense bonus from cities, even if they are walled.</p>
+		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. This happens just before attackForce and defenseForce variables are added together to form totalDamage.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. They have no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.</p>
 	</div>
 
 	<div class="q" onclick="expandcontainer(5)">
-		<div class="p"><b>How does the retaliation damage work?</b></div>
+		<div class="p"><b>Which tiles provide the standard defense bonus?</b></div>
 		<div id="expandindicator5" class="ei">+</div>
 	</div>
 	<div id="answercontainer5" class="a">
-		<p>The unit's defense value is used in place of its attack value to calculate the retaliation damage. This is why some units deal significantly less damage when retaliating, while the defender unit and units with defense bonuses deal more. Because all of the modifiers are already applied before dealing damage takes place, the defender's HP loss doesn't affect its retaliation result. Instead, it deals damage based on HP it had before combat began.</p>
+		<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, with a few exceptions - Aquarion amphibians, crabs and tridentions never receive the defense bonus from cities, even if they are walled.</p>
 	</div>
-	
+
 	<div class="q" onclick="expandcontainer(6)">
-		<div class="p"><b>Why is there no option for attacking from a tile that provides a defense bonus?</b></div>
+		<div class="p"><b>How does the retaliation damage work?</b></div>
 		<div id="expandindicator6" class="ei">+</div>
 	</div>
 	<div id="answercontainer6" class="a">
-		<p>Contrary to popular belief, this has no effect on the result. You forfeit the bonus entirely. Your unit will receive full damage when the enemy unit retaliates.</p>
+		<p>The unit's defense value is used in place of its attack value to calculate the retaliation damage. This is why some units deal significantly less damage when retaliating, while the defender unit and units with defense bonuses deal more. Because all of the modifiers are already applied before dealing damage takes place, the defender's HP loss doesn't affect its retaliation result. Instead, it deals damage based on HP it had before combat began.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(7)">
-		<div class="p"><b>The defender was destroyed, but no word on what happened to the attacker?</b></div>
+		<div class="p"><b>Why is there no option for attacking from a tile that provides a defense bonus?</b></div>
 		<div id="expandindicator7" class="ei">+</div>
 	</div>
 	<div id="answercontainer7" class="a">
-		<p>If the attack outright destroys the defender, no retaliation takes place. The attacker is unphased, so there's nothing for the calculator to report.</p>
+		<p>Contrary to popular belief, this has no effect on the result. You forfeit the bonus entirely. Your unit will receive full damage when the enemy unit retaliates.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(8)">
-		<div class="p"><b>Enemy doesn't retaliate, but here I receive damage anyway. Will this affect my result?</b></div>
+		<div class="p"><b>The defender was destroyed, but no word on what happened to the attacker?</b></div>
 		<div id="expandindicator8" class="ei">+</div>
 	</div>
 	<div id="answercontainer8" class="a">
-		<p>No. It doesn't matter if an enemy unit is next to you, away from you, or if it is a ranged unit that doesn't retaliate because you're in your opponent's fog of war. Simply disregard the retaliation damage - the damage you deal is not affected in any of these cases. You can always use Multi mode which does offer the option of no enemy retaliation.</p>
+		<p>If the attack outright destroys the defender, no retaliation takes place. The attacker is unphased, so there's nothing for the calculator to report.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(9)">
-		<div class="p"><b>Where can I see all the unit stats?</b></div>
+		<div class="p"><b>Enemy doesn't retaliate, but here I receive damage anyway. Will this affect my result?</b></div>
 		<div id="expandindicator9" class="ei">+</div>
 	</div>
 	<div id="answercontainer9" class="a">
-		<p>If you use drop-down unit templates, the calculator will automatically fill all the relevant stats for the selected unit. For more info, you should read the unit page on the game's wikia site. You can find the link to this page at the bottom of this FAQ.</p>
+		<p>No. It doesn't matter if an enemy unit is next to you, away from you, or if it is a ranged unit that doesn't retaliate because you're in your opponent's fog of war. Simply disregard the retaliation damage - the damage you deal is not affected in any of these cases. You can always use Multi mode which does offer the option of no enemy retaliation.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(10)">
-		<div class="p"><b>How does the fire dragon's splash damage work?</b></div>
+		<div class="p"><b>What are veteran units?</b></div>
 		<div id="expandindicator10" class="ei">+</div>
 	</div>
 	<div id="answercontainer10" class="a">
+		<p>A unit can be promoted to veteran status once it has destroyed 3 or more units, either via attacks or retaliations. You can promote the unit at any time during your turn, and you can even carry over the reward into following turns. However, you can only promote a unit once this way.<br/><br/>Once promoted, the unit's maximum HP permanently increases by 5 and the unit heals up completely. No other stats are affected. Because of this, it is generally a good idea to hold on to the reward until the unit is seriously damaged in battle.<br/><br/>Some units can't be promoted. This includes all super units (giants, crabs, every form of dragon), mind benders, polytaurs and navalons. Boats, ships and battleships can be promoted, but only if the carried unit previously activated the reward on land. This is due to the unit's battle victories at sea not being counted towards achieving its veteran status.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(11)">
+		<div class="p"><b>Where can I see all the unit stats?</b></div>
+		<div id="expandindicator11" class="ei">+</div>
+	</div>
+	<div id="answercontainer11" class="a">
+		<p>If you use drop-down unit templates, the calculator will automatically fill all the relevant stats for the selected unit. For more info, you should read the unit page on the game's wikia site. You can find the link to this page at the bottom of this FAQ.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(12)">
+		<div class="p"><b>How does the fire dragon's splash damage work?</b></div>
+		<div id="expandindicator12" class="ei">+</div>
+	</div>
+	<div id="answercontainer12" class="a">
 		<p>It is calculated in the same way as a regular attack. However, an additional line of code is added at the end:<br/><br/>
 		defender.health = defender.health - floor(attackResult / 2)<br/><br/>
 
@@ -2133,46 +2149,46 @@ function expandall(indicator)
 		In Single mode, both the main attack and splash damage results are provided to you simultaneously, calculated separately for the same defending unit. You either take one result or the other, depending on your follow-up. This is convenient if you're testing for damage in a group of units, so you can quickly get an idea which unit would be the most optimal to choose for the dragon's main attack. The calculator assumes the main attack will be the follow-up, and deducts that result from the defender's current HP.</p>
 	</div>
 	
-	<div class="q" onclick="expandcontainer(11)">
+	<div class="q" onclick="expandcontainer(13)">
 		<div class="p"><b>Can I use the calculator offline?</b></div>
-		<div id="expandindicator11" class="ei">+</div>
+		<div id="expandindicator13" class="ei">+</div>
 	</div>
-	<div id="answercontainer11" class="a">
+	<div id="answercontainer13" class="a">
 		<p>Yes you can. Follow these instructions:<br/><br/>
 		<i>PC</i>: Go to the calculator website, right-click on any empty space and press Save as... or Save Page As... to get the index.html file. Alternatively, you can download the file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a> or <a href="https://github.com/frothfrenzy/polytopiacalculator" target="_blank">GitHub</a>. After you downloaded it, simply drag the .html file into your browser to run the calculator.<br/><br/>
 		<i>iOS</i>: Repeat the PC process. Download an app called HTML Viewer Q by Spica. Connect your device to iTunes. In iTunes, select your device and go to File Sharing. Select HTML Viewer, press Add File and find the .html file you downloaded on your PC. Disconnect your device, run HTML Viewer and press on a book-like icon at the bottom right. Switch from Bookmarks to Files and select the downloaded .html file.<br/><br/>
 		<i>Android</i>: Either repeat the PC process, or download the Google Drive app to fetch the .html file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a>. If you used the PC, connect your device and transfer the .html file to it. If you used Google Drive, the file should be in your Downloads folder. Download the HTML Viewer app by Yogev Haham and run it. Press the paper-like icon at the upper right. Find and select the downloaded .html file, then press the browser view icon in the upper right.</p>
 	</div>
 	
-	<div class="q" onclick="expandcontainer(12)">
-		<div class="p"><b>Who are you?</b></div>
-		<div id="expandindicator12" class="ei">+</div>
-	</div>
-	<div id="answercontainer12" class="a">
-		<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
-	</div>
-	
-	<div class="q" onclick="expandcontainer(13)">
-		<div class="p"><b>How can I contact you?</b></div>
-		<div id="expandindicator13" class="ei">+</div>
-	</div>
-	<div id="answercontainer13" class="a">
-		<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
-	</div>
-	
 	<div class="q" onclick="expandcontainer(14)">
-		<div class="p"><b>What are Discord challenges?</b></div>
+		<div class="p"><b>Who are you?</b></div>
 		<div id="expandindicator14" class="ei">+</div>
 	</div>
 	<div id="answercontainer14" class="a">
-		<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
+		<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(15)">
-		<div class="p"><b>How can I become a better player?</b></div>
+		<div class="p"><b>How can I contact you?</b></div>
 		<div id="expandindicator15" class="ei">+</div>
 	</div>
 	<div id="answercontainer15" class="a">
+		<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(16)">
+		<div class="p"><b>What are Discord challenges?</b></div>
+		<div id="expandindicator16" class="ei">+</div>
+	</div>
+	<div id="answercontainer16" class="a">
+		<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(17)">
+		<div class="p"><b>How can I become a better player?</b></div>
+		<div id="expandindicator17" class="ei">+</div>
+	</div>
+	<div id="answercontainer17" class="a">
 		<p>Read through strategies on the game wikia, Reddit and Discord. Watch videos of experienced players on Youtube. Ask the player-base for help. Most important of all - play a lot, maximize your income and try to learn the mechanics behind the game. It will come in time. The links to help you with this are provided below.</p>
 	</div>
 	
