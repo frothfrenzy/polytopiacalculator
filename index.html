@@ -2126,7 +2126,7 @@ function expandall(indicator)
 	</div>
 	<div id="answercontainer10" class="a">
 		<p>It is calculated in the same way as a regular attack. However, an additional line of code is added at the end:<br/><br/>
-		defender.health = defender.health - floor(attackResult / 2);<br/><br/>
+		defender.health = defender.health - floor(attackResult / 2)<br/><br/>
 
 		This means that the unit receives half the damage it would normally receive if it was the main target, rounded down. So e.g. if the fire dragon would deal 11 damage to a unit by attacking it directly, that same unit would receive 5 damage (11/2=5.5=5) if it was splashed instead. Since nothing is altered in the original formula, the unit also benefits from its defense bonus, if any. Only the fire dragon's main target can retaliate, provided it survives the initial attack.<br/><br/>
 		
