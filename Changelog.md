@@ -1,5 +1,8 @@
 # Changelog
 
+31.10.2018.
+- Added an option to refresh all unavailable attackers. Tap or click the "Attackers:" text three times repeatedly to activate the refresh.
+
 27.10.2018.
 - Reorganized the FAQ into collapsable elements so it no longer appears as a giant wall of text. Also added two more questions to it.
 
