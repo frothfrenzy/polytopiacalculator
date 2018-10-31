@@ -1907,80 +1907,72 @@ function expandall(indicator)
 }
 function refreshattackers()
 {
-	if (attackers.length < 1)
+	var availabilitycheck = false;
+	if (refreshcounter == 0)
+	{
+		for (i = 0; i < attackers.length; i++)
+		{
+			if ((attackers[i].unavailable == true) && (attackers[i].hp > 0))
+			{
+				availabilitycheck = true;
+				break;
+			}
+			if ((attackers[i].type == "Fire Dragon") && (attackers[i].unavailable == false) && (attackers[i].defendersattacked.length > 0))
+			{
+				availabilitycheck = true;
+				break;
+			}
+		}
+	}
+	if ((availabilitycheck == false) && (refreshcounter == 0))
 	{
 		messageclear();
-		document.getElementById("resultatt").innerHTML = "At least one attacker must be created before opting for a refresh!";
+		document.getElementById("resultatt").innerHTML = "There are no valid attackers that can be refreshed.";
 	}
-	else
+	else if ((availabilitycheck == true) || (refreshcounter > 0))
 	{
-		var availabilitycheck = false;
-		if (refreshcounter == 0)
+		refreshcounter++;
+		if (refreshcounter == 1)
+		{
+			messageclear();
+			document.getElementById("resultatt").innerHTML = 'Opting to refresh all valid attackers. Press "Attackers:" two more times to confirm.';
+		}
+		else if (refreshcounter == 2)
+		{
+			messageclear();
+			document.getElementById("resultatt").innerHTML = 'Opting to refresh all valid attackers. Press "Attackers:" one more time to confirm.';
+		}
+		else if (refreshcounter == 3)
 		{
 			for (i = 0; i < attackers.length; i++)
 			{
 				if ((attackers[i].unavailable == true) && (attackers[i].hp > 0))
 				{
-					availabilitycheck = true;
-					break;
+					attackers[i].unavailable = false;
+					attackers[i].defendersattacked = [];
+					document.getElementById("attacker" + i).style.borderColor = "black";
 				}
-				if ((attackers[i].type == "Fire Dragon") && (attackers[i].unavailable == false) && (attackers[i].defendersattacked.length > 0))
+				if (document.getElementById("attacker" + i).style.borderColor == "green")
 				{
-					availabilitycheck = true;
-					break;
+					document.getElementById("attacker" + i).style.borderColor = "black";
+					attackers[i].defendersattacked = [];
+					if (attackers[i].type == "Fire Dragon")
+					{
+						document.getElementById("splash" + i).innerHTML = "<b> </b>";
+						attackers[i].originalhp = attackers[i].hp;
+					}
 				}
 			}
-		}
-		if ((availabilitycheck == false) && (refreshcounter == 0))
-		{
+			if (deleteselected == true)
+			{
+				deleteselected = false;
+				document.getElementById("deletebutton").innerText = "Delete Units";
+			}
+			attackerselected = -1;
+			prevattackerselected = -2;
+			refreshcounter = 0;
 			messageclear();
-			document.getElementById("resultatt").innerHTML = "No attackers available for a refresh.";
-		}
-		else if ((availabilitycheck == true) || (refreshcounter > 0))
-		{
-			refreshcounter++;
-			if (refreshcounter == 1)
-			{
-				messageclear();
-				document.getElementById("resultatt").innerHTML = 'Opting to refresh all valid attackers. Press "Attackers:" two more times to confirm.';
-			}
-			else if (refreshcounter == 2)
-			{
-				messageclear();
-				document.getElementById("resultatt").innerHTML = 'Opting to refresh all valid attackers. Press "Attackers:" one more time to confirm.';
-			}
-			else if (refreshcounter == 3)
-			{
-				for (i = 0; i < attackers.length; i++)
-				{
-					if ((attackers[i].unavailable == true) && (attackers[i].hp > 0))
-					{
-						attackers[i].unavailable = false;
-						attackers[i].defendersattacked = [];
-						document.getElementById("attacker" + i).style.borderColor = "black";
-					}
-					if (document.getElementById("attacker" + i).style.borderColor == "green")
-					{
-						document.getElementById("attacker" + i).style.borderColor = "black";
-						attackers[i].defendersattacked = [];
-						if (attackers[i].type == "Fire Dragon")
-						{
-							document.getElementById("splash" + i).innerHTML = "<b> </b>";
-							attackers[i].originalhp = attackers[i].hp;
-						}
-					}
-				}
-				if (deleteselected == true)
-				{
-					deleteselected = false;
-					document.getElementById("deletebutton").innerText = "Delete Units";
-				}
-				attackerselected = -1;
-				prevattackerselected = -2;
-				refreshcounter = 0;
-				messageclear();
-				document.getElementById("resultatt").innerHTML = 'Attackers refreshed!';
-			}
+			document.getElementById("resultatt").innerHTML = 'Attackers refreshed!';
 		}
 	}
 }
@@ -2006,6 +1998,7 @@ function refreshattackers()
   			<option value="Select Attacker">Select Attacker
  			<option value="Warrior">Warrior
 		 	<option value="Rider">Rider
+			<option value="Defender">Defender
 			<option value="Defender">Defender
 			<option value="Swordsman">Swordsman
 			<option value="Archer">Archer
