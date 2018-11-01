@@ -66,6 +66,10 @@ input, button, select
 {
 	font-size: 16px;
 }
+.textpress:active
+{
+	background-color: lightgray;
+}
 </style>
 
 </head>
@@ -2017,7 +2021,7 @@ function refreshattackers()
 			<option value="Fire Dragon">Fire Dragon
 		</select>
 
-		<span id="attveterancy" style="display:none"><span onclick="attvettest()">Veteran? </span><input type="checkbox" id="attvetbox" onclick="attackerveteran()"></span>
+		<span id="attveterancy" style="display:none"><span class="textpress" onclick="attvettest()">Veteran? </span><input type="checkbox" id="attvetbox" onclick="attackerveteran()"></span>
 	
 		<select id="attshiphp" class= "mselect" onchange="attackershiphp()" style="display:none" tabindex="-3">
   			<option value="HP 10">Max HP 10
@@ -2060,7 +2064,7 @@ function refreshattackers()
 			<option value="Nature Bunny">Nature Bunny
 		</select>
 
-		<span id="defveterancy" style="display:none"><span onclick="defvettest()">Veteran? </span><input type="checkbox" id="defvetbox" onclick="defenderveteran()"></span>
+		<span id="defveterancy" style="display:none"><span class="textpress" onclick="defvettest()">Veteran? </span><input type="checkbox" id="defvetbox" onclick="defenderveteran()"></span>
 
 		<select id="defshiphp" class= "mselect" onchange="defendershiphp()" style="display:none" tabindex="-6">
   			<option value="HP 10">Max HP 10
@@ -2077,8 +2081,8 @@ function refreshattackers()
 		<input type="number" id="defensemaxhp" class="minput" min="10" required tabindex="6">
 	
 
-		<p><span onclick="setdefbonus()">Defense bonus? </span><input type="checkbox" id="def1" onclick="defcheck()">&nbsp;
-		<span onclick="setwallbonus()">Wall bonus? </span><input type="checkbox" id="def2" onclick="wallcheck()"></p>
+		<p><span class="textpress" onclick="setdefbonus()">Defense bonus? </span><input type="checkbox" id="def1" onclick="defcheck()">&nbsp;
+		<span class="textpress" onclick="setwallbonus()">Wall bonus? </span><input type="checkbox" id="def2" onclick="wallcheck()"></p>
 	</div>
 
 	<p><button id="submitbutton" type="submit" class="mbutton" onclick="calculate('Single')" tabindex="7">Calculate!</button>
@@ -2089,9 +2093,9 @@ function refreshattackers()
 	&nbsp;<a id="singlefaq" href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
 	</form>
 
-	<p id="attackersheader" style="display:none"><b onclick="refreshattackers()">Attackers:</b></p>
+	<p id="attackersheader" style="display:none"><b class="textpress" onclick="refreshattackers()">Attackers:</b></p>
 	<div id="attackerlist" style="display:none; width: 325px;"></div>
-	<p id="defendersheader" style="display:none"><b onclick="noretaldefault()" style="margin-right: 95px">Defenders: </b><span id="noretaltext" style="visibility: hidden"><i onclick="noretalboxcheck()">No retaliation? </i><input type="checkbox" id="noretalbox"></span></p>
+	<p id="defendersheader" style="display:none"><b class="textpress" onclick="noretaldefault()" style="margin-right: 95px">Defenders: </b><span id="noretaltext" style="visibility: hidden"><i onclick="noretalboxcheck()">No retaliation? </i><input type="checkbox" id="noretalbox"></span></p>
 	<div id="defenderlist" style="display:none; width: 325px;"></div>
 
 	<p id="states" style="display: none"><button type="button" class="mbutton" onclick="createbackup()">Save State</button>
@@ -2099,8 +2103,8 @@ function refreshattackers()
 	<a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
 
 	<p><b id="result">Result:</b></p>
-	<div onclick="displayextinfo()">
-		<p id="resultatt"><b><i>New update!</i></b> Press the Multi button and recreate your current battle state to try a variety of calculations in consecution.</p>
+	<div class="textpress" onclick="displayextinfo()" style="max-width: 800px">
+		<p id="resultatt"><b><i>New update!</i></b> Press the Multi button, recreate your current battle state and try a variety of calculations in consecution.</p>
 		<p id="resultdef">For more information, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>

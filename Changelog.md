@@ -1,6 +1,6 @@
 # Changelog
 
-31.10.2018.
+1.11.2018.
 - Added an option to refresh all unavailable attackers. Tap or click the "Attackers:" text three times repeatedly to activate the refresh.
 
 27.10.2018.
