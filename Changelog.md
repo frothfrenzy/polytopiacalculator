@@ -1,6 +1,6 @@
 # Changelog
 
-02.11.2018.
+04.11.2018.
 - Added an option to refresh all unavailable attackers. Tap or click the "Attackers:" text three times repeatedly to activate the refresh.
 
 27.10.2018.
@@ -34,7 +34,7 @@
 - Added details regarding veterancy status and variable ship HP to complement unit templates.
 - You can now click or tap the text next to any checkbox to activate the corresponding checkbox.
 - Added error messages as a fallback due to Safari not reporting errors for invalid input.
-- Added a battle history. Tap or click three times on any text that appears below "Result:" to activate it. It can be deactivated in the same way. Read the FAQ for more details.
+- Added a battle history. Tap or click three times on "Result:" or any text below it to activate the history. It can be deactivated in the same way. Read the FAQ for more details.
 
 24.05.2018.
 - Added support for the Elyrion tribe.
