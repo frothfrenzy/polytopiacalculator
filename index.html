@@ -140,7 +140,6 @@ function calculate(mode)
 	}
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	if (mode != "Multi")
 	{
 		if (isNaN(att) == true || isNaN(def) == true || isNaN(atthp) == true ||
@@ -645,7 +644,6 @@ function clearform()
 	document.getElementById("extendedinfo").style.display='none';
 	document.body.scrollTop = document.documentElement.scrollTop = 0;
 	tapcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 }
 function attackerfill()
 {
@@ -1127,7 +1125,6 @@ function show(shown, hidden)
  	document.getElementById(hidden).style.display='none';
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	if ((document.getElementById("multibutton").innerText == "Single") && (deleteselected == true))
 	{
 		messageclear();
@@ -1139,19 +1136,10 @@ function show(shown, hidden)
 function displayextinfo()
 {
 	tapcounter++;
-	if (tapcounter == 1)
-	{
-		document.getElementById("respressindicator").innerHTML = " &#9679;&#9679;";
-	}
-	else if (tapcounter == 2)
-	{
-		document.getElementById("respressindicator").innerHTML = " &#9679;&#9679;&#9679;";
-	}
 	if ((tapcounter > 2) && (document.getElementById("extendedinfo").style.display == 'none'))
 	{
 		tapcounter = 0;
 		document.getElementById("extendedinfo").style.display='block';
-		document.getElementById("respressindicator").innerHTML = " &#9679;";
 		if (document.getElementById("multibutton").innerText == "Single")
 		{
 			states.scrollIntoView();
@@ -1165,7 +1153,6 @@ function displayextinfo()
 	{
 		tapcounter = 0;
 		document.getElementById("extendedinfo").style.display='none';
-		document.getElementById("respressindicator").innerHTML = " &#9679;";
 		scrollanchor.scrollIntoView(false);
 	}
 }
@@ -1219,7 +1206,6 @@ function multiswitch()
 		choosetype();
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		tapcounter = 0;
-		document.getElementById("respressindicator").innerHTML = " &#9679;";
 	}
 	else
 	{
@@ -1251,7 +1237,6 @@ function multiswitch()
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
 		tapcounter = 0;
 		refreshcounter = 0;
-		document.getElementById("respressindicator").innerHTML = " &#9679;";
 		if (deleteselected == true)
 		{
 			messageclear();
@@ -1264,7 +1249,6 @@ function createunit()
 {
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	warning = false;
 	if (deleteselected == true)
 	{
@@ -1411,7 +1395,6 @@ function deleteunitprompt()
 {
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	if ((attackers.length < 1) && (defenders.length < 1) && (deleteselected == false))
 	{
 		messageclear();
@@ -1476,7 +1459,6 @@ function deleteunit(type)
 	var test = "";
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	if (type == "Attacker")
 	{
 		attackers.splice(attackerselected, 1);
@@ -1701,7 +1683,6 @@ function createbackup()
 {
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	if (deleteselected == true)
 	{
 		deleteselected = false;
@@ -1749,7 +1730,6 @@ function loadbackup()
 {
 	tapcounter = 0;
 	refreshcounter = 0;
-	document.getElementById("respressindicator").innerHTML = " &#9679;";
 	if (deleteselected == true)
 	{
 		deleteselected = false;
@@ -2132,7 +2112,7 @@ function refreshattackers()
 
 	<div id="resultcontainer" onclick="displayextinfo()" style="max-width: 800px">
 		<div style="float:left"><p style="display: inline"><b id="result">Result:</b></p></div>
-		<div id="respressindicator" style="float: left; text-align: center"> &#9679;</div>
+		<div style="float: left"><p id="respressindicator"> &#9679;</p></div>
 		<br/><p id="resultatt"><b><i>New update!</i></b> Press the Multi button, recreate your current battle state and try a variety of calculations in consecution.</p>
 		<p id="resultdef">For more information, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
