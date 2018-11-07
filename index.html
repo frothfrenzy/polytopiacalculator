@@ -1487,6 +1487,13 @@ function deleteunit(type)
 			document.getElementById(selectedelement).setAttribute("id", elementid);
 		}
 	}
+	if ((attackers.length == 0) && (defenders.length == 0))
+	{
+		deleteselected = false;
+		messageclear();
+		document.getElementById("resultatt").innerHTML = "All units deleted. Unit deletion deactivated.";
+		document.getElementById("deletebutton").innerText = "Delete Units";
+	}
 	attackerselected = -1;
 	defenderselected = -1;
 	prevattackerselected = -2;
@@ -2102,7 +2109,7 @@ function refreshattackers()
 
 	<p id="attackersheader" style="display:none"><b class="textpress" onclick="refreshattackers()">Attackers:</b></p>
 	<div id="attackerlist" style="display:none; width: 325px;"></div>
-	<p id="defendersheader" style="display:none"><b class="textpress" onclick="noretaldefault()" style="margin-right: 95px">Defenders: </b><span id="noretaltext" style="visibility: hidden"><i onclick="noretalboxcheck()">No retaliation? </i><input type="checkbox" id="noretalbox"></span></p>
+	<p id="defendersheader" style="display:none"><b class="textpress" onclick="noretaldefault()" style="margin-right: 95px">Defenders:</b><span id="noretaltext" style="visibility: hidden"><i class="textpress" onclick="noretalboxcheck()">No retaliation? </i><input type="checkbox" id="noretalbox"></span></p>
 	<div id="defenderlist" style="display:none; width: 325px;"></div>
 
 	<p id="states" style="display: none"><button type="button" class="mbutton" onclick="createbackup()">Save State</button>
@@ -2292,7 +2299,8 @@ function refreshattackers()
 		<a href="https://www.reddit.com/r/Polytopia/" target="_blank">Reddit</a><br/><br/>
 		
 		<a href="http://www.midjiwan.com/polytopia.html" target="_blank">Official Game Website</a><br/>
-		<a href="https://www.facebook.com/polytopia/" target="_blank">Official Game Facebook</a><br/><br/>
+		<a href="https://www.facebook.com/polytopia/" target="_blank">Official Game Facebook</a><br/>
+		<a href="https://www.facebook.com/groups/1863426817282664/" target="_blank">Official Facebook Multiplayer Group</a><br/><br/>
 		
 		<a href="https://twitter.com/midjiwan?lang=en" target="_blank">Midjiwan's Twitter</a><br/>
 		<a href="https://www.instagram.com/midjiwan/" target="_blank">Midjiwan's Instagram</a><br/>
@@ -2314,6 +2322,8 @@ function refreshattackers()
 		
 		<a href="https://drive.google.com/open?id=10vODoFZk-i670i56je_6G-XyZK7qHHEqp7xA-nYW4X8" target="_blank">Challenge List</a><br/><br/>
 
+		<a href="https://github.com/frothfrenzy/polytopiacalculator" target="_blank">My GitHub</a><br/><br/>
+		
 		<a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md" target="_blank">Changelog</a><br/><br/><br/>
 
 		<a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
