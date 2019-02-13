@@ -1,8 +1,21 @@
 # Changelog
 
+14.02.2019.
+- UI update.
+- Made the top and bottom margins of paragraphs slightly smaller.
+- Removed Select Attacker/Select Defender from the template list and made it so the calculator starts with warriors selected immediately.
+- Removed the Clear button as it seemed a bit pointless.
+- Changed the look of checkboxes, buttons and text input fields.
+- Ship HP is now chosen via buttons instead of the template list.
+- Added a hidden current unit HP refresh shortcut. Click or tap the text above the current HP input field twice in consecution to activate the refresh (Attacker/Defender current HP:).
+- Create Attacker/Create Defender in Multi mode is now a single button instead of a short list. Added a small margin below it to reduce chance of pressing it unwittingly.
+- All valid clicks or taps now have a visible feedback.
+- Changed the FAQ accordingly.
+- Bugs are possible due to the use of new methods. Old version is available at: https://frothfrenzy.github.io/polytopiacalculator/oldindex2.html
+
 26.11.2018.
 - Added a question to the FAQ.
-- Minor bug fixes.
+- Corrected minor bugs.
 
 07.11.2018.
 - Added an option to refresh all unavailable attackers. Tap or click the "Attackers:" text three times repeatedly to activate the refresh.
