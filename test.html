@@ -24,8 +24,8 @@ p
 {
 	max-height: 999999px;
 	font-size: 17px;
-	margin-top: 13px;
-	margin-bottom: 13px;
+	margin-top: 12px;
+	margin-bottom: 12px;
 }
 p.i
 {
@@ -83,8 +83,8 @@ div.q
 	cursor: pointer;
 	font-size: 17px;
 	border: 1px solid #A9A9A9;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 	padding-left: 2px;
 	padding-right: 2px;
 	-moz-appearance:none;
@@ -102,10 +102,10 @@ div.q
 	font-size: 17px;
 	border: 1px solid #A9A9A9;
 	width: 29px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 0px;
-	padding-right: 0px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 2px;
+	padding-right: 2px;
 	text-align: center;
 	-moz-appearance:none;
 	-webkit-appearance: none;
@@ -118,8 +118,8 @@ div.q
 	font-size: 17px;
 	border: 1px solid #A9A9A9;
 	width: 28px;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
 	padding-left: 1px;
 	padding-right: 1px;
 	-moz-appearance:none;
@@ -191,19 +191,19 @@ select
 {
 	position: relative;
 	width: 130px;
+	height: 34px;
 	font-size: 17px;
-	display: inline;
+	display: inline-block;
 	border: 1px solid #A9A9A9;
-	box-sizing: border-box;
 	padding-left: 1px;
 	padding-right: 2px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	border-radius: 0;
+	background: url(Other/DownArrow.png) no-repeat right;
 	-moz-appearance:none;
 	-webkit-appearance: none;
 	appearance:none;
-	background: url(Other/DownArrow.png) no-repeat right;
 }
 select::-ms-expand
 {
@@ -2190,7 +2190,7 @@ function refreshattackers()
 			<option value="Fire Dragon">Fire Dragon
 		</select>
 		
-		<label class="container" id="attveterancy" onclick="attackerveteran()" style="display: none;">
+		<label class="container" id="attveterancy" onclick="attackerveteran()" style="display: none; position: absolute; margin-left: 4px;">
 			<span style="margin-right: 28px">Veteran?</span>
 			<input type="checkbox" id="attvetbox" style="visibility: hidden">
 			<span class="checkmark"></span>
@@ -2244,13 +2244,13 @@ function refreshattackers()
 			<option value="Nature Bunny">Nature Bunny
 		</select>
 
-		<label class="container" id="defveterancy" onclick="defenderveteran()" style="display: none;">
+		<label class="container" id="defveterancy" onclick="defenderveteran()" style="display: none; position: absolute; margin-left: 4px;">
 			<span style="margin-right: 28px">Veteran?</span>
 			<input type="checkbox" id="defvetbox" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
 		
-		<span id="defshiphp" style="display: none;  margin-left: 4px;">
+		<span id="defshiphp" style="display: none; position: absolute; margin-left: 4px;">
 			<label class="shiphpcontainer" onclick="defendershiphp(10)">
 				<span>10</span>
 			</label>
