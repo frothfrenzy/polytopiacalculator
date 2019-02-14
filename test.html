@@ -78,7 +78,7 @@ div.q
 }
 .container
 {
-	display: inline-flex;
+	display: inline-block;
 	position: relative;
 	cursor: pointer;
 	height: 40px;
@@ -146,6 +146,7 @@ div.q
 	position: absolute;
 	height: 18px;
 	width: 18px;
+	top: 10px;
 	right: 2px;
 	background-color: #eee;
 	border: 1px solid #696969;
@@ -883,7 +884,7 @@ function attackerfill()
 	if (getattacker == "Warrior" || getattacker == "Rider" || getattacker == "Defender" || getattacker == "Swordsman" || getattacker == "Archer" || getattacker == "Catapult" || getattacker == "Knight" || getattacker == "Amphibian" || getattacker == "Tridention")
 	{
 		document.getElementById("attvetbox").checked = false;
-		document.getElementById("attveterancy").style.display='inline-flex';
+		document.getElementById("attveterancy").style.display='inline-block';
 		document.getElementById("attshiphp").style.display='none';
 	}
 	else if (getattacker == "Boat" || getattacker == "Ship" || getattacker == "Battleship")
@@ -1011,7 +1012,7 @@ function defenderfill()
 	if (getdefender == "Warrior" || getdefender == "Rider" || getdefender == "Defender" || getdefender == "Swordsman" || getdefender == "Archer" || getdefender == "Catapult" || getdefender == "Knight" || getdefender == "Amphibian" || getdefender == "Tridention")
 	{
 		document.getElementById("defvetbox").checked = false;
-		document.getElementById("defveterancy").style.display='inline-flex';
+		document.getElementById("defveterancy").style.display='inline-block';
 		document.getElementById("defshiphp").style.display='none';
 	}
 	else if (getdefender == "Boat" || getdefender == "Ship" || getdefender == "Battleship")
@@ -2250,7 +2251,7 @@ function refreshattackers()
 		</select>
 
 		<label class="container" id="defveterancy" onclick="defenderveteran()" style="display: none; position: absolute; margin-left: 4px;">
-			<span style="margin-right: 28px">Veteran?</span>
+			<span style="margin-right: 28px;">Veteran?</span>
 			<input type="checkbox" id="defvetbox" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
