@@ -1301,12 +1301,14 @@ function choosetype()
 	if (document.getElementById("unitselect").innerText == "Create Attacker")
 	{
 		document.getElementById("unitselect").innerText = "Create Defender";
-		document.getElementById("imageswitch").src = "Other/Switch2.png";
+		document.getElementById("switch1").style.visibility = "hidden";
+		document.getElementById("switch2").style.visibility = "visible";
 	}
 	else
 	{
 		document.getElementById("unitselect").innerText = "Create Attacker";
-		document.getElementById("imageswitch").src = "Other/Switch1.png";
+		document.getElementById("switch1").style.visibility = "visible";
+		document.getElementById("switch2").style.visibility = "hidden";
 	}
 	
 	var unittype = document.getElementById("unitselect").innerText;
@@ -2152,7 +2154,7 @@ function refreshattackers()
 	<form id="values" onsubmit="return false" onkeypress="if (document.getElementById('multibutton').innerText == 'Single') {return event.keyCode != 13;}">
 	
 	<p><label class="creationcontainer" id="createunitbutton" onclick="choosetype()" style="width: 175px; display: none; margin-bottom: 8px;">
-		<span id="unitselect" style="font-size: 18px; padding-left: 2px; padding-top: 4px; padding-bottom: 4px; width: 142px; float: left;">Create Attacker</span><img src="Other/Switch1.png" alt="Image Switcher" id="imageswitch" height="20" width="20" style="position: absolute; margin-left: 10px; padding-top: 4px;">
+		<span id="unitselect" style="font-size: 18px; padding-left: 2px; padding-top: 4px; padding-bottom: 4px; width: 142px; float: left;">Create Attacker</span><img src="Other/Switch1.png" alt="Image Switcher" id="switch1" height="20" width="20" style="position: absolute; margin-left: 10px; padding-top: 4px; visibility: visible;"><img src="Other/Switch2.png" alt="Image Switcher" id="switch2" height="20" width="20" style="position: absolute; margin-left: 10px; padding-top: 4px; visibility: hidden;">
 	</label></p>
 	<div id="attvalues">
 		<select id="selectattacker" class= "mselect" onchange="attackerfill()" style="position: relative" tabindex="-1">
@@ -2298,7 +2300,7 @@ function refreshattackers()
 
 	<div id="resultcontainer" onclick="displayextinfo()" style="max-width: 800px">
 		<p><b id="result">Result:</b><span id="respressindicator">&#9679;</span></p>
-		<p id="resultatt">Minor update. The UI should be a bit cleaner and easier to use now. Refer to the <a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md">changelog</a> for details. Old version available <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex2.html">here</a>.</p>
+		<p id="resultatt">Minor update. The UI should is a bit cleaner and easier to use now. Refer to the <a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md">changelog</a> for details. Old version available <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex2.html">here</a>.</p>
 		<p id="resultdef">For more information, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
@@ -2310,7 +2312,7 @@ function refreshattackers()
 <div id="faq" style="display:none; max-width: 800px">
 	<h2>Frequently Asked Questions</h2><br/><br/>
 	
-	<p><a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a><a href="javascript:;" id="expandallindicator1" style="float: right" onclick="expandall(1)">+ Expand all</a></p>
+	<p><a href="javascript:;" class="textpress" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a><a href="javascript:;" class="textpress" id="expandallindicator1" style="float: right" onclick="expandall(1)">+ Expand all</a></p>
 	
 	<div class="q" style="border-top: 1px solid; margin-top: 25px;" onclick="expandcontainer(0)">
 		<div class="p"><b>How to use the calculator?</b></div>
@@ -2481,7 +2483,7 @@ function refreshattackers()
 	</div>
 	
 	<div style="float: left; position: relative; top: 6px; width: 100%">
-		<p><b>Links:</b><a href="javascript:;" id="expandallindicator2" style="float: right" onclick="expandall(2)">+ Expand all</a></p>
+		<p><b>Links:</b><a href="javascript:;" class="textpress" id="expandallindicator2" style="float: right" onclick="expandall(2)">+ Expand all</a></p>
 		
 		<p><a href="https://discord.gg/YTFTuAq?" target="_blank">Discord</a><br/>
 		<a href="http://polytopia.wikia.com/wiki/The_Battle_of_Polytopia_Wikia" target="_blank">Wikia</a><br/>
@@ -2515,7 +2517,7 @@ function refreshattackers()
 		
 		<a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md" target="_blank">Changelog</a><br/><br/><br/>
 
-		<a href="javascript:;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
+		<a href="javascript:;" class="textpress" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a></p><br/>
 	</div>
 </div>
 </body>
