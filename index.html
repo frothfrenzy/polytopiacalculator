@@ -2276,7 +2276,7 @@ function refreshattackers()
 	<button id="createbutton" type="button" class="mbutton" onclick="createunit()" style="display:none">Create Unit!</button>
 	<button id="multibutton" type="button" class="mbutton" onclick="multiswitch()">Multi</button>
 	<button id="deletebutton" type="button" class="mbutton" onclick="deleteunitprompt()" style="display:none">Delete Units</button>
-	&nbsp;<a id="singlefaq" href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
+	<a class="textpress" id="singlefaq" href="#top" onclick="return show('faq', 'main')" target="_top" style="margin-left: 15px">FAQ</a></p>
 	</form>
 
 	<p id="attackersheader" style="display:none"><b class="textpress" onclick="refreshattackers()">Attackers:</b></p>
@@ -2293,8 +2293,8 @@ function refreshattackers()
 	<div id="defenderlist" style="display:none; width: 325px;"></div>
 
 	<p id="states" style="display: none"><button type="button" class="mbutton" onclick="createbackup()">Save State</button>
-	<button type="button" class="mbutton" onclick="loadbackup()">Load State</button>&nbsp;
-	<a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a></p>
+	<button type="button" class="mbutton" onclick="loadbackup()">Load State</button>
+	<a href="#top" class="textpress" onclick="return show('faq', 'main')" target="_top" style="margin-left: 15px">FAQ</a></p>
 
 	<div id="resultcontainer" onclick="displayextinfo()" style="max-width: 800px">
 		<p><b id="result">Result:</b><span id="respressindicator">&#9679;</span></p>
