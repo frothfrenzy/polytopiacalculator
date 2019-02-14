@@ -24,8 +24,8 @@ p
 {
 	max-height: 999999px;
 	font-size: 17px;
-	margin-top: 14px;
-	margin-bottom: 14px;
+	margin-top: 13px;
+	margin-bottom: 13px;
 }
 p.i
 {
@@ -83,8 +83,8 @@ div.q
 	cursor: pointer;
 	font-size: 17px;
 	border: 1px solid #A9A9A9;
-	padding-top: 3px;
-	padding-bottom: 3px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	padding-left: 2px;
 	padding-right: 2px;
 	-moz-appearance:none;
@@ -101,11 +101,11 @@ div.q
 	cursor: pointer;
 	font-size: 17px;
 	border: 1px solid #A9A9A9;
-	width: 28px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 1px;
-	padding-right: 1px;
+	width: 29px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
 	text-align: center;
 	-moz-appearance:none;
 	-webkit-appearance: none;
@@ -191,15 +191,14 @@ select
 {
 	position: relative;
 	width: 130px;
-	height: 28px;
 	font-size: 17px;
-	display: inline-block;
+	display: inline;
 	border: 1px solid #A9A9A9;
 	box-sizing: border-box;
 	padding-left: 1px;
 	padding-right: 2px;
-	padding-top: 1px;
-	padding-bottom: 1px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	border-radius: 0;
 	-moz-appearance:none;
 	-webkit-appearance: none;
@@ -2191,9 +2190,9 @@ function refreshattackers()
 			<option value="Fire Dragon">Fire Dragon
 		</select>
 		
-		<label class="container" id="attveterancy" onclick="attackerveteran()" style="display: none; margin-left: 4px;">
+		<label class="container" id="attveterancy" onclick="attackerveteran()" style="display: none;">
 			<span style="margin-right: 28px">Veteran?</span>
-			<input type="checkbox" id="attvetbox">
+			<input type="checkbox" id="attvetbox" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
 		
@@ -2245,9 +2244,9 @@ function refreshattackers()
 			<option value="Nature Bunny">Nature Bunny
 		</select>
 
-		<label class="container" id="defveterancy" onclick="defenderveteran()" style="display: none; margin-left: 4px;">
+		<label class="container" id="defveterancy" onclick="defenderveteran()" style="display: none;">
 			<span style="margin-right: 28px">Veteran?</span>
-			<input type="checkbox" id="defvetbox">
+			<input type="checkbox" id="defvetbox" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
 		
@@ -2276,12 +2275,12 @@ function refreshattackers()
 		<p>
 		<label class="container" onclick="setdefbonus()">
 			<span style="margin-right: 28px">Defense bonus?</span>
-			<input type="checkbox" id="def1" onclick="defcheck()">
+			<input type="checkbox" id="def1" onclick="defcheck()" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container" onclick="setwallbonus()">
 			<span style="margin-right: 28px">Wall bonus?</span>
-			<input type="checkbox" id="def2" onclick="wallcheck()">
+			<input type="checkbox" id="def2" onclick="wallcheck()" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
 		</p>
@@ -2300,7 +2299,7 @@ function refreshattackers()
 		
 		<label class="container" id="noretaltext" onclick="noretalboxcheck()" style="visibility: hidden; position: relative;">
 			<span style="margin-right: 28px">No retaliation?</span>
-			<input type="checkbox" id="noretalbox">
+			<input type="checkbox" id="noretalbox" style="visibility: hidden">
 			<span class="checkmark"></span>
 		</label>
 		
