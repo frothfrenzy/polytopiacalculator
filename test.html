@@ -196,15 +196,7 @@ select
 {
 	position: relative;
 	width: 130px;
-	height: 40px;
-	font-size: 100%;
-	vertical-align: baseline;
-	*vertical-align: middle;
-	text-transform: none;
-	display: block;
-   
-    font-size: .9em;
-	margin: 0;
+	font-size: 17px;
 	display: inline-block;
 	border: 1px solid #A9A9A9;
 	padding-left: 1px;
@@ -213,9 +205,6 @@ select
 	padding-bottom: 5px;
 	border-radius: 0;
 	background: url(Other/DownArrow.png) no-repeat right;
-	border: .1em solid #c2c2c2;
-    border-radius: .2em;
-    padding: .5em;
 	box-sizing: border-box;
 	-moz-appearance:none;
 	-webkit-appearance: none;
@@ -1992,6 +1981,8 @@ function mobilescreen()
 {
 	attackerfill();
 	defenderfill();
+	document.getElementById("selectattacker").style.height = "40px";
+	document.getElementById("selectdefender").style.height = "40px";
 	if ((document.documentElement.clientWidth < 500) || (document.documentElement.clientHeight < 400))
 	{
 		var classlist = document.getElementsByClassName("minput");
