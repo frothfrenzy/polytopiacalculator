@@ -196,6 +196,7 @@ select
 {
 	position: relative;
 	width: 130px;
+	height: 40px;
 	font-size: 17px;
 	display: inline-block;
 	border: 1px solid #A9A9A9;
@@ -232,7 +233,7 @@ button:active
 
 </head>
 
-<body onload="mobilescreen()">
+<body onload="loadelements()">
 <script>
 var extinfo = [];
 var tapcounter = 0;
@@ -1977,38 +1978,11 @@ function noretaldefault()
 		document.getElementById("resultatt").innerHTML = "Setting changed. Enemy units WON'T retaliate on your ranged attacks by default.";
 	}
 }
-function mobilescreen()
+function loadelements()
 {
 	attackerfill();
 	defenderfill();
-	document.getElementById("selectattacker").style.height = "40px";
-	document.getElementById("selectdefender").style.height = "40px";
-	if ((document.documentElement.clientWidth < 500) || (document.documentElement.clientHeight < 400))
-	{
-		var classlist = document.getElementsByClassName("minput");
-		for (i = 0; i < classlist.length; i++)
-		{
-			document.getElementsByClassName("minput")[i].style.height = "21px";
-			document.getElementsByClassName("minput")[i].style.fontSize = "17px";
-		}
-		classlist = document.getElementsByClassName("mbutton");
-		for (i = 0; i < classlist.length; i++)
-		{
-			document.getElementsByClassName("mbutton")[i].style.height = "32px";
-			document.getElementsByClassName("mbutton")[i].style.fontSize = "17px";
-		}
-		classlist = document.getElementsByClassName("mselect");
-		for (i = 0; i < classlist.length; i++)
-		{
-			document.getElementsByClassName("mselect")[i].style.height = "30px";
-			document.getElementsByClassName("mselect")[i].style.fontSize = "17px";
-		}
-		document.getElementById("main").style.visibility = "visible";
-	}
-	else
-	{
-		document.getElementById("main").style.visibility = "visible";
-	}
+	document.getElementById("main").style.visibility = "visible";
 }
 function expandcontainer(identifier)
 {
