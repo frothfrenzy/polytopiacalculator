@@ -258,6 +258,7 @@ var refreshcounter = 0;
 var refatthpcounter = 0;
 var refdefhpcounter = 0;
 var shortparameter = false;
+var savednumber = 0;
 
 function messageclear()
 {
@@ -1248,6 +1249,19 @@ function refreshdefhp()
 		document.getElementById("defensehp").value = document.getElementById("defensemaxhp").value;
 	}
 }
+function numberfocus(focusid)
+{
+	savednumber = document.getElementById(focusid).value;
+	document.getElementById(focusid).value = "";
+	document.getElementById(focusid).placeholder = savednumber;
+}
+function numberblur (blurid)
+{
+	if (document.getElementById(blurid).value == "")
+	{
+		document.getElementById(blurid).value = savednumber;
+	}
+}
 function show(shown, hidden)
 {
 	document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -2185,12 +2199,12 @@ function refreshattackers()
 			</label>
 		</span>
 		<p class="shorthide" id="attvaluetext">Attacker attack value:</p>
-		<input type="number" id="attack" class="minput shorthide" min="0" step="0.5" required tabindex="1">
+		<input type="number" id="attack" class="minput shorthide" onfocus="numberfocus('attack')" onblur="numberblur('attack')" placeholder="" min="0" step="0.5" required tabindex="1">
 		<p><span class="textpress" onclick="refreshatthp()">Attacker current HP:</span></p>
-		<input type="number" id="attackhp" class="minput" min="1" required tabindex="2"><span id="shortatt" style="display: none; font-size: 17px; margin-left: 4px;"></span>
+		<input type="number" id="attackhp" class="minput" onfocus="numberfocus('attackhp')" onblur="numberblur('attackhp')" placeholder="" min="1" required tabindex="2"><span id="shortatt" style="display: none; font-size: 17px; margin-left: 4px;"></span>
 		
 		<p class="shorthide" id="attmaxhptext">Attacker max HP:</p>
-		<input type="number" id="attackmaxhp" class="minput shorthide" min="10" required tabindex="3">
+		<input type="number" id="attackmaxhp" class="minput shorthide" onfocus="numberfocus('attackmaxhp')" onblur="numberblur('attackmaxhp')" placeholder="" min="10" required tabindex="3">
 	</div>
 
 	<div id="defvalues" style="display: inline;">
@@ -2240,11 +2254,11 @@ function refreshattackers()
 		</span></p>
 
 		<p class="shorthide" id="defvaluetext">Defender defense value:</p>
-		<input type="number" id="defense" class="minput shorthide" min="0" step="0.5" required tabindex="4">
+		<input type="number" id="defense" class="minput shorthide" onfocus="numberfocus('defense')" onblur="numberblur('defense')" placeholder="" min="0" step="0.5" required tabindex="4">
 		<p><span class="textpress" onclick="refreshdefhp()">Defender current HP:</span></p>
-		<input type="number" id="defensehp" class="minput" min="1" required tabindex="5"><span id="shortdef" style="display: none; font-size: 17px; margin-left: 4px;"></span>
+		<input type="number" id="defensehp" class="minput" onfocus="numberfocus('defensehp')" onblur="numberblur('defensehp')" placeholder="" min="1" required tabindex="5"><span id="shortdef" style="display: none; font-size: 17px; margin-left: 4px;"></span>
 		<p class="shorthide" id="defmaxhptext">Defender max HP:</p>
-		<input type="number" id="defensemaxhp" class="minput shorthide" min="10" required tabindex="6">
+		<input type="number" id="defensemaxhp" class="minput shorthide" onfocus="numberfocus('defensemaxhp')" onblur="numberblur('defensemaxhp')" placeholder="" min="10" required tabindex="6">
 
 		<p>
 		<label class="container" onclick="setdefbonus()">
