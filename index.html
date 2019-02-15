@@ -259,6 +259,8 @@ var refatthpcounter = 0;
 var refdefhpcounter = 0;
 var shortparameter = false;
 var savednumber = 0;
+var prevattshiphp = 10;
+var prevdefshiphp = 10;
 
 function messageclear()
 {
@@ -888,6 +890,11 @@ function attackerfill()
 	{
 		document.getElementById("attshiphp").style.display='inline-block';
 		document.getElementById("attveterancy").style.display='none';
+		document.getElementById("attshiphp" + prevattshiphp).style.border = "1px solid #A9A9A9";
+		document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "white";
+		document.getElementById("attshiphp10").style.border = "1px solid black";
+		document.getElementById("attshiphp10").style.backgroundColor = "#eee";
+		prevattshiphp = 10;
 	}
 	else
 	{
@@ -1018,6 +1025,11 @@ function defenderfill()
 		document.getElementById("defshiphp").selectedIndex = "0";
 		document.getElementById("defshiphp").style.display='inline';
 		document.getElementById("defveterancy").style.display='none';
+		document.getElementById("defshiphp" + prevdefshiphp).style.border = "1px solid #A9A9A9";
+		document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "white";
+		document.getElementById("defshiphp10").style.border = "1px solid black";
+		document.getElementById("defshiphp10").style.backgroundColor = "#eee";
+		prevdefshiphp = 10;
 	}
 	else
 	{
@@ -1158,6 +1170,12 @@ function attackershiphp(selectattshiphp)
 	var getattacker = document.getElementById("selectattacker").value;
 	var getattshiphp = selectattshiphp;
 	
+	document.getElementById("attshiphp" + prevattshiphp).style.border = "1px solid #A9A9A9";
+	document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "white";
+	document.getElementById("attshiphp" + selectattshiphp).style.border = "1px solid black";
+	document.getElementById("attshiphp" + selectattshiphp).style.backgroundColor = "#eee";
+	prevattshiphp = selectattshiphp;
+	
 	switch (getattacker)
 	{
 		case "Boat":
@@ -1197,6 +1215,13 @@ function defendershiphp(selectdefshiphp)
 {
 	var getdefender = document.getElementById("selectdefender").value;
 	var getdefshiphp = selectdefshiphp;
+	
+	document.getElementById("defshiphp" + prevdefshiphp).style.border = "1px solid #A9A9A9";
+	document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "white";
+	document.getElementById("defshiphp" + selectdefshiphp).style.border = "1px solid black";
+	document.getElementById("defshiphp" + selectdefshiphp).style.backgroundColor = "#eee";
+	prevdefshiphp = selectdefshiphp;
+	
 	switch (getdefender)
 	{
 		case "Boat":
@@ -1365,6 +1390,12 @@ function multiswitch()
 		document.getElementById("def1").checked = false;
 		document.getElementById("def2").checked = false;
 		document.getElementById("selectattacker").selectedIndex = 0;
+		document.getElementById("attshiphp" + prevattshiphp).style.border = "1px solid #A9A9A9";
+		document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "white";
+		prevattshiphp = 10;
+		document.getElementById("defshiphp" + prevdefshiphp).style.border = "1px solid #A9A9A9";
+		document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "white";
+		prevdefshiphp = 10;
 		attackerfill();
 		document.getElementById("selectdefender").selectedIndex = 0;
 		defenderfill();
@@ -2188,16 +2219,16 @@ function refreshattackers()
 		</label>
 		
 		<span id="attshiphp" style="display: none; position: absolute; margin-left: 4px;">
-			<label class="shiphpcontainer" onclick="attackershiphp(10)">
+			<label id="attshiphp10" class="shiphpcontainer" onclick="attackershiphp(10)">
 				<span>10</span>
 			</label>
-			<label class="shiphpcontainer" onclick="attackershiphp(15)">
+			<label id="attshiphp15" class="shiphpcontainer" onclick="attackershiphp(15)">
 				<span>15</span>
 			</label>
-			<label class="shiphpcontainer" onclick="attackershiphp(20)">
+			<label id="attshiphp20" class="shiphpcontainer" onclick="attackershiphp(20)">
 				<span>20</span>
 			</label>
-			<label class="shiphpcontainer" onclick="attackershiphp(40)">
+			<label id="attshiphp40" class="shiphpcontainer" onclick="attackershiphp(40)">
 				<span>40</span>
 			</label>
 		</span>
@@ -2242,16 +2273,16 @@ function refreshattackers()
 		</label>
 		
 		<span id="defshiphp" style="display: none; position: absolute; margin-left: 4px;">
-			<label class="shiphpcontainer" onclick="defendershiphp(10)">
+			<label id="defshiphp10" class="shiphpcontainer" onclick="defendershiphp(10)">
 				<span>10</span>
 			</label>
-			<label class="shiphpcontainer" onclick="defendershiphp(15)">
+			<label id="defshiphp15" class="shiphpcontainer" onclick="defendershiphp(15)">
 				<span>15</span>
 			</label>
-			<label class="shiphpcontainer" onclick="defendershiphp(20)">
+			<label id="defshiphp20" class="shiphpcontainer" onclick="defendershiphp(20)">
 				<span>20</span>
 			</label>
-			<label class="shiphpcontainer" onclick="defendershiphp(40)">
+			<label id="defshiphp40" class="shiphpcontainer" onclick="defendershiphp(40)">
 				<span>40</span>
 			</label>
 		</span></p>
