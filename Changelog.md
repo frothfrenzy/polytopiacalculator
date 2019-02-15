@@ -1,13 +1,15 @@
 # Changelog
 
-14.02.2019.
+15.02.2019.
 - UI update.
+- Added a shortened version of the calculator. It can be activated by adding "?short" or "?shortval" (without quotes) at the end of the calculator's browser URL. More details in the FAQ - under the How to use the calculator? question.
+- Added a hidden refresh shortcut for current unit HP. Click or tap the text above the current HP input field twice in consecution to activate the refresh (Attacker/Defender current HP:).
+- Modified how the maximum number of entries in the battle history is changed. Simply set Attacker current HP to 123 and Defender current HP to the number of entries you want to keep. These entries last for the duration of the current session.
 - Made the top and bottom margins of paragraphs slightly smaller to provide more space for other elements.
 - Removed Select Attacker/Select Defender from the template list and made the calculator start with warriors selected immediately.
 - Removed the Clear button as it was unnecessary.
 - Changed the look of checkboxes, buttons and text input fields. They are all styled in CSS now and should look more appealing on mobile devices.
 - Max ship HP is now chosen via buttons instead of the template list.
-- Added a hidden refresh shortcut for current unit HP. Click or tap the text above the current HP input field twice in consecution to activate the refresh (Attacker/Defender current HP:).
 - Create Attacker/Create Defender in Multi mode is now a single button instead of a two-options list. Added a small margin below it to reduce chance of pressing it unwittingly.
 - All valid clicks or taps now have visible feedback.
 - Changed the FAQ accordingly.

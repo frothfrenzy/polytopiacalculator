@@ -257,6 +257,7 @@ var answersexpanded = 0;
 var refreshcounter = 0;
 var refatthpcounter = 0;
 var refdefhpcounter = 0;
+var shortparameter = false;
 
 function messageclear()
 {
@@ -296,11 +297,38 @@ function calculate(mode)
 		var attname = document.getElementById("selectattacker").value;
 		var defname = document.getElementById("selectdefender").value;
 	}
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
-	if (mode != "Multi")
+	resetcounters();
+	if (atthp == 123)
+	{
+		messageclear();
+		warning = true;
+		defhp = parseInt(document.getElementById("defensehp").value);
+		if (defhp == 0)
+		{
+			document.getElementById("resultatt").innerHTML = "Combat history must contain at least 1 entry!";
+			scrollanchor.scrollIntoView(false);
+		}
+		else
+		{
+			if (defhp == 1)
+			{
+				document.getElementById("resultatt").innerHTML = "Combat history limit set to 1 entry!";
+			}
+			else
+			{
+				document.getElementById("resultatt").innerHTML = "Combat history limit set to " +  defhp + " entries!";
+			}
+			extinfo.splice (defhp, (extinfo.length - 1));
+			document.getElementById("extendedinfo").innerHTML = extinfo.join("");
+			entries = defhp;
+			if (extinfo.length == 0)
+			{
+				document.getElementById("extendedinfo").innerHTML = "-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.";
+			}
+			scrollanchor.scrollIntoView(false);
+		}
+	}
+	if ((mode != "Multi") && (warning != true))
 	{
 		if (isNaN(att) == true || isNaN(def) == true || isNaN(atthp) == true ||
 			  isNaN(defhp) == true || isNaN(attmaxhp) == true || isNaN(defmaxhp) == true)
@@ -373,32 +401,6 @@ function calculate(mode)
 			{
 				resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender max HP must be a whole number");
 			}
-			scrollanchor.scrollIntoView(false);
-		}
-	}
-	if (warning != true && att == 123)
-	{
-		messageclear();
-		warning = true;
-		def = parseInt(document.getElementById("defense").value);
-		if (def == 0)
-		{
-			document.getElementById("resultatt").innerHTML = "Combat history must contain at least 1 entry!";
-			scrollanchor.scrollIntoView(false);
-		}
-		else
-		{
-			if (def == 1)
-			{
-				document.getElementById("resultatt").innerHTML = "Combat history limit set to 1 entry!";
-			}
-			else
-			{
-				document.getElementById("resultatt").innerHTML = "Combat history limit set to " +  def + " entries!";
-			}
-			extinfo.splice (def, (extinfo.length - 1));
-			document.getElementById("extendedinfo").innerHTML = extinfo.join("");
-			entries = def;
 			scrollanchor.scrollIntoView(false);
 		}
 	}
@@ -497,22 +499,10 @@ function calculate(mode)
 				defbonus = "|W";
 			}
 		}
-		if (attname == "Select Attacker")
-		{
-			unit1 = "Unit " + att + "|" + atthp + "|" + attmaxhp + " - ";
-		}
-		else
-		{
-			unit1 = attname + " " + att + "|" + atthp + "|" + attmaxhp + " - ";
-		}
-		if (defname == "Select Defender")
-		{
-			unit2 = "Unit " + def + "|" + defhp + "|" + defmaxhp + defbonus;
-		}
-		else
-		{
-			unit2 = defname + " " + def + "|" + defhp + "|" + defmaxhp + defbonus;
-		}
+		
+		unit1 = attname + " " + att + "|" + atthp + "|" + attmaxhp + " - ";
+		unit2 = defname + " " + def + "|" + defhp + "|" + defmaxhp + defbonus;
+			
 		totaldam = attforce + defforce;
 		res = Math.round(attforce / totaldam * att * 4.5);
 		if (isNaN(res) == true)
@@ -886,6 +876,7 @@ function attackerfill()
 			document.getElementById("attackmaxhp").value = "20";
 			break;
 	}
+	document.getElementById("shortatt").innerText = "(" + document.getElementById("attack").value + ")";
 	if (getattacker == "Warrior" || getattacker == "Rider" || getattacker == "Defender" || getattacker == "Swordsman" || getattacker == "Archer" || getattacker == "Catapult" || getattacker == "Knight" || getattacker == "Amphibian" || getattacker == "Tridention")
 	{
 		document.getElementById("attvetbox").checked = false;
@@ -1014,6 +1005,7 @@ function defenderfill()
 			document.getElementById("defensemaxhp").value = "20";
 			break;
 	}
+	document.getElementById("shortdef").innerText = "(" + document.getElementById("defense").value + ")";
 	if (getdefender == "Warrior" || getdefender == "Rider" || getdefender == "Defender" || getdefender == "Swordsman" || getdefender == "Archer" || getdefender == "Catapult" || getdefender == "Knight" || getdefender == "Amphibian" || getdefender == "Tridention")
 	{
 		document.getElementById("defvetbox").checked = false;
@@ -1261,10 +1253,7 @@ function show(shown, hidden)
 	document.body.scrollTop = document.documentElement.scrollTop = 0;
 	document.getElementById(shown).style.display='block';
  	document.getElementById(hidden).style.display='none';
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
+	resetcounters();
 	if ((document.getElementById("multibutton").innerText == "Single") && (deleteselected == true))
 	{
 		messageclear();
@@ -1295,6 +1284,13 @@ function displayextinfo()
 		document.getElementById("extendedinfo").style.display='none';
 		scrollanchor.scrollIntoView(false);
 	}
+}
+function resetcounters()
+{
+	tapcounter = 0;
+	refreshcounter = 0;
+	refatthpcounter = 0;
+	refdefhpcounter = 0;
 }
 function choosetype()
 {
@@ -1358,10 +1354,7 @@ function multiswitch()
 		document.getElementById("unitselect").innerText = "Create Defender";
 		choosetype();
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-		tapcounter = 0;
-		refreshcounter = 0;
-		refatthpcounter = 0;
-		refdefhpcounter = 0;
+		resetcounters();
 	}
 	else
 	{
@@ -1373,16 +1366,7 @@ function multiswitch()
 		document.getElementById("result").innerText = "Result:";
 		document.getElementById("createunitbutton").style.display='none';
 		document.getElementById("attvalues").style.display='block';
-		document.getElementById("attvaluetext").style.display='block';
-		document.getElementById("attmaxhptext").style.display='block';
-		document.getElementById("attack").style.display='block';
-		document.getElementById("attackmaxhp").style.display='block';
 		document.getElementById("defvalues").style.display='block';
-		document.getElementById("defvalues").style.display='block';
-		document.getElementById("defvaluetext").style.display='block';
-		document.getElementById("defmaxhptext").style.display='block';
-		document.getElementById("defense").style.display='block';
-		document.getElementById("defensemaxhp").style.display='block';
 		document.getElementById("attvalues").style.display='block';
 		document.getElementById("attackerlist").style.display='none';
 		document.getElementById("defenderlist").style.display='none';
@@ -1390,10 +1374,18 @@ function multiswitch()
 		document.getElementById("defendersheader").style.display='none';
 		document.getElementById("states").style.display='none';
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
-		tapcounter = 0;
-		refreshcounter = 0;
-		refatthpcounter = 0;
-		refdefhpcounter = 0;
+		if (shortparameter == false)
+		{
+				document.getElementById("attvaluetext").style.display='block';
+				document.getElementById("attack").style.display='block';
+				document.getElementById("attmaxhptext").style.display='block';
+				document.getElementById("attackmaxhp").style.display='block';
+				document.getElementById("defvaluetext").style.display='block';
+				document.getElementById("defense").style.display='block';
+				document.getElementById("defmaxhptext").style.display='block';
+				document.getElementById("defensemaxhp").style.display='block';
+		}
+		resetcounters();
 		if (deleteselected == true)
 		{
 			messageclear();
@@ -1404,10 +1396,7 @@ function multiswitch()
 }
 function createunit()
 {
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
+	resetcounters();
 	warning = false;
 	if (deleteselected == true)
 	{
@@ -1422,15 +1411,11 @@ function createunit()
 		var attmaxhp = parseInt(document.getElementById("attackmaxhp").value);
 		var attname = document.getElementById("selectattacker").value;
 
-		if ((document.getElementById("selectattacker").value == "Select Attacker") || (atthp < 1) || ((document.getElementById("attackhp").value % atthp) != 0) || (atthp > attmaxhp))
+		if ((atthp < 1) || ((document.getElementById("attackhp").value % atthp) != 0) || (atthp > attmaxhp))
 		{
 			warning = true;
 			messageclear();
 			document.getElementById("resultatt").innerHTML = "One or more invalid inputs:<br/>";
-			if (document.getElementById("selectattacker").value == "Select Attacker")
-			{
-				resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker must be selected from the template list");
-			}
 			if (atthp < 1)
 			{
 				resultatt.insertAdjacentHTML("beforeend", "<br/>- Attacker current HP can't be lower than 1");
@@ -1453,15 +1438,11 @@ function createunit()
 		var defmaxhp = parseInt(document.getElementById("defensemaxhp").value);
 		var defname = document.getElementById("selectdefender").value;
 		
-		if ((document.getElementById("selectdefender").value == "Select Defender") || (defhp < 1) || ((document.getElementById("defensehp").value % defhp) != 0) || (defhp > defmaxhp))
+		if ((defhp < 1) || ((document.getElementById("defensehp").value % defhp) != 0) || (defhp > defmaxhp))
 		{
 			warning = true;
 			messageclear();
 			document.getElementById("resultatt").innerHTML = "One or more invalid inputs:<br/>";
-			if (document.getElementById("selectdefender").value == "Select Defender")
-			{
-				resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender must be selected from the template list");
-			}
 			if (defhp < 1)
 			{
 				resultatt.insertAdjacentHTML("beforeend", "<br/>- Defender current HP can't be lower than 1");
@@ -1552,10 +1533,7 @@ function createunit()
 }
 function deleteunitprompt()
 {
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
+	resetcounters();
 	if ((attackers.length < 1) && (defenders.length < 1) && (deleteselected == false))
 	{
 		messageclear();
@@ -1618,10 +1596,7 @@ function deleteunit(type)
 	var selectedelement = "";
 	var elementid ="";
 	var test = "";
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
+	resetcounters();
 	if (type == "Attacker")
 	{
 		attackers.splice(attackerselected, 1);
@@ -1851,10 +1826,7 @@ function defenseselector(defendernumber)
 }
 function createbackup()
 {
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
+	resetcounters();
 	if (deleteselected == true)
 	{
 		deleteselected = false;
@@ -1900,10 +1872,7 @@ function createbackup()
 }
 function loadbackup()
 {
-	tapcounter = 0;
-	refreshcounter = 0;
-	refatthpcounter = 0;
-	refdefhpcounter = 0;
+	resetcounters();
 	if (deleteselected == true)
 	{
 		deleteselected = false;
@@ -1990,6 +1959,23 @@ function loadelements()
 	attackerfill();
 	defenderfill();
 	document.getElementById("main").style.visibility = "visible";
+	
+	var queryStr = window.location.search;
+	if ((queryStr == "?short") || (queryStr == "?shortval"))
+	{
+		var hiddenelements = document.getElementsByClassName("shorthide");
+		var i;
+		for (i = 0; i < hiddenelements.length; i++)
+		{
+			hiddenelements[i].style.display = "none";
+		}
+		shortparameter = true;
+	}
+	if (queryStr == "?shortval")
+	{
+		document.getElementById("shortatt").style.display = "inline";
+		document.getElementById("shortdef").style.display = "inline";
+	}
 }
 function expandcontainer(identifier)
 {
@@ -2198,13 +2184,13 @@ function refreshattackers()
 				<span>40</span>
 			</label>
 		</span>
-		<p id="attvaluetext">Attacker attack value:</p>
-		<input type="number" id="attack" class="minput" min="0" step="0.5" required tabindex="1">
+		<p class="shorthide" id="attvaluetext">Attacker attack value:</p>
+		<input type="number" id="attack" class="minput shorthide" min="0" step="0.5" required tabindex="1">
 		<p><span class="textpress" onclick="refreshatthp()">Attacker current HP:</span></p>
-		<input type="number" id="attackhp" class="minput" min="1" required tabindex="2">
+		<input type="number" id="attackhp" class="minput" min="1" required tabindex="2"><span id="shortatt" style="display: none; font-size: 17px; margin-left: 4px;"></span>
 		
-		<p id="attmaxhptext">Attacker max HP:</p>
-		<input type="number" id="attackmaxhp" class="minput" min="10" required tabindex="3">
+		<p class="shorthide" id="attmaxhptext">Attacker max HP:</p>
+		<input type="number" id="attackmaxhp" class="minput shorthide" min="10" required tabindex="3">
 	</div>
 
 	<div id="defvalues" style="display: inline;">
@@ -2253,12 +2239,12 @@ function refreshattackers()
 			</label>
 		</span></p>
 
-		<p id="defvaluetext">Defender defense value:</p>
-		<input type="number" id="defense" class="minput" min="0" step="0.5" required tabindex="4">
+		<p class="shorthide" id="defvaluetext">Defender defense value:</p>
+		<input type="number" id="defense" class="minput shorthide" min="0" step="0.5" required tabindex="4">
 		<p><span class="textpress" onclick="refreshdefhp()">Defender current HP:</span></p>
-		<input type="number" id="defensehp" class="minput" min="1" required tabindex="5">
-		<p id="defmaxhptext">Defender max HP:</p>
-		<input type="number" id="defensemaxhp" class="minput" min="10" required tabindex="6">
+		<input type="number" id="defensehp" class="minput" min="1" required tabindex="5"><span id="shortdef" style="display: none; font-size: 17px; margin-left: 4px;"></span>
+		<p class="shorthide" id="defmaxhptext">Defender max HP:</p>
+		<input type="number" id="defensemaxhp" class="minput shorthide" min="10" required tabindex="6">
 
 		<p>
 		<label class="container" onclick="setdefbonus()">
@@ -2305,7 +2291,7 @@ function refreshattackers()
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
 		<span id="scrollanchor"></span>
-		<p id="extendedinfo" style="display:none">-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</p><p>
+		<p id="extendedinfo" style="display:none">-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</p>
 	</div>
 </div>
 
@@ -2319,7 +2305,7 @@ function refreshattackers()
 		<div id="expandindicator0" class="ei">+</div>
 	</div>
 	<div id="answercontainer0" class="a">
-		<p>Simply input all of the fields, click the Calculate! button, and your battle result will pop up at the bottom. All of the fields are required because every variable affects the result. You can use drop-down unit templates to fill the fields quicker, although these can also be useful if you don't remember the unit stats. Additional details such as unit veterancy and variable ship HP will appear next to the template box once you have selected a relevant unit.<br/><br/>Defender's current HP is automatically updated if the defender survives, so you can keep pressing Calculate! repeatedly until it is destroyed. This is useful for quickly calculating how many units of the same power are needed to take down a stronger unit, and you don't need to manually change the defender's current HP every time you want to perform an attack with a different unit.<br/><br/>You can refresh the current HP values by tapping or clicking the text above the current HP box twice consecutively (Attacker/Defender current HP:). This will set the attacker's or defender's current HP value equal to its max HP value.<br/><br/>Also note that you can access a history of all the recent battles you performed in the current session. Tap or click three times on "Result:" or any text that appears below it to activate the history. Likewise, you can turn it off by tapping or clicking three times in that same area. The history showcases 10 entries by default. If for some reason you would like to keep a bigger (or smaller) history for the current session, fill all the fields so there are no invalid values, set the attack value to 123, set the defense value to the number of entries you want to keep and then press the Calculate! button. A message will appear as a confirmation. All entries are formatted as Attacker (stats) - Defender (stats|D/W), where stats are shown in the same order as they appear on the calculator, and D/W representing the defense/wall bonus for the defender.</p>
+		<p>Simply input all of the fields, click the Calculate! button, and your battle result will pop up at the bottom. All of the fields are required because every variable affects the result. You can use drop-down unit templates to fill the fields quicker, although these can also be useful if you don't remember the unit stats. Additional details such as unit veterancy and variable ship HP will appear next to the template box once you have selected a relevant unit.<br/><br/>Defender's current HP is automatically updated if the defender survives, so you can keep pressing Calculate! repeatedly until it is destroyed. This is useful for quickly calculating how many units of the same power are needed to take down a stronger unit, and you don't need to manually change the defender's current HP every time you want to perform an attack with a different unit.<br/><br/>Current HP values can be quickly refreshed by tapping or clicking the text above the current HP box twice (Attacker/Defender current HP:). This will set the attacker's or defender's current HP value equal to its max HP value.<br/><br/>You can access a history of all the recent battles that were performed in the current session. Tap or click three times on "Result:" or any text that appears below it to activate the history. Likewise, you can turn it off by tapping or clicking three times in that same area. The history showcases 10 entries by default. If for some reason you would like to keep a bigger (or smaller) history for the current session, set the attacker current HP value to 123, set the defender current HP value to the number of entries you want to keep and then press the Calculate! button. A message will appear as a confirmation. All entries are formatted as Attacker (stats) - Defender (stats|D/W), where stats are shown in the same order as they appear on the calculator, and D/W representing the defense/wall bonus for the defender.<br/><br/>Also, you can access the shortened version of the calculator if you find the attack, defense and max HP values unnecessary, or if you feel they are taking up too much space. To activate the shortened version, simply add the parameter "?short" (without quotes) at the end of the calculator's browser URL. Therefore, the URL should look like this:<br/><br/><a href="https://frothfrenzy.github.io/polytopiacalculator/?short">https://frothfrenzy.github.io/polytopiacalculator/?short</a><br/><br/>This hides the redundant info. However, if you would still like to keep track of the attack and defense values, you can add the parameter "?shortval" instead. This way the attack and defense values will be shown in brackets just right of the current HP input boxes. URL:<br/><br/><a href="https://frothfrenzy.github.io/polytopiacalculator/?shortval">https://frothfrenzy.github.io/polytopiacalculator/?shortval</a></p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(1)">
