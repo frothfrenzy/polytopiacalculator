@@ -120,6 +120,10 @@ div.q
 	-webkit-appearance: none;
 	appearance:none;
 }
+.shiphpcontainer:active
+{
+	background-color: lightgray;
+}
 .creationcontainer
 {
 	display: inline-block;
@@ -134,10 +138,6 @@ div.q
 	-moz-appearance:none;
 	-webkit-appearance: none;
 	appearance:none;
-}
-.shiphpcontainer:active
-{
-	background-color: lightgray;
 }
 .container input
 {
@@ -156,10 +156,6 @@ div.q
 	background-color: #eee;
 	border: 1px solid #696969;
 	border-radius: 5px;
-}
-.container input:checked ~ .checkmark
-{
-	background-color: lightgray;
 }
 .checkmark:after
 {
@@ -891,7 +887,7 @@ function attackerfill()
 		document.getElementById("attshiphp").style.display='inline-block';
 		document.getElementById("attveterancy").style.display='none';
 		document.getElementById("attshiphp" + prevattshiphp).style.border = "1px solid #A9A9A9";
-		document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "white";
+		document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "";
 		document.getElementById("attshiphp10").style.border = "1px solid black";
 		document.getElementById("attshiphp10").style.backgroundColor = "#eee";
 		prevattshiphp = 10;
@@ -1026,7 +1022,7 @@ function defenderfill()
 		document.getElementById("defshiphp").style.display='inline';
 		document.getElementById("defveterancy").style.display='none';
 		document.getElementById("defshiphp" + prevdefshiphp).style.border = "1px solid #A9A9A9";
-		document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "white";
+		document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "";
 		document.getElementById("defshiphp10").style.border = "1px solid black";
 		document.getElementById("defshiphp10").style.backgroundColor = "#eee";
 		prevdefshiphp = 10;
@@ -1171,8 +1167,9 @@ function attackershiphp(selectattshiphp)
 	var getattshiphp = selectattshiphp;
 	
 	document.getElementById("attshiphp" + prevattshiphp).style.border = "1px solid #A9A9A9";
-	document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "white";
+	document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "";
 	document.getElementById("attshiphp" + selectattshiphp).style.border = "1px solid black";
+	document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "";
 	document.getElementById("attshiphp" + selectattshiphp).style.backgroundColor = "#eee";
 	prevattshiphp = selectattshiphp;
 	
@@ -1217,7 +1214,7 @@ function defendershiphp(selectdefshiphp)
 	var getdefshiphp = selectdefshiphp;
 	
 	document.getElementById("defshiphp" + prevdefshiphp).style.border = "1px solid #A9A9A9";
-	document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "white";
+	document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "";
 	document.getElementById("defshiphp" + selectdefshiphp).style.border = "1px solid black";
 	document.getElementById("defshiphp" + selectdefshiphp).style.backgroundColor = "#eee";
 	prevdefshiphp = selectdefshiphp;
@@ -1391,10 +1388,10 @@ function multiswitch()
 		document.getElementById("def2").checked = false;
 		document.getElementById("selectattacker").selectedIndex = 0;
 		document.getElementById("attshiphp" + prevattshiphp).style.border = "1px solid #A9A9A9";
-		document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "white";
+		document.getElementById("attshiphp" + prevattshiphp).style.backgroundColor = "";
 		prevattshiphp = 10;
 		document.getElementById("defshiphp" + prevdefshiphp).style.border = "1px solid #A9A9A9";
-		document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "white";
+		document.getElementById("defshiphp" + prevdefshiphp).style.backgroundColor = "";
 		prevdefshiphp = 10;
 		attackerfill();
 		document.getElementById("selectdefender").selectedIndex = 0;
