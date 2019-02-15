@@ -5,7 +5,7 @@
 - Added a shortened version of the calculator. It can be activated by adding "?short" or "?shortval" (without quotes) at the end of the calculator's browser URL. More details in the FAQ - under the How to use the calculator? question.
 - Added a hidden refresh shortcut for current unit HP. Tap or click the text above the current HP input field twice in consecution to activate the refresh (Attacker/Defender current HP:).
 - Modified how the maximum number of entries in the battle history is changed. Simply set Attacker current HP to 123 and Defender current HP to the number of entries you want to keep. These entries last for the duration of the current session.
-- Tapping or clicking on a number field automatically clears it for faster input. A placeholder that shows the previous value will appear as a reminder. If the new number value doesn't change from its previous value when leaving the field, the previous value is reinstated.
+- Tapping or clicking on a number field automatically clears it for faster input. A reminder that shows the previous value will appear next to the corresponding text above. If the new number value doesn't change from its previous value when leaving the field, the previous value is reinstated.
 - Made the top and bottom margins of paragraphs slightly smaller to provide more space for other elements.
 - Removed Select Attacker/Select Defender from the template list and made the calculator start with warriors selected immediately.
 - Removed the Clear button as it was unnecessary.
