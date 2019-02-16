@@ -326,7 +326,7 @@ function calculate(mode)
 			entries = defhp;
 			if (extinfo.length == 0)
 			{
-				document.getElementById("extendedinfo").innerHTML = "<span class='ext'>-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</span>";
+			document.getElementById("extendedinfo").innerHTML = "<span style='border-top: 1px dashed black; padding-top: 10px; display: block; max-width: 350px;'></span><span class='ext'>Battle history does not contain any entries yet.</span>";
 			}
 			scrollanchor.scrollIntoView(false);
 		}
@@ -732,7 +732,7 @@ function calculate(mode)
 		{
 			extinfo.pop();
 		}
-		extinfo.splice(0, 0, "<span class='ext'>-------------------------------------------------------<p class='ext'>" + unit1 + unit2 + "</p><p class='ext'>" + astring + "</p><p class='ext'>" + bstring + "</p><p class='ext'>" + cstring + "</p></span>");
+		extinfo.splice(0, 0, "<span style='border-top: 1px dashed black; display: block; max-width: 350px;'></span><p class='ext'>" + unit1 + unit2 + "</p><p class='ext'>" + astring + "</p><p class='ext'>" + bstring + "</p><p class='ext'>" + cstring + "</p>");
 		document.getElementById("extendedinfo").innerHTML = extinfo.join("");
 
 		if (mode != "Multi")
@@ -2351,14 +2351,14 @@ function refreshattackers()
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
 		<span id="scrollanchor"></span>
-		<p id="extendedinfo" class="ext" style="display:none">-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</p>
+		<p id="extendedinfo" class="ext" style="display:none"><span style="border-top: 1px dashed black; padding-top: 10px; display: block; max-width: 350px;"></span>Battle history does not contain any entries yet.</p>
 	</div>
 </div>
 
 <div id="faq" style="display:none; max-width: 800px">
 	<h2>Frequently Asked Questions</h2><br/><br/>
 	
-<p><a href="javascript:;" class="textpress" style="float: left; margin-top: 1px;" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a><a href="javascript:;" class="textpress" id="expandallindicator1" style="float: right" onclick="expandall(1)">+ Expand all</a></p>
+<p><a href="javascript:;" class="textpress" style="float: left" onclick="return show('main', 'faq')" target="_top">&lt;&lt;&lt; Back to the calculator!</a><a href="javascript:;" class="textpress" id="expandallindicator1" style="float: right" onclick="expandall(1)">+ Expand all</a></p>
 	
 	<div class="q" style="border-top: 1px solid; margin-top: 25px;" onclick="expandcontainer(0)">
 		<div class="p"><b>How to use the calculator?</b></div>
