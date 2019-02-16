@@ -2227,12 +2227,12 @@ function refreshattackers()
 			</label>
 		</span>
 		<p class="shorthide" id="attvaluetext">Attacker attack value: <span id="attackrem" style="color: darkgray; visibility: hidden;"></span></p>
-		<input type="number" id="attack" class="minput shorthide" onfocusin="numberfocus('attack')" onfocusout="numberfocusout('attack')" placeholder="" min="0" step="0.5" required tabindex="1">
+		<input type="number" id="attack" class="minput shorthide" onfocusin="numberfocus('attack')" onfocusout="numberfocusout('attack')" min="0" step="0.5" required tabindex="1">
 		<p><span class="textpress" onclick="refreshatthp()">Attacker current HP: </span><span id="attackhprem" style="color: darkgray; visibility: hidden;"></span></p>
-		<input type="number" id="attackhp" class="minput" onfocusin="numberfocus('attackhp')" onfocusout="numberfocusout('attackhp')" placeholder="" min="1" required tabindex="2"><span id="shortatt" style="display: none; font-size: 17px; margin-left: 4px;"></span>
+		<input type="number" id="attackhp" class="minput" onfocusin="numberfocus('attackhp')" onfocusout="numberfocusout('attackhp')" min="1" required tabindex="2"><span id="shortatt" style="display: none; font-size: 17px; margin-left: 4px;"></span>
 		
 		<p class="shorthide" id="attmaxhptext">Attacker max HP: <span id="attackmaxhprem" style="color: darkgray; visibility: hidden;"></span></p>
-		<input type="number" id="attackmaxhp" class="minput shorthide" onfocusin="numberfocus('attackmaxhp')" onfocusout="numberfocusout('attackmaxhp')" placeholder="" min="10" required tabindex="3">
+		<input type="number" id="attackmaxhp" class="minput shorthide" onfocusin="numberfocus('attackmaxhp')" onfocusout="numberfocusout('attackmaxhp')" min="10" required tabindex="3">
 	</div>
 
 	<div id="defvalues" style="display: inline;">
@@ -2282,11 +2282,11 @@ function refreshattackers()
 		</span></p>
 
 		<p class="shorthide" id="defvaluetext">Defender defense value: <span id="defenserem" style="color: darkgray; visibility: hidden;"></span></p>
-		<input type="number" id="defense" class="minput shorthide" onfocusin="numberfocus('defense')" onfocusout="numberfocusout('defense')" placeholder="" min="0" step="0.5" required tabindex="4">
+		<input type="number" id="defense" class="minput shorthide" onfocusin="numberfocus('defense')" onfocusout="numberfocusout('defense')" min="0" step="0.5" required tabindex="4">
 		<p><span class="textpress" onclick="refreshdefhp()">Defender current HP: </span><span id="defensehprem" style="color: darkgray; visibility: hidden;"></span></p>
-		<input type="number" id="defensehp" class="minput" onfocusin="numberfocus('defensehp')" onfocusout="numberfocusout('defensehp')" placeholder="" min="1" required tabindex="5"><span id="shortdef" style="display: none; font-size: 17px; margin-left: 4px;"></span>
+		<input type="number" id="defensehp" class="minput" onfocusin="numberfocus('defensehp')" onfocusout="numberfocusout('defensehp')" min="1" required tabindex="5"><span id="shortdef" style="display: none; font-size: 17px; margin-left: 4px;"></span>
 		<p class="shorthide" id="defmaxhptext">Defender max HP: <span id="defensemaxhprem" style="color: darkgray; visibility: hidden;"></span></p>
-		<input type="number" id="defensemaxhp" class="minput shorthide" onfocusin="numberfocus('defensemaxhp')" onfocusout="numberfocusout('defensemaxhp')" placeholder="" min="10" required tabindex="6">
+		<input type="number" id="defensemaxhp" class="minput shorthide" onfocusin="numberfocus('defensemaxhp')" onfocusout="numberfocusout('defensemaxhp')" min="10" required tabindex="6">
 
 		<p>
 		<label class="container" onclick="setdefbonus()">
@@ -2311,7 +2311,7 @@ function refreshattackers()
 
 	<p id="attackersheader" style="display:none"><b class="textpress" onclick="refreshattackers()">Attackers:</b></p>
 	<div id="attackerlist" style="display:none; width: 325px;"></div>
-	<p id="defendersheader" style="display:none"><b class="textpress" onclick="noretaldefault()" style="margin-right: 101px">Defenders:</b>
+	<p id="defendersheader" style="display:none"><b class="textpress" onclick="noretaldefault()" style="margin-right: 75px">Defenders:</b>
 		
 		<label class="container" id="noretaltext" onclick="noretalboxcheck()" style="visibility: hidden; position: relative;">
 			<span style="margin-right: 28px">No retaliation?</span>
