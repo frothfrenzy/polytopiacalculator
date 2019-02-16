@@ -27,6 +27,10 @@ p
 	margin-top: 12px;
 	margin-bottom: 12px;
 }
+p.ext
+{
+	font-size: 16px;
+}
 p.i
 {
 	font-style: italic;
@@ -322,7 +326,7 @@ function calculate(mode)
 			entries = defhp;
 			if (extinfo.length == 0)
 			{
-				document.getElementById("extendedinfo").innerHTML = "-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.";
+				document.getElementById("extendedinfo").innerHTML = "<span class='ext'>-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</span>";
 			}
 			scrollanchor.scrollIntoView(false);
 		}
@@ -728,7 +732,7 @@ function calculate(mode)
 		{
 			extinfo.pop();
 		}
-		extinfo.splice(0, 0, "-------------------------------------------------------<p>" + unit1 + unit2 + "</p><p>" + astring + "</p><p>" + bstring + "</p><p>" + cstring + "</p>");
+		extinfo.splice(0, 0, "<span class='ext'>-------------------------------------------------------<p class='ext'>" + unit1 + unit2 + "</p><p class='ext'>" + astring + "</p><p class='ext'>" + bstring + "</p><p class='ext'>" + cstring + "</p></span>");
 		document.getElementById("extendedinfo").innerHTML = extinfo.join("");
 
 		if (mode != "Multi")
@@ -1276,7 +1280,21 @@ function numberfocus(focusid)
 	resetcounters();
 	savednumber = document.getElementById(focusid).value;
 	document.getElementById(focusid).value = "";
-	document.getElementById(focusid + "rem").innerText = "(" + savednumber + ")";
+	if ((shortparameter == true) || (document.getElementById("multibutton").innerText == "Single"))
+	{
+		if (focusid == "attackhp")
+		{
+			document.getElementById("attackhprem").innerText = "(" + savednumber + "/" + document.getElementById("attackmaxhp").value + ")";
+		}
+		else
+		{
+			document.getElementById("defensehprem").innerText = "(" + savednumber + "/" + document.getElementById("defensemaxhp").value + ")";
+		}
+	}
+	else
+	{
+		document.getElementById(focusid + "rem").innerText = "(" + savednumber + ")";
+	}
 	document.getElementById(focusid + "rem").style.visibility = "visible";
 }
 function numberfocusout (focusoutid)
@@ -2333,7 +2351,7 @@ function refreshattackers()
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
 		<span id="scrollanchor"></span>
-		<p id="extendedinfo" style="display:none">-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</p>
+		<p id="extendedinfo" class="ext" style="display:none">-------------------------------------------------------<br/><br/>Battle history does not contain any entries yet.</p>
 	</div>
 </div>
 
