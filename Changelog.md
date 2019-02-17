@@ -1,17 +1,18 @@
 # Changelog
 
-15.02.2019.
+17.02.2019.
 - UI update.
-- Added a shortened version of the calculator. It can be activated by adding "?short" (without quotes) at the end of the calculator's browser URL. More details in the FAQ - under the How to use the calculator? question.
+- Added a shortened version of the calculator. It can be activated by adding ?short to the end of the calculator's browser URL. More details in the FAQ - under the How to use the calculator? question.
 - Added a hidden refresh shortcut for current unit HP. Tap or click the text above the current HP input field twice in consecution to activate the refresh (Attacker/Defender current HP:).
 - Modified how the maximum number of entries in the battle history is changed. Simply set Attacker current HP to 123 and Defender current HP to the number of entries you want to keep. These entries last for the duration of the current session.
-- Tapping or clicking on a number field automatically clears it for faster input. A reminder that shows the previous value will appear next to the corresponding text above. If the new value isn't provided, the previous value is reinstated upon leaving the field.
-- Made the top and bottom margins of paragraphs slightly smaller to provide more space for other elements.
+- Tapping or clicking on a number field automatically clears it for faster input. A reminder that shows the previous value will appear next to the corresponding text above. If the new value isn't provided, the previous value is reinstated upon leaving the field. When using the shortened version, the reminder will also contain the max HP info.
+- Made the top and bottom margins of paragraphs smaller to provide more space for other elements.
 - Removed Select Attacker/Select Defender from the template list and made the calculator start with warriors selected immediately.
 - Removed the Clear button as it was unnecessary.
 - Changed the look of checkboxes, buttons and text input fields. They are all styled in CSS now and should look more appealing on mobile devices.
 - Max ship HP is now chosen via buttons instead of the template list.
 - Create Attacker/Create Defender in Multi mode is now a single button instead of a two-options list. Added a small margin below it to reduce chance of pressing it unwittingly.
+- Optimized pixel and font sizes so the calculator looks better on a wider variety of devices.
 - All valid clicks or taps now have visible feedback.
 - Changed the FAQ accordingly.
 - Bugs are possible due to the use of new methods. Old version is available at: https://frothfrenzy.github.io/polytopiacalculator/oldindex2.html
