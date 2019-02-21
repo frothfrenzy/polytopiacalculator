@@ -2035,6 +2035,7 @@ function loadelements()
 		shortparameter = true;
 		document.getElementById("shortatt").style.display = "inline";
 		document.getElementById("shortdef").style.display = "inline";
+		document.getElementById("shortlink").style.display = "none";
 	}
 }
 function expandcontainer(identifier)
@@ -2195,7 +2196,8 @@ function refreshattackers()
 </noscript>
 <div id="main" style="visibility: hidden">
 	<h2>Polytopia Battle Calculator</h2>
-	<i style="display: inline-block">(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
+	<span style="display: inline-block"><i>(by <a href="mailto:frothdiscord@gmail.com" target="_top">FrothFrenzy</a>)</i>
+	<i id="shortlink">[<a href="https://frothfrenzy.github.io/polytopiacalculator/?short">Short version</a>]</i></span>
 
 	<form id="values" onsubmit="return false" onkeypress="if (document.getElementById('multibutton').innerText == 'Single') {return event.keyCode != 13;}">
 	
@@ -2452,7 +2454,7 @@ function refreshattackers()
 		<div id="expandindicator10" class="ei">+</div>
 	</div>
 	<div id="answercontainer10" class="a">
-		<p>Any damaged unit that does nothing during its turn can recover some of its lost HP instead. The amount is 4 HP if it is in friendly territory, and 2 HP if it is anywhere else. This happens automatically at the end of your turn, but you can choose to do so manually.<br/><br/>There is only one situation in the game where you can benefit from manually recovered HP - when the damaged unit is in a city which is about to be upgraded in order to activate the super unit reward, the damaged unit will be displaced from the city by the appearing super unit. This is treated as a regular move action, and the damaged unit will no longer be able to recover its HP as a result. Heal the unit first, then upgrade the city to prevent this.<br/><br/>Mind benders also have the Heal Others ability which allows them to restore 4 HP to all friendly units adjacent to them. This stacks with the intrinsic Recover ability and heals from other mind benders. You can unlock the mind bender unit by researching Philosophy.</p>
+		<p>Any damaged unit that does nothing during its turn can recover some of its lost HP instead. The amount is 4 HP if it is in friendly territory, and 2 HP if it is anywhere else. This happens automatically at the end of your turn, but you can choose to do so manually.<br/><br/>There are only two situations in the game where you can benefit from manually recovered HP. When the damaged unit is in a city which is about to be upgraded in order to activate the super unit reward, the damaged unit will be displaced from the city by the appearing super unit. This is treated as a regular move action, and the damaged unit will no longer be able to recover its HP as a result. Heal the unit first, then upgrade the city to prevent this. A similar thing happens when you're playing Elyrion and your damaged unit is on a tile where you're about to train a polytaur. It is solved in the same way - heal the unit first, then train the polytaur.<br/><br/>Mind benders also have the Heal Others ability which allows them to restore 4 HP to all friendly units adjacent to them. This stacks with the intrinsic Recover ability and heals from other mind benders. You can unlock the mind bender unit by researching Philosophy.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(11)">
