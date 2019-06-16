@@ -272,6 +272,7 @@ function messageclear()
 	document.getElementById("resultdef").innerHTML = "";
 	document.getElementById("resultsplash").innerHTML = "";
 	document.getElementById("note").innerHTML = "";
+	document.getElementById("frozennote").innerHTML = "";
 }
 function calculate(mode)
 {
@@ -654,7 +655,7 @@ function calculate(mode)
 				if (attname == "Ice Archer")
 				{
 					bstring = document.getElementById("resultdef").innerHTML = "Defender is FROZEN! Remaining HP:  " + defhp;
-					document.getElementById("note").innerHTML = "Frozen units can't retaliate!";
+					document.getElementById("frozennote").innerHTML = "Frozen units can't retaliate!";
 				}
 				else
 				{
@@ -666,7 +667,7 @@ function calculate(mode)
 				{
 					res = 0;
 				}
-				if (attname = "Ice Archer" || defname == "Mooni" || defname == "Ice Archer")
+				if (attname == "Ice Archer" || defname == "Mooni" || defname == "Ice Archer")
 				{
 					res = 0;
 					if (defname == "Mooni")
@@ -702,7 +703,7 @@ function calculate(mode)
 				if (attname == "Ice Archer")
 				{
 					bstring = document.getElementById("resultdef").innerHTML = "Defender is FROZEN! Remaining HP:  " + defhp;
-					document.getElementById("note").innerHTML = "Frozen units can't retaliate!";
+					document.getElementById("frozennote").innerHTML = "Frozen units can't retaliate!";
 					defenders[defenderselected].frozen = true;
 				}
 				
@@ -721,7 +722,7 @@ function calculate(mode)
 					if (defenders[defenderselected].frozen == true)
 					{
 						res = 0;
-						document.getElementById("note").innerHTML = "Frozen units can't retaliate!";
+						document.getElementById("frozennote").innerHTML = "Frozen units can't retaliate!";
 					}
 					else if (defname == "Mooni" || defname == "Ice Archer")
 					{
@@ -1750,7 +1751,7 @@ function createunit()
 		{
 			defindicator = "W";
 		}
-		if ((defname == "Boat") || (defname == "Ship") || (defname == "Battleship") || (defname == "Navalon"))
+		if ((defname == "Boat") || (defname == "Ship") || (defname == "Battleship"))
 		{
 			if (defindicator == "W")
 			{
@@ -1758,16 +1759,41 @@ function createunit()
 				defindicator = "";
 			}
 		}
-		else if ((defname == "Amphibian") || (defname == "Crab") || (defname == "Tridention"))
+		else if ((defname == "Catapult") || (defname == "Mind Bender") || (defname == "Giant") || (defname == "Navalon") || (defname == "Crab") || (defname == "Baby Dragon") || (defname == "Fire Dragon") || (defname == "Mooni") || (defname == "Battle Sled") || (defname == "Ice Fortress") || (defname == "Gaami"))
 		{
 			if (defindicator == "W")
 			{
-				document.getElementById("note").innerHTML = "Note: " + defname + "s don't receive the defense bonus from cities! Wall bonus was disregarded.";
-				defindicator = "";
+				if (defname == "Catapult")
+				{
+					document.getElementById("note").innerHTML ="Note: Catapults can't benefit any from defense bonuses due to their 0 defense value!";
+					defindicator = "";
+				}
+				else if ((defname == "Mooni") || (defname == "Ice Fortress"))
+				{
+					document.getElementById("note").innerHTML = "Note: " + defname + "es don't receive the defense bonus from cities! Wall bonus was disregarded.";
+					defindicator = "";
+				}
+				else
+				{
+					document.getElementById("note").innerHTML = "Note: " + defname + "s don't receive the defense bonus from cities! Wall bonus was disregarded.";
+					defindicator = "";
+				}
 			}
 			else if (defindicator == "D")
 			{
-				document.getElementById("note").innerHTML = "Note: " + defname + "s don't receive the defense bonus from cities!";
+				if (defname == "Catapult")
+				{
+					document.getElementById("note").innerHTML ="Note: Catapults can't benefit any from defense bonuses due to their 0 defense value!";
+					defindicator = "";
+				}
+				else if ((defname == "Mooni") || (defname == "Ice Fortress"))
+				{
+					document.getElementById("note").innerHTML = "Note: " + defname + "es don't receive the defense bonus from cities!";
+				}
+				else
+				{
+					document.getElementById("note").innerHTML = "Note: " + defname + "s don't receive the defense bonus from cities!";
+				}
 			}
 		}	
 		else if (defname == "Nature Bunny")
@@ -2620,6 +2646,7 @@ function refreshattackers()
 		<p id="resultdef">For information on combat mechanics, calculator usage and useful guides or links, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
+		<p id="frozennote" class="i"></p>
 		<span id="scrollanchor"></span>
 		<p id="extendedinfo" class="ext" style="display:none"><span style="border-top: 1px dashed black; padding-top: 10px; display: block; max-width: 350px;"></span>Battle history does not contain any entries yet.</p>
 	</div>
@@ -2674,7 +2701,7 @@ function refreshattackers()
 		<div id="expandindicator4" class="ei">+</div>
 	</div>
 	<div id="answercontainer4" class="a">
-		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. This happens just before attackForce and defenseForce variables are added together to form the totalDamage sum.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. There is no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.<br/><br/>Keep in mind that since the Polaris update, all units that can benefit from defense bonuses in cities have the Fortify skill. If a unit can occupy a city but doesn't have this skill - it can't benefit from that city's defense bonus. Units that don't have the Fortify skill are:<br/><br/>Catapults, mind benders, giants, crabs, baby dragons, fire dragons, moonies, battle sleds, ice fortresses and gaamis.<br/><br/>Perhaps surprisingly, dragon eggs do get the Fortify skill.</p>
+		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. This happens just before attackForce and defenseForce variables are added together to form the totalDamage sum.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. There is no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.<br/><br/>Keep in mind that since the Polaris update, all units that can benefit from defense bonuses in cities have the Fortify skill. If a unit can occupy a city but doesn't have this skill - it can't benefit from that city's defense bonus. Units that don't have the Fortify skill are:<br/><br/>Catapults, mind benders, giants, crabs, navalons, baby dragons, fire dragons, moonies, battle sleds, ice fortresses and gaamis.<br/><br/>Perhaps surprisingly, dragon eggs do get the Fortify skill.</p>
 	</div>
 
 	<div class="q" onclick="expandcontainer(5)">
