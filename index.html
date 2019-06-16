@@ -842,7 +842,7 @@ function calculate(mode)
 		}
 		if (mode == "Multi")
 		{
-			if ((attackers[attackerselected].type == "Archer") || (attackers[attackerselected].type == "Catapult") || (attackers[attackerselected].type == "Boat") || (attackers[attackerselected].type == "Ship") || (attackers[attackerselected].type == "Battleship") || (attackers[attackerselected].type == "Tridention"))
+			if ((attackers[attackerselected].type == "Archer") || (attackers[attackerselected].type == "Catapult") || (attackers[attackerselected].type == "Boat") || (attackers[attackerselected].type == "Ship") || (attackers[attackerselected].type == "Battleship") || (attackers[attackerselected].type == "Tridention") || (attackers[attackerselected].type == "Ice Fortress"))
 			{
 				document.getElementById("noretalbox").checked = false;
 				document.getElementById("noretaltext").style.visibility = "hidden";
@@ -1157,7 +1157,7 @@ function defenderfill()
 			document.getElementById("defensemaxhp").value = "20";
 			break;
 		case "Mooni":
-			document.getElementById("defense").value = "1";
+			document.getElementById("defense").value = "2";
 			document.getElementById("defensehp").value = "10";
 			document.getElementById("defensemaxhp").value = "10";
 			break;
@@ -1932,7 +1932,7 @@ function attackselector(attackernumber)
 	else
 	{
 		if ((attackers[attackerselected].type == "Archer") || (attackers[attackerselected].type == "Catapult") || (attackers[attackerselected].type == "Boat") || (attackers[attackerselected].type == "Ship") ||
-			(attackers[attackerselected].type == "Battleship") || (attackers[attackerselected].type == "Tridention") || (attackers[attackerselected].type == "Fire Dragon"))
+			(attackers[attackerselected].type == "Battleship") || (attackers[attackerselected].type == "Tridention") || (attackers[attackerselected].type == "Fire Dragon") || (attackers[attackerselected].type == "Ice Fortress"))
 		{
 			if ((attackers[attackerselected].type == "Fire Dragon") && (attackers[attackerselected].defendersattacked.length > 0))
 			{
@@ -2642,7 +2642,7 @@ function refreshattackers()
 
 	<div id="resultcontainer" onclick="displayextinfo()" style="max-width: 800px">
 		<p><b id="result">Result:</b><span id="respressindicator">&#9679;</span></p>
-	<p id="resultatt"><b><i>New update!</i></b> Added support for Polaris units. To freeze/unfreeze a defender in Multi mode, press on it three times consecutively. Ice archers automatically freeze the units they attack.</p>
+	<p id="resultatt"><b><i>New update!</i></b> Added support for Polaris units. To freeze/unfreeze a defender in Multi mode, press on it three times consecutively. Ice archers automatically freeze the units they attack. As always - bugs are possible. Do contact me if you find one so I can fix it as soon as possible.</p>
 		<p id="resultdef">For information on combat mechanics, calculator usage and useful guides or links, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
 		<p id="frozennote" class="i"></p>
@@ -2757,7 +2757,7 @@ function refreshattackers()
 		<div id="expandindicator11" class="ei">+</div>
 	</div>
 	<div id="answercontainer11" class="a">
-		<p>A unit can be promoted to veteran status once it has destroyed 3 or more units, either via attacks or retaliations. You can promote the unit at any time during your turn, and you can even carry over the reward into following turns. However, you can only promote a unit once this way.<br/><br/>Once promoted, the unit's maximum HP permanently increases by 5 and the unit heals up completely. No other stats are affected. Because of this, it is generally a good idea to hold on to the reward until the unit is seriously damaged in battle.<br/><br/>Some units can't be promoted. This includes all super units (giants, crabs, every form of dragon), mind benders, polytaurs and navalons. Boats, ships and battleships can be promoted, but only if the carried unit previously activated the reward on land. This is due to the unit's battle victories at sea not being counted towards achieving its veteran status.</p>
+		<p>A unit can be promoted to veteran status once it has destroyed 3 or more units, either via attacks or retaliations. You can promote the unit at any time during your turn, and you can even carry over the reward into following turns. However, you can only promote a unit once this way.<br/><br/>Once promoted, the unit's maximum HP permanently increases by 5 and the unit heals up completely. No other stats are affected. Because of this, it is generally a good idea to hold on to the reward until the unit is seriously damaged in battle.<br/><br/>Some units can't be promoted. This includes all super units (giants, crabs, every form of dragon, gaamis), mind benders, polytaurs, navalons, ice archers and moonies. Boats, ships and battleships can be promoted, but only if the carried unit previously activated the reward on land. This is due to the unit's battle victories at sea not being counted towards achieving its veteran status.<br/><br/>Interestingly, ice archers do have an option to track their battle victories for veteran status. However, their 0.1 attack value is not enough to deal damage, even in the worst case scenario where the defender's defense value is 0.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(12)">
