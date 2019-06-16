@@ -1,5 +1,8 @@
 # Changelog
 
+16.06.2019.
+- Added support for Polaris units and applied other balance changes. In Multi mode you can opt to freeze defenders by pressing on a unit three times repeatedly. You can unfreeze units in the same way. Ice archers automatically freeze their targets when they attack.
+
 17.02.2019.
 - UI update.
 - Added a shortened version of the calculator. It can be activated by adding ?short to the end of the calculator's browser URL. More details in the FAQ - under the How to use the calculator? question.

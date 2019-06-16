@@ -250,6 +250,7 @@ var defenders = [];
 var attackerselected = -1;
 var defenderselected = -1;
 var prevattackerselected = -2;
+var prevdefenderselected = -2;
 var deleteselected = false;
 var backupattackers = [];
 var backupdefenders = [];
@@ -263,6 +264,7 @@ var shortparameter = false;
 var savednumber = 0;
 var prevattshiphp = 10;
 var prevdefshiphp = 10;
+var freezecounter = 0;
 
 function messageclear()
 {
@@ -434,24 +436,63 @@ function calculate(mode)
 
 		if (testdef == true)
 		{
-			if (defname == "Amphibian")
+			if (defname == "Catapult")
+			{
+				document.getElementById("note").innerHTML = "Note: Catapults can't benefit any from defense bonuses due to their 0 defense value!";
+			}
+			else if (defname == "Mind Bender")
 			{
 				defforce = defforce * 1.5;
-				document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities!";
+				document.getElementById("note").innerHTML = "Note: Mind Benders don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Giant")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Giants don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Navalon")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Navalons don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Baby Dragon")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Baby Dragons don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Fire Dragon")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Fire Dragons don't receive the defense bonus from cities!";
 			}
 			else if (defname == "Crab")
 			{
 				defforce = defforce * 1.5;
 				document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities!";
 			}
-			else if (defname == "Tridention")
+			else if (defname == "Mooni")
 			{
 				defforce = defforce * 1.5;
-				document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities!";
+				document.getElementById("note").innerHTML = "Note: Moonies don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Battle Sled")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Battle Sleds don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Ice Fortress")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Ice Fortresses don't receive the defense bonus from cities!";
+			}
+			else if (defname == "Gaami")
+			{
+				defforce = defforce * 1.5;
+				document.getElementById("note").innerHTML = "Note: Gaamis don't receive the defense bonus from cities!";
 			}
 			else if (defname == "Nature Bunny")
 			{
-				document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities and don't have any defensive technologies! Defense bonus was disregarded in the result.";
+				document.getElementById("note").innerHTML = "Note: Nature Bunnies can't capture cities and don't have any defensive technologies! Defense bonus was disregarded in the result.";
 			}
 			else
 			{
@@ -478,25 +519,53 @@ function calculate(mode)
 			{
 				document.getElementById("note").innerHTML = "Note: Ships can't benefit from walls! Wall bonus was disregarded in the result.";
 			}
+			else if (defname == "Catapult")
+			{
+				document.getElementById("note").innerHTML = "Note: Catapults can't benefit from any defense bonuses due to their 0 defense value!";
+			}
+			else if (defname == "Mind Bender")
+			{
+				document.getElementById("note").innerHTML = "Note: Mind Benders don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Giant")
+			{
+				document.getElementById("note").innerHTML = "Note: Giants don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
 			else if (defname == "Navalon")
 			{
-				document.getElementById("note").innerHTML = "Note: Navalons can't benefit from walls! Wall bonus was disregarded in the result.";
+				document.getElementById("note").innerHTML = "Note: Navalons don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
 			}
-			else if (defname == "Amphibian")
+			else if (defname == "Baby Dragon")
 			{
-				document.getElementById("note").innerHTML = "Note: Amphibians don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+				document.getElementById("note").innerHTML = "Note: Baby Dragons don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Fire Dragon")
+			{
+				document.getElementById("note").innerHTML = "Note: Fire Dragons don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
 			}
 			else if (defname == "Crab")
 			{
 				document.getElementById("note").innerHTML = "Note: Crabs don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
 			}
-			else if (defname == "Tridention")
+			else if (defname == "Mooni")
 			{
-				document.getElementById("note").innerHTML = "Note: Tridentions don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+				document.getElementById("note").innerHTML = "Note: Moonies don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Battle Sled")
+			{
+				document.getElementById("note").innerHTML = "Note: Battle Sleds don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Ice Fortress")
+			{
+				document.getElementById("note").innerHTML = "Note: Ice Fortresses don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
+			}
+			else if (defname == "Gaami")
+			{
+				document.getElementById("note").innerHTML = "Note: Gaamis don't receive the defense bonus from cities! Wall bonus was disregarded in the result.";
 			}
 			else if (defname == "Nature Bunny")
 			{
-				document.getElementById("note").innerHTML = "Note: Nature bunnies can't capture cities! Wall bonus was disregarded in the result.";
+				document.getElementById("note").innerHTML = "Note: Nature Bunnies can't capture cities! Wall bonus was disregarded in the result.";
 			}
 			else
 			{
@@ -582,15 +651,34 @@ function calculate(mode)
 		{
 			if (defhp > 0) 
 			{
-				bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
-				document.getElementById("defensehp").value = defhp;
+				if (attname == "Ice Archer")
+				{
+					bstring = document.getElementById("resultdef").innerHTML = "Defender is FROZEN! Remaining HP:  " + defhp;
+					document.getElementById("note").innerHTML = "Frozen units can't retaliate!";
+				}
+				else
+				{
+					bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
+					document.getElementById("defensehp").value = defhp;
+				}
 				res = Math.round(defforce / totaldam * def * 4.5);
 				if (isNaN(res) == true)
 				{
 					res = 0;
 				}
+				if (attname = "Ice Archer" || defname == "Mooni" || defname == "Ice Archer")
+				{
+					res = 0;
+					if (defname == "Mooni")
+					{
+						document.getElementById("note").innerHTML = "Moonies can't retaliate!";
+					}
+					if (defname == "Ice Archer")
+					{
+						document.getElementById("note").innerHTML = "Ice Archers can't retaliate!";
+					}
+				}
 				atthp = atthp - res;
-			
 				if (atthp > 0)
 				{
 					astring = document.getElementById("resultatt").innerHTML = "Attacker survives! Remaining HP:  " + atthp;
@@ -611,9 +699,43 @@ function calculate(mode)
 		{
 			if (defhp > 0) 
 			{
-				bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
-				defenders[defenderselected].hp = defhp;
-				res = Math.round(defforce / totaldam * def * 4.5);
+				if (attname == "Ice Archer")
+				{
+					bstring = document.getElementById("resultdef").innerHTML = "Defender is FROZEN! Remaining HP:  " + defhp;
+					document.getElementById("note").innerHTML = "Frozen units can't retaliate!";
+					defenders[defenderselected].frozen = true;
+				}
+				
+				else
+				{
+					if (defenders[defenderselected].frozen == true)
+					{
+						bstring = document.getElementById("resultdef").innerHTML = "Defender is FROZEN! Remaining HP:  " + defhp;
+					}
+					else
+					{
+						bstring = document.getElementById("resultdef").innerHTML = "Defender survives! Remaining HP:  " + defhp;
+					}
+					defenders[defenderselected].hp = defhp;
+					res = Math.round(defforce / totaldam * def * 4.5);
+					if (defenders[defenderselected].frozen == true)
+					{
+						res = 0;
+						document.getElementById("note").innerHTML = "Frozen units can't retaliate!";
+					}
+					else if (defname == "Mooni" || defname == "Ice Archer")
+					{
+						res = 0;
+						if (defname == "Mooni" && attackers[attackerselected].defendersattacked.length == 0)
+						{
+							document.getElementById("note").innerHTML = "Moonies can't retaliate!";
+						}
+						if (defname == "Ice Archer" && attackers[attackerselected].defendersattacked.length == 0)
+						{
+							document.getElementById("note").innerHTML = "Ice Archers can't retaliate!";
+						}
+					}
+				}
 				if (isNaN(res) == true)
 				{
 					res = 0;
@@ -704,6 +826,10 @@ function calculate(mode)
 			if (defenders[defenderselected].hp < 1)
 			{
 				color = "gray";
+			}
+			else if (defenders[defenderselected].frozen == true)
+			{
+				color = "blue";
 			}
 			document.getElementById("defender" + defenderselected).innerHTML ="<img src='Defenders/" + defenders[defenderselected].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[defenderselected].defbonus + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + defenders[defenderselected].d + "/" + defenders[defenderselected].hp + "/" + defenders[defenderselected].maxhp + "</div>";
 			document.getElementById("defender" + defenderselected).style.borderColor = color;
@@ -880,9 +1006,29 @@ function attackerfill()
 			document.getElementById("attackhp").value = "20";
 			document.getElementById("attackmaxhp").value = "20";
 			break;
+		case "Ice Archer":
+			document.getElementById("attack").value = "0";
+			document.getElementById("attackhp").value = "10";
+			document.getElementById("attackmaxhp").value = "10";
+			break;
+		case "Battle Sled":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Ice Fortress":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "20";
+			document.getElementById("attackmaxhp").value = "20";
+			break;
+		case "Gaami":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "30";
+			document.getElementById("attackmaxhp").value = "30";
+			break;
 	}
 	document.getElementById("shortatt").innerText = "(" + document.getElementById("attack").value + ")";
-	if (getattacker == "Warrior" || getattacker == "Rider" || getattacker == "Defender" || getattacker == "Swordsman" || getattacker == "Archer" || getattacker == "Catapult" || getattacker == "Knight" || getattacker == "Amphibian" || getattacker == "Tridention")
+	if (getattacker == "Warrior" || getattacker == "Rider" || getattacker == "Defender" || getattacker == "Swordsman" || getattacker == "Archer" || getattacker == "Catapult" || getattacker == "Knight" || getattacker == "Amphibian" || getattacker == "Tridention" || getattacker == "Battle Sled" || getattacker == "Ice Fortress")
 	{
 		document.getElementById("attvetbox").checked = false;
 		document.getElementById("attveterancy").style.display='inline-block';
@@ -1009,6 +1155,31 @@ function defenderfill()
 			document.getElementById("defensehp").value = "20";
 			document.getElementById("defensemaxhp").value = "20";
 			break;
+		case "Mooni":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Ice Archer":
+			document.getElementById("defense").value = "1";
+			document.getElementById("defensehp").value = "10";
+			document.getElementById("defensemaxhp").value = "10";
+			break;
+		case "Battle Sled":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Ice Fortress":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "20";
+			document.getElementById("defensemaxhp").value = "20";
+			break;
+		case "Gaami":
+			document.getElementById("defense").value = "4";
+			document.getElementById("defensehp").value = "30";
+			document.getElementById("defensemaxhp").value = "30";
+			break;
 		case "Nature Bunny":
 			document.getElementById("defense").value = "1";
 			document.getElementById("defensehp").value = "20";
@@ -1016,7 +1187,7 @@ function defenderfill()
 			break;
 	}
 	document.getElementById("shortdef").innerText = "(" + document.getElementById("defense").value + ")";
-	if (getdefender == "Warrior" || getdefender == "Rider" || getdefender == "Defender" || getdefender == "Swordsman" || getdefender == "Archer" || getdefender == "Catapult" || getdefender == "Knight" || getdefender == "Amphibian" || getdefender == "Tridention")
+	if (getdefender == "Warrior" || getdefender == "Rider" || getdefender == "Defender" || getdefender == "Swordsman" || getdefender == "Archer" || getdefender == "Catapult" || getdefender == "Knight" || getdefender == "Amphibian" || getdefender == "Tridention" || getdefender == "Battle Sled" || getdefender == "Ice Fortress")
 	{
 		document.getElementById("defvetbox").checked = false;
 		document.getElementById("defveterancy").style.display='inline-block';
@@ -1098,6 +1269,16 @@ function attackerveteran()
 			document.getElementById("attackhp").value = "15";
 			document.getElementById("attackmaxhp").value = "15";
 			break;
+		case "Battle Sled":
+			document.getElementById("attack").value = "3";
+			document.getElementById("attackhp").value = "15";
+			document.getElementById("attackmaxhp").value = "15";
+			break;
+		case "Ice Fortress":
+			document.getElementById("attack").value = "4";
+			document.getElementById("attackhp").value = "20";
+			document.getElementById("attackmaxhp").value = "20";
+			break;
 	}
 	var atthp = parseInt(document.getElementById("attackhp").value);
 	var attmaxhp = parseInt(document.getElementById("attackmaxhp").value);
@@ -1157,6 +1338,16 @@ function defenderveteran()
 			document.getElementById("defense").value = "1";
 			document.getElementById("defensehp").value = "15";
 			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Battle Sled":
+			document.getElementById("defense").value = "2";
+			document.getElementById("defensehp").value = "15";
+			document.getElementById("defensemaxhp").value = "15";
+			break;
+		case "Ice Fortress":
+			document.getElementById("defense").value = "3";
+			document.getElementById("defensehp").value = "20";
+			document.getElementById("defensemaxhp").value = "20";
 			break;
 	}
 	var defhp = parseInt(document.getElementById("defensehp").value);
@@ -1350,6 +1541,8 @@ function resetcounters()
 	refreshcounter = 0;
 	refatthpcounter = 0;
 	refdefhpcounter = 0;
+	freezecounters = 0;
+	prevdefenderselected = -1;
 }
 function choosetype()
 {
@@ -1590,7 +1783,7 @@ function createunit()
 				defindicator = "";
 			}
 		}
-		defenders.push({type: defname, d: def, hp: defhp, maxhp: defmaxhp, defbonus: defindicator});
+		defenders.push({type: defname, d: def, hp: defhp, maxhp: defmaxhp, defbonus: defindicator, frozen: false});
 		var i = defenders.length - 1;
 		defenderlist.insertAdjacentHTML("beforeend", "<div class ='c' id='defender" + i + "' style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div></div>");
 		document.getElementById("resultatt").innerHTML = "Defender created!";
@@ -1646,6 +1839,7 @@ function deleteunitprompt()
 			attackerselected = -1;
 			defenderselected = -1;
 			prevattackerselected = -2;
+			prevdefenderselected = -1;
 		}
 	}
 	else
@@ -1700,6 +1894,7 @@ function deleteunit(type)
 	attackerselected = -1;
 	defenderselected = -1;
 	prevattackerselected = -2;
+	prevdefenderselected = -1;
 }
 function attackselector(attackernumber)
 {
@@ -1831,6 +2026,60 @@ function defenseselector(defendernumber)
 	}
 	else
 	{
+		if (attackerselected == -1 && defenders[defenderselected].hp > 0 && defenders[defenderselected].frozen == false)
+		{
+			if (prevdefenderselected != defenderselected)
+			{
+				freezecounter = 0;
+			}
+			freezecounter = freezecounter + 1;
+			if (freezecounter == 1)
+			{
+				messageclear();
+				document.getElementById("resultatt").innerHTML = 'Opting to freeze ' + defenders[defenderselected].type + ' [' + (defenderselected + 1) + ']. Press on the same defender two more times to confirm.';
+			}
+			else if (freezecounter == 2)
+			{
+				messageclear();
+				document.getElementById("resultatt").innerHTML = 'Opting to freeze ' + defenders[defenderselected].type + ' [' + (defenderselected + 1) + ']. Press on the same defender one more time to confirm.';
+			}
+			else if (freezecounter == 3)
+			{
+				messageclear();
+				freezecounter = 0;
+				document.getElementById("resultatt").innerHTML = 'Defender ' + defenders[defenderselected].type + ' [' + (defenderselected + 1) + '] frozen!';
+				defenders[defenderselected].frozen = true;
+				document.getElementById("defender" + defenderselected).style.borderColor = "blue";
+			}
+			prevdefenderselected = defenderselected;
+		}
+		else if (attackerselected == -1 && defenders[defenderselected].hp > 0 && defenders[defenderselected].frozen == true)
+		{
+			if (prevdefenderselected != defenderselected)
+			{
+				freezecounter = 0;
+			}
+			freezecounter = freezecounter + 1;
+			if (freezecounter == 1)
+			{
+				messageclear();
+				document.getElementById("resultatt").innerHTML = 'Opting to unfreeze ' + defenders[defenderselected].type + ' [' + (defenderselected + 1) + ']. Press on the same defender two more times to confirm.';
+			}
+			else if (freezecounter == 2)
+			{
+				messageclear();
+				document.getElementById("resultatt").innerHTML = 'Opting to unfreeze ' + defenders[defenderselected].type + ' [' + (defenderselected + 1) + ']. Press on the same defender one more time to confirm.';
+			}
+			else if (freezecounter == 3)
+			{
+				messageclear();
+				freezecounter = 0;
+				document.getElementById("resultatt").innerHTML = 'Defender ' + defenders[defenderselected].type + ' [' + (defenderselected + 1) + '] unfrozen!';
+				defenders[defenderselected].frozen = false;
+				document.getElementById("defender" + defenderselected).style.borderColor = "black";
+			}
+			prevdefenderselected = defenderselected;
+		}
 		if (attackerselected != -1)
 		{
 			if ((defenders[defenderselected].hp > 0) && (attackers[attackerselected].unavailable == false))
@@ -1858,6 +2107,7 @@ function defenseselector(defendernumber)
 				{
 					attackerselected = -1;
 					prevattackerselected = -2;
+					prevdefenderselected = -1;
 				}
 				else if (attackers[attackerselected].type == "Fire Dragon")
 				{
@@ -1870,6 +2120,7 @@ function defenseselector(defendernumber)
 					{
 						attackerselected = -1;
 						prevattackerselected = -2;
+						prevdefenderselected = -1;
 					}
 				}
 				else
@@ -1883,6 +2134,7 @@ function defenseselector(defendernumber)
 					{
 						attackerselected = -1;
 						prevattackerselected = -2;
+						prevdefenderselected = -1;
 					}
 				}
 			}
@@ -1928,7 +2180,7 @@ function createbackup()
 		}
 		for (i = 0; i < defenders.length; i++)
 		{
-			backupdefenders.push({type2: defenders[i].type, d2: defenders[i].d, hp2: defenders[i].hp, maxhp2: defenders[i].maxhp, defbonus2: defenders[i].defbonus});
+			backupdefenders.push({type2: defenders[i].type, d2: defenders[i].d, hp2: defenders[i].hp, maxhp2: defenders[i].maxhp, defbonus2: defenders[i].defbonus, frozen2: defenders[i].frozen});
 		}
 		messageclear();
 		document.getElementById("resultatt").innerHTML = "State saved!";
@@ -1961,7 +2213,7 @@ function loadbackup()
 		}
 		for (i = 0; i < backupdefenders.length; i++)
 		{
-			defenders.push({type: backupdefenders[i].type2, d: backupdefenders[i].d2, hp: backupdefenders[i].hp2, maxhp: backupdefenders[i].maxhp2, defbonus: backupdefenders[i].defbonus2});
+			defenders.push({type: backupdefenders[i].type2, d: backupdefenders[i].d2, hp: backupdefenders[i].hp2, maxhp: backupdefenders[i].maxhp2, defbonus: backupdefenders[i].defbonus2, frozen: backupdefenders[i].frozen2});
 		}
 		document.getElementById("attackerlist").innerHTML = "";
 		var decshort = "";
@@ -1996,6 +2248,10 @@ function loadbackup()
 			if (defenders[i].hp < 1)
 			{
 				color = "gray";
+			}
+			else if (defenders[i].frozen == true)
+			{
+				color = "blue";
 			}
 			defenderlist.insertAdjacentHTML("beforeend", "<div class='c' id='defender" + i + "' style='width: 56px; height: 80px; border-style: solid; border-color: " + color + "; display: inline-block; position: relative' onclick='defenseselector(" + i + ")'><img src='Defenders/" + defenders[i].type + ".png' height='55' width='55'><div style='position: absolute; top: 1px; right: 1px'><b>" + defenders[i].defbonus + "</b></div><div style='position: absolute; width: 100%; bottom: 2px; text-align: center'>" + defenders[i].d + "/" + defenders[i].hp + "/" + defenders[i].maxhp + "</div></div>");
 		}
@@ -2076,7 +2332,7 @@ function expandall(indicator)
 		var expandindicator = "";
 		var answercontainer = "";
 		
-		for (i = 0; i < 19; i++)
+		for (i = 0; i < 20; i++)
 		{
 			expandindicator = "expandindicator" + i;
 			answercontainer = "answercontainer" + i;
@@ -2086,7 +2342,7 @@ function expandall(indicator)
 				document.getElementById(answercontainer).style.display = "block";
 			}
 		}
-		answersexpanded = 19;
+		answersexpanded = 20;
 		document.getElementById("expandallindicator1").innerHTML = "- Collapse all";
 		document.getElementById("expandallindicator2").innerHTML = "- Collapse all";
 		if (indicator == 2)
@@ -2099,7 +2355,7 @@ function expandall(indicator)
 		var expandindicator = "";
 		var answercontainer = "";
 		
-		for (i = 0; i < 19; i++)
+		for (i = 0; i < 20; i++)
 		{
 			expandindicator = "expandindicator" + i;
 			answercontainer = "answercontainer" + i;
@@ -2227,6 +2483,10 @@ function refreshattackers()
 			<option value="Navalon">Navalon
 			<option value="Baby Dragon">Baby Dragon
 			<option value="Fire Dragon">Fire Dragon
+			<option value="Ice Archer">Ice Archer
+			<option value="Battle Sled">Battle Sled
+			<option value="Ice Fortress">Ice Fortress
+			<option value="Gaami">Gaami
 		</select>
 		
 		<label class="container" id="attveterancy" onclick="attackerveteran()" style="display: none; position: absolute; margin-left: 4px;">
@@ -2280,6 +2540,11 @@ function refreshattackers()
 			<option value="Dragon Egg">Dragon Egg
 			<option value="Baby Dragon">Baby Dragon
 			<option value="Fire Dragon">Fire Dragon
+			<option value="Mooni">Mooni
+			<option value="Ice Archer">Ice Archer
+			<option value="Battle Sled">Battle Sled
+			<option value="Ice Fortress">Ice Fortress
+			<option value="Gaami">Gaami
 			<option value="Nature Bunny">Nature Bunny
 		</select>
 
@@ -2351,7 +2616,7 @@ function refreshattackers()
 
 	<div id="resultcontainer" onclick="displayextinfo()" style="max-width: 800px">
 		<p><b id="result">Result:</b><span id="respressindicator">&#9679;</span></p>
-	<p id="resultatt"><b><i>QoL update!</i></b> Refer to the <a href="https://github.com/frothfrenzy/polytopiacalculator/blob/master/Changelog.md">changelog</a> for details. Old version available <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex2.html">here</a>. <span id="shorttext">Also, try adding <a href="https://frothfrenzy.github.io/polytopiacalculator/?short">?short</a> to the end of the calculator's browser URL.</span></p>
+	<p id="resultatt"><b><i>New update!</i></b> Added support for Polaris units. To freeze/unfreeze a defender in Multi mode, press on it three times consecutively. Ice archers automatically freeze the units they attack.</p>
 		<p id="resultdef">For information on combat mechanics, calculator usage and useful guides or links, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
 		<p id="note" class="i"></p>
@@ -2393,7 +2658,7 @@ function refreshattackers()
 		<div id="expandindicator2" class="ei">+</div>
 	</div>
 	<div id="answercontainer2" class="a">
-		<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.<br/><br/>When in Multi mode, do the following:<br/><br/>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.<br/><br/>- Select a unit type from the unit template list, change its current HP if necessary and tick additional modifiers, if any.<br/><br/>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).<br/><br/>- Repeat this process until you create the desired battle situation. You can create any number of units this way.<br/><br/>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.<br/><br/>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.<br/><br/>- To delete units, press the Delete Units button and select the attackers or defenders you want to delete. Units selected this way will instantly disappear. To stop deleting, press the Delete Units button again. Pressing other buttons such as Create Unit! or opening the FAQ also stops the deletion process. When active, the Delete Units button will have an (x) appear within it.<br/><br/>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...<br/><br/>Knights and navalons will be able to continue attacking as long as they are destroying enemy units. They become unavailable once an attack doesn't destroy an enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.<br/><br/>Fire dragon's first attack is always its main attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's main attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the main attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after performing its main attack. Saving a state or prompting to delete units also triggers this.<br/><br/>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.<br/><br/>Another thing to note about the attacker knight is that its attack value will show as a bolded 3 instead of a regular 3.5. This is deliberate because additional symbols didn't fit well into the unit container in some battle situations. It otherwise has no effect on the battle result.<br/><br/>You can refresh all of your attackers by pressing the "Attackers:" text three times repeatedly. This will make all non-destroyed, unavailable attackers able to attack again.<br/><br/>When selecting an available ranged unit, you are prompted with a No retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.<br/><br/>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Only Imperius and Xin-Xi sprites will be available out of respect for the developer.<br/><br/>The Multi mode uses the same code as the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No retaliation clause and the fire dragon's attack type.<br/><br/>To prevent accidental resets of huge battlefields, a button to clear everything isn't included. Simply refresh the calculator page if you want to start over, or delete the leftover units by pressing the Delete Units button.</p>
+		<p>This option allows you to recreate a battle state so you can try a variety of approaches in order to achieve optimal results. To use it, press the Multi button. This makes the calculator switch modes. You can always return to the original mode by pressing the Single button.<br/><br/>When in Multi mode, do the following:<br/><br/>- Create a battlefield of attackers and defenders by selecting between Choose Attacker or Choose Defender at the top.<br/><br/>- Select a unit type from the unit template list, change its current HP if necessary and tick additional modifiers, if any.<br/><br/>- Press the Create Unit! button. This creates a unit on the battlefield. If you created a defender and ticked a defensive bonus, the unit will have a letter indicating the bonus type in their upper right corner (D/W for defense/wall bonus).<br/><br/>- Repeat this process until you create the desired battle situation. You can create any number of units this way.<br/><br/>- Before you start battling, it is recommended that you press the Save State button. This will preserve the current battle situation and whatever you do, you can always press Load State to reload the battle state you previously saved. This is very useful when you want to try out multiple methods to resolve the situation.<br/><br/>- You can start battling now. Simply press on an attacker to select it, and then press on a defender. If possible, the battle will automatically take place. As long as you keep creating new units and/or have units available, you can perform any number of calculations.<br/><br/>- To delete units, press the Delete Units button and select the attackers or defenders you want to delete. Units selected this way will instantly disappear. To stop deleting, press the Delete Units button again. Pressing other buttons such as Create Unit! or opening the FAQ also stops the deletion process. When active, the Delete Units button will have an (x) appear within it.<br/><br/>As per standard gameplay mechanics, most units can attack only once. Once a unit is either dead or unavailable for attack, its border is automatically grayed out and it cannot be selected again. There are some exceptions...<br/><br/>Knights and navalons will be able to continue attacking as long as they are destroying enemy units. They become unavailable once an attack doesn't destroy an enemy unit, but you can also do so manually by pressing on them again while they are selected. This usually just deselects any unit but if a knight or a navalon already performed an attack, it will become unavailable this way.<br/><br/>Fire dragon's first attack is always its main attack. Every subsequent attack is its splash attack, which is indicated by the letter S appearing in its upper right corner. If the fire dragon's main attack was retaliated against, splash attacks will still be calculated with its original HP in mind. This is true even if the fire dragon was destroyed by the retaliation, in which case it will be treated as available to perform splash attacks. Since the main attack and all of the collateral splash attacks happen at once, the fire dragon becomes unavailable once you deselect it or select any other attacker after performing its main attack. Saving a state or prompting to delete units also triggers this.<br/><br/>Other than the exceptions above, you can freely select and deselect your available attackers however you wish. The calculator remembers which units attacked and which did not.<br/><br/>You can freeze defenders by pressing on a defender you want to freeze three times repeatedly. Confirmation messages will appear under the "Feedback:" text, with the unit name being shown and a number in brackets which denotes the unit's position in the defender list. Once the unit is frozen its border will turn blue. You can unfreeze units in the same way. Ice archers will automatically freeze units with their attacks.<br/><br/>Another thing to note about the attacker knight is that its attack value will show as a bolded 3 instead of a regular 3.5. This is deliberate because additional symbols didn't fit well into the unit container in some battle situations. It otherwise has no effect on the battle result.<br/><br/>You can refresh all of your attackers by pressing the "Attackers:" text three times repeatedly. This will make all non-destroyed, unavailable attackers able to attack again.<br/><br/>When selecting an available ranged unit, you are prompted with a No retaliation checkbox which prevents enemy units from retaliating. This setting is automatically ticked by default. However, if you have to perform a big number of calculations that take place between ranged units (such as in a sea battle), you can change this default setting by pressing on the "Defenders:" text. This will make enemy units retaliate by default. You can change back to the original setting by pressing the text again.<br/><br/>Since this mode uses some sprites from the game, the images won't appear if you download the calculator to use it offline. You'd have to download the image folders also while preserving the pathing context. Just in case, I'll be keeping the old calculator .html file on the Github repository if this update breaks anything (as <a href="https://frothfrenzy.github.io/polytopiacalculator/oldindex.html">oldindex.html</a>). Only Imperius and Xin-Xi sprites will be available out of respect for the developer.<br/><br/>The Multi mode uses the same code as the original single-battle calculator. This is why you will see the same values being filled and the same results being reported as before, even though most of them aren't visible in Multi mode. The battle history is also available while in Multi mode with additional info being preserved, including the No retaliation clause and the fire dragon's attack type.<br/><br/>To prevent accidental resets of huge battlefields, a button to clear everything isn't included. Simply refresh the calculator page if you want to start over, or delete the leftover units by pressing the Delete Units button.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(3)">
@@ -2409,7 +2674,7 @@ function refreshattackers()
 		<div id="expandindicator4" class="ei">+</div>
 	</div>
 	<div id="answercontainer4" class="a">
-		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. This happens just before attackForce and defenseForce variables are added together to form the totalDamage sum.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. There is no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.</p>
+		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. This happens just before attackForce and defenseForce variables are added together to form the totalDamage sum.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. There is no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.<br/><br/>Keep in mind that since the Polaris update, all units that can benefit from defense bonuses in cities have the Fortify skill. If a unit can occupy a city but doesn't have this skill - it can't benefit from that city's defense bonus. Units that don't have the Fortify skill are:<br/><br/>Catapults, mind benders, giants, crabs, baby dragons, fire dragons, moonies, battle sleds, ice fortresses and gaamis.<br/><br/>Perhaps surprisingly, dragon eggs do get the Fortify skill.</p>
 	</div>
 
 	<div class="q" onclick="expandcontainer(5)">
@@ -2417,7 +2682,7 @@ function refreshattackers()
 		<div id="expandindicator5" class="ei">+</div>
 	</div>
 	<div id="answercontainer5" class="a">
-		<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, with a few exceptions - Aquarion amphibians, crabs and tridentions never receive the defense bonus from cities, even if they are walled.<br/><br/>Except for cities, friendly territory does not in itself grant additional defensive bonuses. It does, however, improve the unit's HP recovery rate (see "How does healing work?" further below).</p>
+		<p>Non-walled cities and defensive terrain for which you researched the relevant technology - Aquatism for water, Archery for forests and Meditation for mountains. If a player has any of these technologies, their units will have a shield appear around their HP when they are on tiles that provide the bonus. The shield will also appear on units that are in friendly cities, excepting units that don't have the Fortify skill. These units never benefit from defense bonuses in cities, even if they are walled.<br/><br/>For Polaris, the Polarism technology replaces Aquatism and provides the standard defense bonus for friendly units on water tiles that have been turned to ice.<br/><br/>Friendly territory does not in itself grant additional defensive bonuses. It does, however, improve the unit's HP recovery rate (see "How does healing work?" further below).</p>
 	</div>
 
 	<div class="q" onclick="expandcontainer(6)">
@@ -2490,10 +2755,26 @@ function refreshattackers()
 	</div>
 	
 	<div class="q" onclick="expandcontainer(14)">
-		<div class="p"><b>Can I use the calculator offline?</b></div>
+		<div class="p"><b>How does the Polaris freezing mechanic work?</b></div>
 		<div id="expandindicator14" class="ei">+</div>
 	</div>
 	<div id="answercontainer14" class="a">
+		<p>The mechanic is unique to the Polaris tribe, with three of their special units being able to utilize the ability:<br/><br/>
+
+		Ice archers automatically freeze enemy units they attack. Frozen units cannot retaliate against the attack that freezes them nor against any subsequent attacks. The unit remains frozen until the Polaris player's next turn. None of its stats are affected. It's also worth noting that the ice archer itself can't retaliate at all, and its 0.1 attack value is not enough to destroy another unit or deal damage to it under any circumstances. This is why the calculator treats it as 0 instead.<br/><br/>
+		
+		Moonies can freeze terrain and enemy units adjacent to them as its action that turn, which means it can't both move and use its freeze area ability. This freezes the affected units in the same way as that of the ice archer, but also freezes the terrain. Moonies can't attack nor retaliate.<br/><br/>
+		
+		Gaami freezes the area around it in the same way as the mooni, but does so automatically after it moves. It can also choose to do so as an action.<br/><br/>
+		
+		Frozen terrain has several benefits for the Polaris. Refer to the game wikia below for additional details.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(15)">
+		<div class="p"><b>Can I use the calculator offline?</b></div>
+		<div id="expandindicator15" class="ei">+</div>
+	</div>
+	<div id="answercontainer15" class="a">
 		<p>Yes you can. Follow these instructions:<br/><br/>
 		<i>Any platform</i>: If you don't quit your browser app, you should be able to use the calculator without internet access as long as the browser stays in memory. The calculator is a static website and doesn't require the use of bandwith. Otherwise, most desktop browsers support saving pages so you can store them offline for later use. Some mobile browsers like Chrome also support this.<br/><br/>
 		<i>PC</i>: Go to the calculator website, right-click on any empty space and press Save as... or Save Page As... to get the index.html file. Alternatively, you can download the file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a> or <a href="https://github.com/frothfrenzy/polytopiacalculator" target="_blank">GitHub</a>. After you downloaded it, simply drag the .html file into your browser to run the calculator.<br/><br/>
@@ -2501,35 +2782,35 @@ function refreshattackers()
 		<i>Android</i>: Either repeat the PC process, or download the Google Drive app to fetch the .html file from my <a href="https://drive.google.com/open?id=0B7HGBGCiKHGkSUExdEs3Q2J1UG8" target="_blank">Google Drive</a>. If you used the PC, connect your device and transfer the .html file to it. If you used Google Drive, the file should be in your Downloads folder. Download the HTML Viewer app by Yogev Haham and run it. Press the paper-like icon at the upper right. Find and select the downloaded .html file, then press the browser view icon in the upper right.</p>
 	</div>
 	
-	<div class="q" onclick="expandcontainer(15)">
-		<div class="p"><b>Who are you?</b></div>
-		<div id="expandindicator15" class="ei">+</div>
-	</div>
-	<div id="answercontainer15" class="a">
-		<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
-	</div>
-	
 	<div class="q" onclick="expandcontainer(16)">
-		<div class="p"><b>How can I contact you?</b></div>
+		<div class="p"><b>Who are you?</b></div>
 		<div id="expandindicator16" class="ei">+</div>
 	</div>
 	<div id="answercontainer16" class="a">
-		<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
+		<p>I'm a big fan of the game and I've been playing it since early 2017. I have a tendency to learn every game I play in great detail as I'm hoping to pursue game design at some point. For about a year I was active over at the game's Discord server, which you should definitely join if you want to improve your game and meet other players. An invite to the server is posted at the bottom of this FAQ. I have since left Discord so I can focus on other things.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(17)">
-		<div class="p"><b>What are Discord challenges?</b></div>
+		<div class="p"><b>How can I contact you?</b></div>
 		<div id="expandindicator17" class="ei">+</div>
 	</div>
 	<div id="answercontainer17" class="a">
-		<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
+		<p>You can contact me via <a href="mailto:frothdiscord@gmail.com" target="_top">e-mail</a>. By all means contact me if you have any suggestions or bug reports regarding the calculator.</p>
 	</div>
 	
 	<div class="q" onclick="expandcontainer(18)">
-		<div class="p"><b>How can I become a better player?</b></div>
+		<div class="p"><b>What are Discord challenges?</b></div>
 		<div id="expandindicator18" class="ei">+</div>
 	</div>
 	<div id="answercontainer18" class="a">
+		<p>These are player-made, self-imposed limitations that alter the gameplay in some fundamental way. You can find the challenge list at the bottom of this FAQ. To be eligible for the scoreboard, you have to join Discord and post your results in the appropriate channel.</p>
+	</div>
+	
+	<div class="q" onclick="expandcontainer(19)">
+		<div class="p"><b>How can I become a better player?</b></div>
+		<div id="expandindicator19" class="ei">+</div>
+	</div>
+	<div id="answercontainer19" class="a">
 		<p>Read through strategies on the game wikia, Reddit and Discord. Watch videos of experienced players on Youtube. Ask the player-base for help. Most important of all - play a lot, maximize your income and try to learn the mechanics behind the game. It will come in time. The links to help you with this are provided below.</p>
 	</div>
 	
