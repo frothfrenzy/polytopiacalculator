@@ -672,11 +672,11 @@ function calculate(mode)
 					res = 0;
 					if (defname == "Mooni")
 					{
-						document.getElementById("note").innerHTML = "Moonies can't retaliate!";
+						document.getElementById("frozennote").innerHTML = "Moonies can't retaliate!";
 					}
 					if (defname == "Ice Archer")
 					{
-						document.getElementById("note").innerHTML = "Ice Archers can't retaliate!";
+						document.getElementById("frozennote").innerHTML = "Ice Archers can't retaliate!";
 					}
 				}
 				atthp = atthp - res;
@@ -2642,7 +2642,7 @@ function refreshattackers()
 
 	<div id="resultcontainer" onclick="displayextinfo()" style="max-width: 800px">
 		<p><b id="result">Result:</b><span id="respressindicator">&#9679;</span></p>
-	<p id="resultatt"><b><i>New update!</i></b> Added support for Polaris units. To freeze/unfreeze a defender in Multi mode, press on it three times consecutively. Ice archers automatically freeze the units they attack. As always - bugs are possible. Do contact me if you find one so I can fix it as soon as possible.</p>
+	<p id="resultatt"><b><i>Latest update:</i></b> Added support for Polaris units. To freeze/unfreeze a defender in Multi mode, press on it three times consecutively. Ice archers automatically freeze the units they attack.</p>
 		<p id="resultdef">For information on combat mechanics, calculator usage and useful guides or links, read the <a href="#top" onclick="return show('faq', 'main')" target="_top">FAQ</a>.</p>
 		<p id="resultsplash"></p>
 		<p id="frozennote" class="i"></p>
@@ -2674,7 +2674,7 @@ function refreshattackers()
 		
 		<p>accelerator = 4.5<br/>
 		attackForce = attacker.attack * (attacker.health / attacker.maxHealth)<br/>
-		defenseForce = defender.defense * (defender.health / defender.maxHealth)<br/>
+		defenseForce = defender.defense * (defender.health / defender.maxHealth) * defenseBonus<br/>
 		totalDamage = attackForce + defenseForce<br/><br/>
 		attackResult = round((attackForce / totalDamage) * attacker.attack * accelerator)<br/>
 		defenseResult = round((defenseForce / totalDamage) * defender.defense * accelerator)</p>
@@ -2697,11 +2697,11 @@ function refreshattackers()
 	</div>
 	
 	<div class="q" onclick="expandcontainer(4)">
-		<div class="p"><b>Where does the defense bonus come in?</b></div>
+		<div class="p"><b>How is the defense bonus applied?</b></div>
 		<div id="expandindicator4" class="ei">+</div>
 	</div>
 	<div id="answercontainer4" class="a">
-		<p>The defenseForce variable is increased by a factor of 1.5 if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. This happens just before attackForce and defenseForce variables are added together to form the totalDamage sum.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. There is no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.<br/><br/>Keep in mind that since the Polaris update, all units that can benefit from defense bonuses in cities have the Fortify skill. If a unit can occupy a city but doesn't have this skill - it can't benefit from that city's defense bonus. Units that don't have the Fortify skill are:<br/><br/>Catapults, mind benders, giants, crabs, navalons, baby dragons, fire dragons, moonies, battle sleds, ice fortresses and gaamis.<br/><br/>Perhaps surprisingly, dragon eggs do get the Fortify skill.</p>
+		<p>The defenseForce variable is increased by a factor of 1.5 (defenseBonus = 1.5) if the defender is on a tile that provides a standard defense bonus. If the defender is behind a wall, it's increased by a factor of 4. If no defense bonuses are applied, the defenseBonus variable has a default value of 1.<br/><br/>Because of how the formula works, defense bonuses have less effect on defenders with low HP. There is no effect on defenders with 0 defense value, which will always receive maximum damage regardless of where they are.<br/><br/>Only the defenseForce variable is affected by the increase, so you won't get the correct retaliation result if you were to apply the same factor to the defense value of the unit instead.<br/><br/>Keep in mind that since the Polaris update, all units that can benefit from defense bonuses in cities have the Fortify skill. If a unit can occupy a city but doesn't have this skill - it can't benefit from that city's defense bonus. Units that don't have the Fortify skill are:<br/><br/>Catapults, mind benders, giants, crabs, navalons, baby dragons, fire dragons, moonies, battle sleds, ice fortresses and gaamis.<br/><br/>Perhaps surprisingly, dragon eggs do get the Fortify skill.</p>
 	</div>
 
 	<div class="q" onclick="expandcontainer(5)">
@@ -2869,7 +2869,8 @@ function refreshattackers()
 		<a href="https://www.reddit.com/r/Polytopia/comments/8b2f4s/guide_and_benchmarks_for_120k_in_perfection/" target="_blank">Perfection Guide by ameredit</a><br/>
 		<a href="https://www.reddit.com/r/Polytopia/comments/87urp6/consistently_over_100k_perfection_guide/" target="_blank">Perfection Guide by KiranKat</a><br/>
 		<a href="https://www.reddit.com/r/Polytopia/comments/5qbppw/my_guide_to_high_scores_in_perfection_mode_based/" target="_blank">Perfection Guide by Illinois_Jones</a><br/>
-		<a href="https://www.reddit.com/r/Polytopia/comments/85asn3/advanced_multiplayer_tribe_by_tribe_guide/" target="_blank">Multiplayer Guide by Will2Brown</a><br/><br/>
+		<a href="https://www.reddit.com/r/Polytopia/comments/85asn3/advanced_multiplayer_tribe_by_tribe_guide/" target="_blank">Multiplayer Guide by Will2Brown</a><br/>
+		<a href="https://docs.google.com/document/d/1-FeDFSUGY9ugUPNfTNqqrzzD8vfQ2Is_6FL_-XTrnrc" target="_blank">Comprehensive Guide by Gerenuk</a><br/><br/>
 		
 		<a href="https://drive.google.com/open?id=10vODoFZk-i670i56je_6G-XyZK7qHHEqp7xA-nYW4X8" target="_blank">Challenge List</a><br/><br/>
 
