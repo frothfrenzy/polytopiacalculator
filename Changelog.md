@@ -1,5 +1,9 @@
 # Changelog
 
+18.07.2019.
+- Added a +2 HP heal button in Multi mode. When active, press on any number of units any number of times to heal them.
+- Minor fixes.
+
 16.06.2019.
 - Added support for Polaris units and applied other balance changes. In Multi mode you can opt to freeze defenders by pressing on a unit three times repeatedly. You can unfreeze units in the same way. Ice archers automatically freeze their targets when they attack.
 
