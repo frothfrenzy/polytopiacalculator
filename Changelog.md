@@ -1,5 +1,12 @@
 # Changelog
 
+14.08.2019.
+- This is the last update to the calculator. There comes a time in life where building yourself and your immediate surroundings almost becomes your sole focus, and you somehow become unwilling to do other things you did a lot of before. I've been gaming almost my whole life, but lately I've been noticing that I've been opening games less and less, sometimes going on for weeks without playing - and when I did, usually it was just for a couple of hours. I believe it's time to leave that behind, and I'm sure this inevitably happens to everyone. Well, to most of us at least. I'm sure you understand.
+
+- What does this mean for the calculator itself? You can still run it, play with the numbers, test custom units, everything as before. However, as future updates drop, it will become more outdated with each one. If anyone is interested in developing it further - the code is publicly available, and you are free to do so. Just don't contact me about it, as I'm leaving it behind.
+
+- Best of luck to you as a player, and in all of your personal and professional endeavors. Farewell!
+
 18.07.2019.
 - Added a +2 HP heal button in Multi mode. When active, press on any number of units any number of times to heal them.
 - Minor fixes.
